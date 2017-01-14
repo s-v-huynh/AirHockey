@@ -1,0 +1,18 @@
+<root>
+    <table X="0" Y="0" Z="0" ANGLE_ROTATION="0" FACTEUR_ECHELLE="1" ACCELERATION="3" COEFFICIENT_REBONDISSEMENT="50" COEFFICIENT_FRICTION="0.97999999999999998">
+        <portail ID="1"
+        	 X="-39.7351" Y="-30.120483" Z="0" 
+        	ANGLE_ROTATION="244.20016479492188" 
+        	RAYON="1.0294352" 
+        	ATTRACTION="1" 
+        	FACTEUR_ECHELLE="1" 
+			IDFRERE="2"/>
+        <portail ID="2"
+        	X="35.430466" Y="29.776249" Z="0" 
+        	ANGLE_ROTATION="244.20016479492188"
+        	RAYON="1.0294352"
+        	ATTRACTION="1" 
+        	FACTEUR_ECHELLE="1"
+			IDFRERE="1"/>
+    </table>
+</root>

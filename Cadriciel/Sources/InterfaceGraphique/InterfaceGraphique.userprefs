@@ -1,0 +1,25 @@
+﻿<Properties StartupConfiguration="{B861DACD-1D37-4C9D-A1D0-3468C9072C74}|Default">
+  <MonoDevelop.Ide.ItemProperties.InterfaceGraphique PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ModeEdition.cs">
+    <Files>
+      <File FileName="ModeEdition.cs" Line="1" Column="1" />
+      <File FileName="ModeEdition.Designer.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="InterfaceGraphique" expanded="True">
+            <Node name="InterfaceGraphique" expanded="True">
+              <Node name="ModeEdition.cs" expanded="True" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

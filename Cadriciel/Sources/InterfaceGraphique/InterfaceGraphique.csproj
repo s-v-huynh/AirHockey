@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B861DACD-1D37-4C9D-A1D0-3468C9072C74}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InterfaceGraphique</RootNamespace>
+    <AssemblyName>InterfaceGraphique</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Exe\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Exe\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArbreTournoi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArbreTournoi.Designer.cs">
+      <DependentUpon>ArbreTournoi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration.Designer.cs">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationPartieRapide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigurationPartieRapide.Designer.cs">
+      <DependentUpon>ConfigurationPartieRapide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationTournoi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigurationTournoi.Designer.cs">
+      <DependentUpon>ConfigurationTournoi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FinPartiRapide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinPartiRapide.Designer.cs">
+      <DependentUpon>FinPartiRapide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FonctionsNatives.cs" />
+    <Compile Include="MenuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuPrincipal.Designer.cs">
+      <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModeEdition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModeEdition.Designer.cs">
+      <DependentUpon>ModeEdition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModeTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModeTest.Designer.cs">
+      <DependentUpon>ModeTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PartieRapide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PartieRapide.Designer.cs">
+      <DependentUpon>PartieRapide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Propriétés.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propriétés.Designer.cs">
+      <DependentUpon>Propriétés.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ArbreTournoi.resx">
+      <DependentUpon>ArbreTournoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration.resx">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationPartieRapide.resx">
+      <DependentUpon>ConfigurationPartieRapide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigurationTournoi.resx">
+      <DependentUpon>ConfigurationTournoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinPartiRapide.resx">
+      <DependentUpon>FinPartiRapide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuPrincipal.resx">
+      <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModeEdition.resx">
+      <DependentUpon>ModeEdition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModeTest.resx">
+      <DependentUpon>ModeTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PartieRapide.resx">
+      <DependentUpon>PartieRapide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Propriétés.resx">
+      <DependentUpon>Propriétés.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu_Principal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu_Principal_configuration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu_Principal_editeur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu_Principal_PartieRapide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Menu_Principal_tournoi.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(TargetName).exe testsC++</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

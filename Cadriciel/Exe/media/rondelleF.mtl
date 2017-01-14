@@ -1,0 +1,23 @@
+# Blender MTL File: 'rondelle.blend'
+# Material Count: 2
+
+newmtl Material
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.544000 0.544000 0.544000
+Ks 0.830000 0.830000 0.830000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd texture2.jpg
+
+newmtl Material.002
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.554154 0.554154 0.554154
+Ks 1.000000 1.000000 1.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd topRondelle.jpg
+map_Ks topRondelle.jpg

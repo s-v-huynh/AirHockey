@@ -1,0 +1,66 @@
+\hypertarget{class_noeud_table}{}\section{Noeud\+Table Class Reference}
+\label{class_noeud_table}\index{Noeud\+Table@{Noeud\+Table}}
+
+
+Classe qui représente un exemple de noeud de l\textquotesingle{}arbre de rendu.  
+
+
+
+
+{\ttfamily \#include $<$Noeud\+Table.\+h$>$}
+
+Inheritance diagram for Noeud\+Table\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_noeud_table}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_ga40983870720b331d17daeeb306e12ef5}{Noeud\+Table} (const std\+::string \&type\+Noeud)
+\begin{DoxyCompactList}\small\item\em Constructeur à partir du type du noeud. \end{DoxyCompactList}\item 
+\hyperlink{group__inf2990_ga6171c2df59de6f454f0d8c7915403ce7}{$\sim$\+Noeud\+Table} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_ga7e6bc962988899cf4ff7f2b1f9b51be9}{afficher\+Concret} (const glm\+::mat4 \&vue\+Projection, const bool \&attribuer\+Couleur) const
+\begin{DoxyCompactList}\small\item\em Affiche le cube. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_gadf419e5147546815052d75529c4c45ab}{animer} (float temps)
+\begin{DoxyCompactList}\small\item\em Effectue l\textquotesingle{}animation du cube. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gab35150586311b1ea123922289bdbd19a}{dessiner\+Surface\+Table} () const
+\item 
+void \hyperlink{group__inf2990_gabdc2ceea5a4344b1e6a2e0dfd3040e42}{dessiner\+Bordure\+Table} () const
+\item 
+void \hyperlink{group__inf2990_gaff1b1a929fc5f6022cf9756cea94e919}{dessiner\+Carre} (glm\+::vec3 t) const
+\item 
+void \hyperlink{group__inf2990_ga30e6df474cad3aeff4bd424f01cc2431}{dessiner\+Point\+De\+Controle} () const
+\item 
+double \hyperlink{group__inf2990_ga5dd809bb85df5982004a4e6e55dad715}{obtenir\+Friction} ()
+\item 
+void \hyperlink{group__inf2990_ga7e936cac741c4716548cb69ffde1777d}{modifier\+Friction} (double friction)
+\item 
+double \hyperlink{group__inf2990_ga6dd00515181d18b18cbc27292277b006}{obtenir\+Coef\+Rebondissement} ()
+\item 
+void \hyperlink{group__inf2990_ga3b11cdcbe4a4cf30095cd54083cd4019}{modifier\+Coef\+Rebondissement} (double coef\+Rebondissement)
+\item 
+double \hyperlink{group__inf2990_ga28011811ced7c04906780070a7762ec3}{obtenir\+Acceleration} ()
+\item 
+void \hyperlink{group__inf2990_ga1ac0745a780e04a265ee01bec42210e1}{modifier\+Acceleration} (double acceleration)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Classe qui représente un exemple de noeud de l\textquotesingle{}arbre de rendu. 
+
+\begin{DoxyAuthor}{Author}
+Equipe06 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2016-\/09-\/07 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_table_8h}{Noeud\+Table.\+h}\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_table_8cpp}{Noeud\+Table.\+cpp}\end{DoxyCompactItemize}
