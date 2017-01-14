@@ -31,7 +31,7 @@ public:
    ~NoeudConeCube();
 
    /// Affiche le cube.
-   virtual void afficherConcret(const glm::mat4& vueProjection) const;
+   virtual void    afficherConcret(const glm::mat4& vueProjection) const;
    /// Effectue l'animation du cube.
    virtual void animer( float temps );
 

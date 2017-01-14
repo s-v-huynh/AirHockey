@@ -1,0 +1,56 @@
+\hypertarget{class_noeud_cercle}{}\section{Noeud\+Cercle Class Reference}
+\label{class_noeud_cercle}\index{Noeud\+Cercle@{Noeud\+Cercle}}
+
+
+Classe qui représente un exemple de noeud de l\textquotesingle{}arbre de rendu.  
+
+
+
+
+{\ttfamily \#include $<$Noeud\+Cercle.\+h$>$}
+
+Inheritance diagram for Noeud\+Cercle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_noeud_cercle}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_ga3f811397073ca10d6657425c0a45f17a}{Noeud\+Cercle} (const std\+::string \&type\+Noeud)
+\begin{DoxyCompactList}\small\item\em Constructeur à partir du type du noeud. \end{DoxyCompactList}\item 
+\hyperlink{group__inf2990_gafe4f3c643fd10c9fc92b777ffadc970d}{$\sim$\+Noeud\+Cercle} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga4614cddec7e9b225495b094fd2f1a43a}{copier\+Attributs} (\hyperlink{class_noeud_cercle}{Noeud\+Cercle} \&destination)
+\item 
+virtual void \hyperlink{group__inf2990_ga8e2d266cad420ccd4fd305d9d296b2b5}{afficher\+Concret} (const glm\+::mat4 \&vue\+Projection, const bool \&attribuer\+Couleur) const
+\begin{DoxyCompactList}\small\item\em Affiche le cube. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_gaa53138aa3aeaefc88e47a94d3e7ab811}{animer} (float temps)
+\begin{DoxyCompactList}\small\item\em Effectue l\textquotesingle{}animation du cube. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gaf012e22b8b62a49e8ea88b369ec4478e}{accepter\+Visiteur} (\hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait} $\ast$visiteur)
+\item 
+virtual bool \hyperlink{group__inf2990_ga6cae68c636fb6bf5be6b969593380b6f}{est\+Dans\+La\+Table} ()
+\item 
+virtual void \hyperlink{group__inf2990_gae1463698da74223f44c36bd840e520ea}{redefinir\+Sommets} ()
+\item 
+void \hyperlink{group__inf2990_gace82bbff0df7954c24d8c7b16181c04c}{assigner\+Objet\+Rendu} (modele\+::\+Modele3D const $\ast$modele, opengl\+::\+V\+BO const $\ast$liste) override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Classe qui représente un exemple de noeud de l\textquotesingle{}arbre de rendu. 
+
+\begin{DoxyAuthor}{Author}
+Equipe06 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2016-\/09-\/07 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_cercle_8h}{Noeud\+Cercle.\+h}\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_cercle_8cpp}{Noeud\+Cercle.\+cpp}\end{DoxyCompactItemize}

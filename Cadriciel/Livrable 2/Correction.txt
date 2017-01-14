@@ -1,0 +1,5 @@
+Pour utiliser les portails, il faut les ajouter dans le mode édition avec la barre d'outil et les tester dans le mode test. Ils ne se chargent pas correctement dans le mode parti rapide et dans le mode tournoi.
+
+Éviter de tourner les murets, car la collision ne fonctionnera plus. 
+
+Pour les tests unitaires, il faut faire un checkout dans la branche testsUnitaires à cause d'une erreur avec le code 225.

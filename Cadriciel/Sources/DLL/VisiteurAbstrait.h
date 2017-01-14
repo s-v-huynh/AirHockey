@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////////
+/// @file VisiteurAbstrait.h
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
 #ifndef	VISITEUR_ABSTRAIT_H
 #define VISITEUR_ABSTRAIT_H
 #include "GL/glew.h"
@@ -24,7 +33,7 @@ class VisiteurAbstrait
   
 
 	public :
-
+	/// Visiteur
     VisiteurAbstrait () {}
 	virtual ~VisiteurAbstrait() {};
 	virtual void visiter(NoeudComposite* noeud) {};

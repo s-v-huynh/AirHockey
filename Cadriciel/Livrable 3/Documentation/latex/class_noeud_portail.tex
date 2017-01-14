@@ -1,0 +1,65 @@
+\hypertarget{class_noeud_portail}{}\section{Noeud\+Portail Class Reference}
+\label{class_noeud_portail}\index{Noeud\+Portail@{Noeud\+Portail}}
+Inheritance diagram for Noeud\+Portail\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_noeud_portail}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_ga1ae16fc50c4afaf88b5d4068868acac1}{Noeud\+Portail} (const std\+::string \&type\+Noeud)
+\begin{DoxyCompactList}\small\item\em Constructeur à partir du type du noeud. \end{DoxyCompactList}\item 
+\hyperlink{group__inf2990_ga539e125201edd719886ae550eab35a28}{$\sim$\+Noeud\+Portail} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+void {\bfseries copier\+Attributs} (\hyperlink{class_noeud_portail}{Noeud\+Portail} \&destination)
+\item 
+virtual void \hyperlink{group__inf2990_ga996fc8426391dd48ef70cfbd5132fb86}{afficher\+Concret} (const glm\+::mat4 \&vue\+Projection, const bool \&attribuer\+Couleur) const
+\begin{DoxyCompactList}\small\item\em Affiche le cube. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_ga471730293ee98a18df3b4273db841f26}{accepter\+Visiteur} (\hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait} $\ast$visiteur)
+\item 
+virtual void \hyperlink{group__inf2990_ga74228e2bf740f880cf4d73f3f6ca4dc9}{animer} (float temps)
+\begin{DoxyCompactList}\small\item\em Effectue l\textquotesingle{}animation du cube. \end{DoxyCompactList}\item 
+virtual void {\bfseries redessiner} ()
+\item 
+\hypertarget{class_noeud_portail_a51f50d27f1324691e3e638a5580b5319}{}\label{class_noeud_portail_a51f50d27f1324691e3e638a5580b5319} 
+bool {\bfseries obtenir\+Attraction} ()
+\item 
+float \hyperlink{group__inf2990_gae66f8d1fe91f71fd8692a93d34be4aca}{obtenir\+Rayon\+Attraction} ()
+\item 
+virtual bool \hyperlink{group__inf2990_ga18f1b34d1f58ce8e140ddb3c9c4a5c1f}{verifier\+Selection} (G\+Lubyte couleur\+Objet\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{class_noeud_portail}{Noeud\+Portail} $\ast$ {\bfseries get\+Frere} ()
+\item 
+void {\bfseries set\+Frere} (\hyperlink{class_noeud_portail}{Noeud\+Portail} $\ast$noeud)
+\item 
+virtual bool \hyperlink{group__inf2990_gaafc08974dc9e545b39c47fab553b7ce7}{est\+Dans\+La\+Table} ()
+\begin{DoxyCompactList}\small\item\em permet de verifier si un objet est toujours a l\textquotesingle{}interieur de la table. \end{DoxyCompactList}\item 
+\hypertarget{class_noeud_portail_a8e54328132a8ea8884ad73d5b72223cb}{}\label{class_noeud_portail_a8e54328132a8ea8884ad73d5b72223cb} 
+void {\bfseries activer\+Attraction} ()
+\item 
+\hypertarget{class_noeud_portail_a609df36c1312d5e135ac5359b2b4a2f4}{}\label{class_noeud_portail_a609df36c1312d5e135ac5359b2b4a2f4} 
+void {\bfseries desactiver\+Attraction} ()
+\item 
+virtual void {\bfseries modifier\+Rayon} (float rayon\+Portail)
+\item 
+void {\bfseries modifier\+Vitesse\+Rotation} (float vitesse)
+\item 
+virtual float {\bfseries obtenir\+Rayon} ()
+\item 
+virtual void {\bfseries redefinir\+Sommets} ()
+\item 
+void \hyperlink{group__inf2990_ga5158745a70ba3a3ee40dadfd5200a991}{assigner\+Objet\+Rendu} (modele\+::\+Modele3D const $\ast$modele, opengl\+::\+V\+BO const $\ast$liste) override
+\begin{DoxyCompactList}\small\item\em Assigne le modèle3D et la liste d\textquotesingle{}affichage du noeud courant. \end{DoxyCompactList}\item 
+void {\bfseries afficher\+Rayon\+Attraction} (bool \hyperlink{group__inf2990_ga7b61f3fcf39176bc4683e15a773c4900}{afficher})
+\item 
+void {\bfseries assigner\+Cercle} (\hyperlink{class_noeud_cercle}{Noeud\+Cercle} $\ast$noeud)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_portail_8h}{Noeud\+Portail.\+h}\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/Noeud\+Portail.\+cpp\end{DoxyCompactItemize}

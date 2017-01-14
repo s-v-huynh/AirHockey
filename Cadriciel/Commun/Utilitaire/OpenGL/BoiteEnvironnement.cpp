@@ -15,7 +15,7 @@
 
 #include "glm\glm.hpp"
 
-// Définition prise de l'en-tête de la version 1.2 d'OpenGL.
+// Dï¿½finition prise de l'en-tï¿½te de la version 1.2 d'OpenGL.
 #define GL_CLAMP_TO_EDGE 0x812F
 
 // Location de l'attribut des sommets dans le nuanceur de sommets
@@ -26,10 +26,10 @@ namespace utilitaire {
 	const GLfloat BoiteEnvironnement::sommets_[] =
 	{
 		-1.0f, -1.0f, 0.0f,
-		 1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
 		-1.0f,  1.0f, 0.0f,
-		 1.0f, -1.0f, 0.0f,
-		 1.0f,  1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		1.0f,  1.0f, 0.0f,
 		-1.0f,  1.0f, 0.0f
 	};
 
@@ -37,21 +37,21 @@ namespace utilitaire {
 	///
 	/// @fn BoiteEnvironnement::BoiteEnvironnement(const std::string& fichierXpos, const std::string& fichierXneg, const std::string& fichierYpos, const std::string& fichierYneg, const std::string& fichierZpos, const std::string& fichierZneg)
 	///
-	/// Ce constructeur charge les 6 textures correspondant à chacune des faces
-	/// de la boîte d'environnement.
+	/// Ce constructeur charge les 6 textures correspondant ï¿½ chacune des faces
+	/// de la boï¿½te d'environnement.
 	///
 	/// @param[in] fichierXpos : Le nom du fichier contenant l'image correspondant
-	///                          à l'axe des X positifs.
+	///                          ï¿½ l'axe des X positifs.
 	/// @param[in] fichierXneg : Le nom du fichier contenant l'image correspondant
-	///                          à l'axe des X négatifs.
+	///                          ï¿½ l'axe des X nï¿½gatifs.
 	/// @param[in] fichierYpos : Le nom du fichier contenant l'image correspondant
-	///                          à l'axe des X positifs.
+	///                          ï¿½ l'axe des X positifs.
 	/// @param[in] fichierYneg : Le nom du fichier contenant l'image correspondant
-	///                          à l'axe des Y négatifs.
+	///                          ï¿½ l'axe des Y nï¿½gatifs.
 	/// @param[in] fichierZpos : Le nom du fichier contenant l'image correspondant
-	///                          à l'axe des Z positifs.
+	///                          ï¿½ l'axe des Z positifs.
 	/// @param[in] fichierZneg : Le nom du fichier contenant l'image correspondant
-	///                          à l'axe des Z négatifs.
+	///                          ï¿½ l'axe des Z nï¿½gatifs.
 	/// @param[in] dimension   : Largeur et hauteur de toutes les images.
 	///
 	/// @return Aucune (constructeur).
@@ -63,7 +63,7 @@ namespace utilitaire {
 		const std::string& fichierZpos, const std::string& fichierZneg,
 		unsigned int dimension)
 	{
-		
+
 		// Charger toutes les images
 		FIBITMAP* dib = nullptr;
 		aidegl::glLoadImage(fichierXpos, dib, imagesEnvironnement_[0]);
@@ -87,42 +87,42 @@ namespace utilitaire {
 		glGenBuffers(1, &vboId_);
 		glBindBuffer(GL_ARRAY_BUFFER, vboId_);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(sommets_), sommets_, GL_STATIC_DRAW);
-		
+
 		// On identifie comment les sommets se lie au nuanceur
 		glEnableVertexAttribArray(VERTEX_LOCATION);
 		glVertexAttribPointer(VERTEX_LOCATION, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-		// Préparer la texture sous format cubemap
+		// Prï¿½parer la texture sous format cubemap
 		glGenTextures(1, &textureId_);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, textureId_);
 
-		// On lie les images aux côtés de la texture en cubemap
+		// On lie les images aux cï¿½tï¿½s de la texture en cubemap
 		for (int i = 0; i < 6; ++i) {
-			// Tel que spécifié dans la documentation de FreeImage (voir Pixel Access 
-			// Functions, page 29 du PDF FreeImage 3.9.0 documentation), la 
-			// disposition des composantes des couleurs est dépendante de 
-			// l'architecture.  Sur little endian, le format BGR (plutôt que RGB) est 
-			// utilisé.  On utilise donc l'extension GL_EXT_bgra (on pourrait vérifie 
-			// à l'exécution que l'extension est présente)
+			// Tel que spï¿½cifiï¿½ dans la documentation de FreeImage (voir Pixel Access
+			// Functions, page 29 du PDF FreeImage 3.9.0 documentation), la
+			// disposition des composantes des couleurs est dï¿½pendante de
+			// l'architecture.  Sur little endian, le format BGR (plutï¿½t que RGB) est
+			// utilisï¿½.  On utilise donc l'extension GL_EXT_bgra (on pourrait vï¿½rifie
+			// ï¿½ l'exï¿½cution que l'extension est prï¿½sente)
 			if (FreeImage_GetBPP(imagesEnvironnement_[i]) == 24)
 			{
 				glTexImage2D(
 					GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-					0, GL_BGR_EXT, dimension, dimension, 0, 
-					GL_BGR_EXT, GL_UNSIGNED_BYTE, 
+					0, GL_RGB, dimension, dimension, 0,
+					GL_BGR_EXT, GL_UNSIGNED_BYTE,
 					FreeImage_GetBits(imagesEnvironnement_[i]));
 			}
 			else if (FreeImage_GetBPP(imagesEnvironnement_[i]) == 32)
 			{
 				glTexImage2D(
 					GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
-					0, GL_BGRA_EXT, dimension, dimension, 0,
-					GL_BGRA_EXT, GL_UNSIGNED_BYTE, 
+					0, GL_RGBA, dimension, dimension, 0,
+					GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 					FreeImage_GetBits(imagesEnvironnement_[i]));
 			}
 		}
 
-		// Paramètres de la texture
+		// Paramï¿½tres de la texture
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -146,8 +146,8 @@ namespace utilitaire {
 	///
 	/// @fn BoiteEnvironnement::~BoiteEnvironnement()
 	///
-	/// Ce destructeur libère l'espace allouée à chacune des textures des faces
-	/// de la boîte d'environnement.
+	/// Ce destructeur libï¿½re l'espace allouï¿½e ï¿½ chacune des textures des faces
+	/// de la boï¿½te d'environnement.
 	///
 	/// @return Aucune (destructeur).
 	///
@@ -164,11 +164,11 @@ namespace utilitaire {
 	///
 	/// @fn void BoiteEnvironnement::afficher(const glm::dvec3& centre, double demiLargeur) const
 	///
-	/// Cette fonction affiche tout simplement la boîte d'environnement.
+	/// Cette fonction affiche tout simplement la boï¿½te d'environnement.
 	///
-	/// @param[in] projection  : La matrice de la projection utilisée.
-	/// @param[in] modeleVue : La matrice du modèle du monde et de la
-	///	                       vue (caméra).
+	/// @param[in] projection  : La matrice de la projection utilisï¿½e.
+	/// @param[in] modeleVue : La matrice du modï¿½le du monde et de la
+	///	                       vue (camï¿½ra).
 	///
 	/// @return Aucune.
 	///
@@ -177,28 +177,28 @@ namespace utilitaire {
 	{
 		glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// On désactive le test de profondeur car il n'est pas nécessaire puisque
-		// la boîte est à l'infini.
+		// On dï¿½sactive le test de profondeur car il n'est pas nï¿½cessaire puisque
+		// la boï¿½te est ï¿½ l'infini.
 		glDisable(GL_DEPTH_TEST);
-		// On désactive l'écriture dans le tampon de profondeur pour s'assurer que
-		// la boîte est véritablement "à l'infini".
+		// On dï¿½sactive l'ï¿½criture dans le tampon de profondeur pour s'assurer que
+		// la boï¿½te est vï¿½ritablement "ï¿½ l'infini".
 		glDepthMask(GL_FALSE);
 
 		// On active les textures.
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, textureId_);
-		
+
 		// On active les nuanceurs.
 		opengl::Programme::Start(programme_);
 		programme_.assignerUniforme("projection", projection);
 		programme_.assignerUniforme("modelView", modeleVue);
 
-		// On dessine la boîte d'environnement contenue dans la VAO.
+		// On dessine la boï¿½te d'environnement contenue dans la VAO.
 		glBindVertexArray(vaoId_);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
-		// On désactive les éléments non nécessaires.
+		// On dï¿½sactive les ï¿½lï¿½ments non nï¿½cessaires.
 		glDisableVertexAttribArray(0);
 		opengl::Programme::Stop(programme_);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
@@ -210,6 +210,6 @@ namespace utilitaire {
 } // Fin de l'espace de nom utilitaire.
 
 
-///////////////////////////////////////////////////////////////////////////
-/// @}
-///////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+  /// @}
+  ///////////////////////////////////////////////////////////////////////////

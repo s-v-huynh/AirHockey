@@ -33,6 +33,8 @@ extern "C" {
 	__declspec(dllexport) void initialiserRotation(int pointY);
 	__declspec(dllexport) void initialiserDeplacement(int pointX, int pointY);
 	__declspec(dllexport) void effectuerRotation(int pointY);
+	__declspec(dllexport) void sauverSouris();
+	__declspec(dllexport) void deplacerSouris(int x, int y);
 	__declspec(dllexport) void effectuerDeplacement(float pointX, float pointY);
 	__declspec(dllexport) double obtenirFrictionTable();
 	__declspec(dllexport) double obtenirAccelerationBonus();
@@ -45,6 +47,7 @@ extern "C" {
 	__declspec(dllexport) void mettreEchelleObjetBouton(double facteur);
 	__declspec(dllexport) void rotationObjetBouton(int angle);
 	__declspec(dllexport) void deplacementObjetBouton(float pointX, float pointY);
+	__declspec(dllexport) void deplacer(int pointX, int pointY);
 	__declspec(dllexport) void frictionTableBouton(double frictionTable);
 	__declspec(dllexport) void accelerationBonusBouton(double accelerationBonus);
 	__declspec(dllexport) void coefRebondissementBouton(double coefRebondissement);
@@ -61,7 +64,7 @@ extern "C" {
 	__declspec(dllexport) void initialiserChargement(char* nomFichier);
 	__declspec(dllexport) void sauvegardeParDefaut();
 	__declspec(dllexport) void initialisationParDefaut();
-	__declspec(dllexport) void deplacerXY(double deplacementX, double deplacementY);
+	__declspec(dllexport) void deplacerXY(double deplacementX, double deplacementY, int x, int y);
 	__declspec(dllexport) void zoomInElas();
 	__declspec(dllexport) void zoomOutElas();
 	__declspec(dllexport) void selectionElastique();
@@ -119,7 +122,7 @@ extern "C" {
 	__declspec(dllexport) bool obtenirEstVirtuel();
 
 	__declspec(dllexport) bool obtenirEstVirtuel();
-	__declspec(dllexport) void joeurMaillet1(int x, int y);
+	//__declspec(dllexport) void joeurMaillet1(int x, int y);
 
 	__declspec(dllexport) bool obtenirEstVirtuel();
 	__declspec(dllexport) void joueurMaillet1(int x, int y);
@@ -169,6 +172,19 @@ extern "C" {
 
 	__declspec(dllexport) void enModeTest(bool modeTest);
 
+	__declspec(dllexport) void setTypeValue(bool value);
+	__declspec(dllexport) void activationVueOrbite();
+	__declspec(dllexport) void activationVueOrtho();
+	__declspec(dllexport) bool obtenirEtatAmbiante();
+	__declspec(dllexport) bool obtenirDirectionnelActive();
+	__declspec(dllexport) bool obtenirEtatSpot();
+	__declspec(dllexport) void modifierEtatAmbiante(bool etat);
+	__declspec(dllexport) void modifierEtatDirectionnelle(bool etat);
+	__declspec(dllexport) void modifierEtatSpot(bool etat);
+
+	__declspec(dllexport) void setTypeValue(bool value);
+	__declspec(dllexport) void activationVueOrtho();
+	__declspec(dllexport) void activationVueOrbite();
 }
 
 #endif // __FACADE_INTERFACE_NATIVE_H__

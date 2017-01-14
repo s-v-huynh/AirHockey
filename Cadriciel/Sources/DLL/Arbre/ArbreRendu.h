@@ -11,9 +11,8 @@
 #define __ARBRE_ARBRERENDU_H__
 
 
-#include "NoeudComposite.h"
-#include "tinyxml2.h"
-
+#include "../Arbre/Noeuds/NoeudComposite.h"
+#include "../../Commun/Externe/tinyxml2/include/tinyxml2.h"
 #include <string>
 #include <map>
 

@@ -1,0 +1,21 @@
+<root>
+    <table X="0" Y="0" Z="0" ANGLE_ROTATION="0" FACTEUR_ECHELLE="1" ACCELERATION="3" COEFFICIENT_REBONDISSEMENT="50" COEFFICIENT_FRICTION="0.97999999999999998">
+        <poin X="69" Y="-47" Z="0" ANGLE_ROTATION="0">
+            <poin X="69" Y="0" Z="0" ANGLE_ROTATION="0">
+                <poin X="69" Y="47" Z="0" ANGLE_ROTATION="0">
+                    <poin X="0" Y="47" Z="0" ANGLE_ROTATION="0">
+                        <poin X="-69" Y="47" Z="0" ANGLE_ROTATION="0">
+                            <poin X="-69" Y="0" Z="0" ANGLE_ROTATION="0">
+                                <poin X="-69" Y="-47" Z="0" ANGLE_ROTATION="0">
+                                    <poin X="0" Y="-47" Z="0" ANGLE_ROTATION="0">
+                                        <poin X="0" Y="0" Z="0" ANGLE_ROTATION="0"/>
+                                    </poin>
+                                </poin>
+                            </poin>
+                        </poin>
+                    </poin>
+                </poin>
+            </poin>
+        </poin>
+    </table>
+</root>

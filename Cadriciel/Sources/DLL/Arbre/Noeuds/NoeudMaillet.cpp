@@ -20,7 +20,8 @@ int NoeudMaillet::compteurGreen_ = 0;
 int NoeudAbstrait::compteurMaillet_ = 0;
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn NoeudRondelle::NoeudRondelle(const std::string& typeNoeud)
+/// @fn NoeudMaillet::NoeudMaillet(const std::string& typeNoeud)
+///						: NoeudComposite{ typeNoeud }
 ///
 /// Ce constructeur ne fait qu'appeler la version de la classe et base
 /// et donner des valeurs par défaut aux variables membres.
@@ -46,7 +47,7 @@ NoeudMaillet::NoeudMaillet(const std::string& typeNoeud)
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn NoeudRondelle::~NoeudTable()
+/// @fn NoeudMaillet::~NoeudMaillet()
 ///
 /// Ce destructeur désallouee la liste d'affichage du cube.
 ///
@@ -56,7 +57,17 @@ NoeudMaillet::NoeudMaillet(const std::string& typeNoeud)
 NoeudMaillet::~NoeudMaillet()
 {
 }
-
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudMaillet::copierAttributs(NoeudMaillet & destination)
+///
+/// Cette fonction copie les attributs d'un noeud
+///
+/// @param[in] destination : NoeudMaillet *
+///
+/// @return rien
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudMaillet::copierAttributs(NoeudMaillet & destination)
 {
     destination.angleRotation_ = angleRotation_;
@@ -68,21 +79,24 @@ void NoeudMaillet::copierAttributs(NoeudMaillet & destination)
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudRondelle::afficherConcret() const
+/// @fn void NoeudMaillet::afficherConcret
+///  (const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 ///
 /// Cette fonction effectue le véritable rendu de l'objet.
 ///
 /// @param[in] vueProjection : La matrice qui permet de 
 ///					transformer le modèle à sa position voulue.
+///				attribuerCouleur : booleen
 ///
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-void NoeudMaillet::afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const
+void NoeudMaillet::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 {
 	glPushName(id_);
+	glPushMatrix();
 	// Appel à la version de la classe de base pour l'affichage des enfants.
-	NoeudComposite::afficherConcret(vueProjection, attribuerCouleur);
+	NoeudComposite::afficherConcret(matrVue, matrProjection, vueProjection, attribuerCouleur);
 
 	// Révolution autour du centre.
 	GLubyte couleurObjet[3];
@@ -103,15 +117,16 @@ void NoeudMaillet::afficherConcret(const glm::mat4& vueProjection, const bool& a
 	modele = glm::scale(modele, glm::vec3(rayonMaillet_, rayonMaillet_, rayonMaillet_));
 	// Affichage du modèle.
 	if(!FacadeModele::obtenirInstance()->modeEdition())
-	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, vueProjection*modele);
+	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, modele, matrVue, matrProjection, vueProjection*modele);
 
+	glPopMatrix();
 	glPopName();
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudCube::animer(float temps)
+/// @fn void NoeudMaillet::animer(float temps)
 ///
 /// Cette fonction effectue l'animation du noeud pour un certain
 /// intervalle de temps.
@@ -134,6 +149,18 @@ void NoeudMaillet::animer(float temps)
 
 	assignerPositionRelative(position);*/
 }
+
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudMaillet::redessiner()
+///
+/// Cette fonction redessine
+///
+/// @param[in] Aucun
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudMaillet::redessiner()
 {
 }
@@ -142,6 +169,8 @@ void NoeudMaillet::redessiner()
 /// @fn void NoeudMaillet::attribuerCouleur()
 ///
 /// Cette fonction attribut une couleur.
+///
+/// @param[in] Aucun
 ///
 /// @return Aucune.
 ///
@@ -242,12 +271,36 @@ double NoeudMaillet::obtenirRayonMaillet()
 {
 	return rayonMaillet_;
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudMaillet::assignerObjetRendu
+///      (modele::Modele3D const * modele, opengl::VBO const * liste)
+///
+/// Cette fonction assigne le rendu de l'objet
+///
+/// @param[in] modele : Modele3D
+///				liste : VBO
+///
+/// @return aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudMaillet::assignerObjetRendu(modele::Modele3D const * modele, opengl::VBO const * liste)
 {
 	NoeudAbstrait::assignerObjetRendu(modele, liste);
-	rayonMaillet_ = utilitaire::calculerSphereEnglobante(*modele_).rayon/2;
+	rayonMaillet_ = utilitaire::calculerSphereEnglobante(*modele_).rayon;
 	redefinirSommets();
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudMaillet::redefinirSommets()
+///
+/// Cette fonction redefini les sommets
+///
+/// @param[in] aucun
+///
+/// @return aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudMaillet::redefinirSommets()
 {
 	rayonMaillet_ *= facteurEchelle_;
@@ -261,6 +314,17 @@ void NoeudMaillet::redefinirSommets()
 	//sommets_.push_back(glm::dvec3(modeleMaillet.coinMin.x, modeleMaillet.coinMin.y, modeleMaillet.coinMin.z));
 
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn bool NoeudMaillet::estDansLaTable()
+///
+/// Cette fonction verifie si le noeud est dans la table
+///
+/// @param[in] aucun
+///
+/// @return aucun
+///
+////////////////////////////////////////////////////////////////////////
 bool NoeudMaillet::estDansLaTable()
 {
 	if (estModifier_) {

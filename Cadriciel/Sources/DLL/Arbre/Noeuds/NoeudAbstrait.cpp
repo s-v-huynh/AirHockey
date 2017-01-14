@@ -397,7 +397,7 @@ void NoeudAbstrait::assignerModePolygones(GLenum modePolygones)
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-void NoeudAbstrait::afficher(const glm::mat4& vueProjection, const bool& attribuerCouleur) const
+void NoeudAbstrait::afficher(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur) const
 {
 	if (affiche_) {
 		glPushMatrix();
@@ -407,7 +407,7 @@ void NoeudAbstrait::afficher(const glm::mat4& vueProjection, const bool& attribu
 		// Assignation du mode d'affichage des polygones
 		glPolygonMode(GL_FRONT_AND_BACK, modePolygones_);
 		// Affichage concret
-		afficherConcret(vueProjection, attribuerCouleur);
+		afficherConcret(matrVue, matrProjection, vueProjection, attribuerCouleur);
 
 		// Restauration
 		glPopAttrib();
@@ -431,7 +431,7 @@ void NoeudAbstrait::afficher(const glm::mat4& vueProjection, const bool& attribu
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-void NoeudAbstrait::afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur) const
+void NoeudAbstrait::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur) const
 {
 
 }

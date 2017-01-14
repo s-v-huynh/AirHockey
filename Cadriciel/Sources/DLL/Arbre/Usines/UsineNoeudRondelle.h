@@ -49,7 +49,7 @@ private:
 inline UsineNoeudRondelle::UsineNoeudRondelle(const std::string& nom)
 	:UsineAbstraite(nom)
 {
-	modele_.charger("media/rondelleF2.obj");
+	modele_.charger("media/rondelleL3.obj");
 	vbo_ = opengl::VBO(&modele_);
 	vbo_.charger();
 }

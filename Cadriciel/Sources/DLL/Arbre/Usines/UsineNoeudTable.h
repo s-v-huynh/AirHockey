@@ -50,7 +50,8 @@ private:
 inline UsineNoeudTable::UsineNoeudTable(const std::string& nom)
 	:UsineAbstraite(nom)
 {
-	modele_.charger("media/table7.obj");
+	//media/tableF.obj
+	modele_.charger("");
 	vbo_ = opengl::VBO(&modele_);
 	vbo_.charger();
 }

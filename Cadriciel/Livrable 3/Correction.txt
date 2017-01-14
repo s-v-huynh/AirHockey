@@ -1,0 +1,3 @@
+﻿Nous avons remis une version debug, car nous n'avons pas pu déceler le problème qui fait planté l'application 
+en release. Comme nous l'avions montré à Nicola Richard, puis il faudrait ouvrir la configuration avant de jouer
+une partie rapide. 

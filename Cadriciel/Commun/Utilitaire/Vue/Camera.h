@@ -13,7 +13,7 @@
 #include "glm/glm.hpp"
 
 namespace vue {
-
+	
 
 	///////////////////////////////////////////////////////////////////////////
 	/// @class Camera
@@ -33,7 +33,7 @@ namespace vue {
 		Camera(const glm::dvec3& position,
 			const glm::dvec3& pointVise,
 			const glm::dvec3& directionHautCamera,
-			const glm::dvec3& directionHautMonde);
+			const glm::dvec3& directionHautMonde, bool vueOrbite);
 
 		/// Destructeur virtuel vide.
 		virtual ~Camera() {}
@@ -54,7 +54,7 @@ namespace vue {
 		inline const glm::dvec3& obtenirDirectionHaut() const;
 
 		/// Déplacement dans le plan perpendiculaire à la direction visée.
-		void deplacerXY(double deplacementX, double deplacementY);
+		void deplacerXY(double deplacementX, double deplacementY,int x,int y);
 		/// Déplacement dans l'axe de la direction visée.
 		void deplacerZ(double deplacement, bool bougePointVise);
 		/// Rotation de la caméra autour de sa position.
@@ -62,7 +62,14 @@ namespace vue {
 		/// Rotation de la position de la caméra autour de son point de visé.
 		void orbiterXY(double rotationX, double rotationY, bool empecheInversion = true);
 
-		void repositionner();
+		///definit l'orientation de la caméra
+		//void verifierAngleCamera(int depX, int depY);
+
+		void repositionner()const;
+		//void positionnerCamera();
+		void actualiserPosition();
+		void zoomInCamera();
+		void zoomOutCamera();
 
 		/// Obtenir la matrice de vue.
 		glm::mat4 obtenirMatrice() const;
@@ -82,7 +89,15 @@ namespace vue {
 		glm::dvec3 positionDepart_;
 		/// La position de depart du point visé par la caméra.
 		glm::dvec3 pointViseDepart_;
+		bool vueOrbite_;
 		//void repositionner();
+		double anglePhi_;
+		double angleTheta_;
+		/// definit l'orientation du regard
+		double directionVueDistance_;
+		int lastX_;
+		int lastY_;
+		/*glm::dvec3 axe_;*/
 
 	};
 

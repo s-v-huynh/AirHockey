@@ -48,6 +48,7 @@ namespace vue {
 		Vue{ camera },
 		projection_{projection}
 	{
+		//definirProjection();
 	}
 
 
@@ -263,10 +264,12 @@ namespace vue {
 	/// @return Aucune.
 	///
 	////////////////////////////////////////////////////////////////////////
-	void VueOrtho::deplacerXY(double deplacementX, double deplacementY)
+	void VueOrtho::deplacerXY(double deplacementX, double deplacementY, int x, int y)
 	{
 		camera_.deplacerXY(deplacementX * projection_.obtenirDimensionCloture()[0], 
-			deplacementY * projection_.obtenirDimensionCloture()[1]);
+			deplacementY * projection_.obtenirDimensionCloture()[1],x,y);
+		/*projection_.deplacer(deplacementX,
+			deplacementY );*/
 	}
 
 
@@ -283,9 +286,9 @@ namespace vue {
 	/// @return Aucune.
 	///
 	////////////////////////////////////////////////////////////////////////
-	void VueOrtho::deplacerXY(const glm::ivec2& deplacement)
+	void VueOrtho::deplacerXY(const glm::ivec2& deplacement, int x, int y)
 	{
-		camera_.deplacerXY(deplacement[0], deplacement[1]);
+		camera_.deplacerXY(deplacement[0], deplacement[1],x,y);
 	}
 
 
@@ -367,6 +370,71 @@ namespace vue {
 	void VueOrtho::rotaterZ(double rotation)
 	{
 	}
+
+	void VueOrtho::definirProjection() const
+	{
+		projection_.actualisationProjection();
+	}
+
+	void VueOrtho::appliquerCamera() const
+	{
+		camera_.repositionner();
+	}
+
+	void VueOrtho::deplacerClavier(double x, double y)
+	{
+		glm::dvec3 position = camera_.obtenirPosition();
+		glm::dvec3 pointVise = camera_.obtenirPointVise();
+		position.x += x;
+		position.y += y;
+		camera_.assignerPosition(position);
+		camera_.assignerPointVise(pointVise);
+		
+	}
+
+	void VueOrtho::deplacerClavierBas(double x, double y)
+	{
+		glm::dvec3 position = camera_.obtenirPosition();
+		glm::dvec3 pointVise = camera_.obtenirPointVise();
+		position.x += x;
+		position.y += y;
+		camera_.assignerPosition(position);
+		camera_.assignerPointVise(pointVise);
+
+	}
+
+	void VueOrtho::deplacerClavierDroite(double x, double y)
+	{
+		glm::dvec3 position = camera_.obtenirPosition();
+		glm::dvec3 pointVise = camera_.obtenirPointVise();
+		position.x += x;
+		position.y += y;
+		camera_.assignerPosition(position);
+		camera_.assignerPointVise(pointVise);
+	}
+
+	void VueOrtho::deplacerClavierGauche(double x, double y)
+	{
+		glm::dvec3 position = camera_.obtenirPosition();
+		glm::dvec3 pointVise = camera_.obtenirPointVise();
+		position.x += x;
+		position.y += y;
+		pointVise.x += x;
+		pointVise.y += y;
+		camera_.assignerPosition(position);
+		camera_.assignerPointVise(pointVise);
+	}
+
+	void VueOrtho::deplacerSouris(glm::dvec3 dSouris)
+	{
+		camera_.assignerPosition(camera_.obtenirPosition() - dSouris);
+		camera_.assignerPointVise(camera_.obtenirPointVise() - dSouris);
+	}
+
+	//void VueOrtho::appliquerCamera() const
+	//{
+	//	camera_.repositionner();
+	//}
 
 
 }; // Fin du namespace vue.

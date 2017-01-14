@@ -97,12 +97,12 @@ void NoeudMuret::copierAttributs(NoeudMuret& destination)
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-void NoeudMuret::afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const
+void NoeudMuret::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 {
 	glPushName(id_);
 	glPushMatrix();
 	// Appel à la version de la classe de base pour l'affichage des enfants.
-	NoeudComposite::afficherConcret(vueProjection, attribuerCouleur);
+	NoeudComposite::afficherConcret(matrVue, matrProjection, vueProjection, attribuerCouleur);
 
 	// Révolution autour du centre.
 	GLubyte couleurObjet[3];
@@ -120,7 +120,7 @@ void NoeudMuret::afficherConcret(const glm::mat4& vueProjection, const bool& att
 	//modele = glm::translate(modele, scale_);
 	modele = glm::scale(modele, glm::vec3(2, longueurMuret_, 1));
 	// Affichage du modèle.
-	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, vueProjection*modele);
+	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, modele, matrVue, matrProjection, vueProjection*modele);
 	glPopMatrix();
 	glPopName();
 }

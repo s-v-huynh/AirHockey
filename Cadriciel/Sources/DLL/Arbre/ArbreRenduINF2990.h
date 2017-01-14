@@ -57,7 +57,10 @@ public :
 	static const std::string NOM_MAILLET_1;
 	static const std::string NOM_MAILLET_V;
 	static const std::string NOM_MAILLET_2;
-
+	static const std::string NOM_POINTCONTROL_0; static const std::string NOM_POINTCONTROL_1; static const std::string NOM_POINTCONTROL_2;
+	static const std::string NOM_POINTCONTROL_3; static const std::string NOM_POINTCONTROL_4; static const std::string NOM_POINTCONTROL_5;
+	static const std::string NOM_POINTCONTROL_6; static const std::string NOM_POINTCONTROL_7; static const std::string NOM_POINTCONTROL_8;
+	static const std::string NOM_POINTCONTROL;
 	static const std::string NOM_CERCLE;
 	/// La chaîne représentant le type des bonus.
 	static const std::string NOM_BONUS;
@@ -75,6 +78,7 @@ private:
 	int prochainId_ = 1 - 1;
 	std::map < std::string, const opengl::VBO* > listObjetSelecitonne;
     std::vector<pair<NoeudPortail*, NoeudPortail*>> listePortail_;
+	std::vector<NoeudAbstrait> listePoint_;
 	VisiteurSuppression* supprimer_;
 	bool continuer_;
 	NoeudAbstrait* maillet2_;

@@ -1,0 +1,161 @@
+\hypertarget{_facade_interface_native_8cpp}{}\section{C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Interface/\+Facade\+Interface\+Native.cpp File Reference}
+\label{_facade_interface_native_8cpp}\index{C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Interface/\+Facade\+Interface\+Native.\+cpp@{C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Interface/\+Facade\+Interface\+Native.\+cpp}}
+{\ttfamily \#include \char`\"{}Facade\+Interface\+Native.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Facade\+Modele.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}glm\textbackslash{}glm.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Aide\+G\+L.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Vue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Arbre\+Rendu\+I\+N\+F2990.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Compteur\+Affichage.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Banc\+Tests.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_gab7f5f39b522334aa53af43ba21a16719}{\+\_\+\+\_\+declspec} (dllexport) void \+\_\+\+\_\+cdecl initialiser\+Open\+GL(int $\ast$handle)
+\item 
+void {\bfseries charger\+Configuration\+Options} ()
+\item 
+void {\bfseries mise\+A\+Jour\+Sauvegarde\+Configuration} (bool peut\+Afficher\+Debogage, bool peut\+Afficher\+Collision, bool peut\+Afficher\+Vitesse\+Rondelle, bool peut\+Afficher\+Eclairage, bool peut\+Afficher\+Attraction\+Portail, int nb\+Buts, char $\ast$haut, char $\ast$bas, char $\ast$gauche, char $\ast$droite, bool est\+Virtuel)
+\item 
+void {\bfseries mise\+A\+Jour\+Chargement\+Configuration} (bool peut\+Afficher\+Debogage, bool peut\+Afficher\+Collision, bool peut\+Afficher\+Vitesse\+Rondelle, bool peut\+Afficher\+Eclairage, bool peut\+Afficher\+Attraction\+Portail, int nb\+Buts, char $\ast$haut, char $\ast$bas, char $\ast$gauche, char $\ast$droite, bool est\+Virtuel)
+\item 
+void {\bfseries sauvegarder\+Configuration\+Options} (char $\ast$haut, char $\ast$bas, char $\ast$gauche, char $\ast$droite)
+\item 
+bool {\bfseries obtenir\+Peut\+Afficher\+Debogage} ()
+\item 
+bool {\bfseries obtenir\+Peut\+Afficher\+Collision} ()
+\item 
+bool {\bfseries obtenir\+Peut\+Afficher\+Vitesse} ()
+\item 
+bool {\bfseries obtenir\+Peut\+Afficher\+Eclairage} ()
+\item 
+bool {\bfseries obtenir\+Peut\+Afficher\+Attraction\+Portail} ()
+\item 
+int {\bfseries obtenir\+Nb\+Buts} ()
+\item 
+const char $\ast$ {\bfseries obtenir\+Haut} ()
+\item 
+const char $\ast$ {\bfseries obtenir\+Bas} ()
+\item 
+const char $\ast$ {\bfseries obtenir\+Gauche} ()
+\item 
+const char $\ast$ {\bfseries obtenir\+Droite} ()
+\item 
+void {\bfseries creer\+Profil} (char $\ast$nom, int vitesse, int passivite)
+\item 
+void {\bfseries ajouter\+Nouveau\+Profil} (char $\ast$nom, int vitesse, int passivite)
+\item 
+void {\bfseries sauvegarde\+Profils} ()
+\item 
+void {\bfseries chargement\+Profils} ()
+\item 
+void {\bfseries supprimer\+Profil} (std\+::string nom)
+\item 
+int {\bfseries nombre\+Profils} ()
+\item 
+const char $\ast$ {\bfseries nom\+Du\+Profil} (int profil\+Choisi)
+\item 
+int {\bfseries vitesse\+Du\+Profil} (int profil\+Choisi)
+\item 
+int {\bfseries passivite\+Du\+Profil} (int profil\+Choisi)
+\item 
+void {\bfseries reinitialiser\+Profils} ()
+\item 
+void {\bfseries ajouter\+Nom\+Profil} (char $\ast$nom)
+\item 
+void {\bfseries sauvegarder\+Tournoi} ()
+\item 
+void {\bfseries chargement\+Tournoi} ()
+\item 
+void {\bfseries assigner\+Joueur1\+Tournoi} (char $\ast$nom, bool est\+Virtuel, int index)
+\item 
+void {\bfseries assigner\+Joueur2\+Tournoi} (char $\ast$nom, bool est\+Virtuel, int index)
+\item 
+void {\bfseries assigner\+Joueur3\+Tournoi} (char $\ast$nom, bool est\+Virtuel, int index)
+\item 
+void {\bfseries assigner\+Joueur4\+Tournoi} (char $\ast$nom, bool est\+Virtuel, int index)
+\item 
+const char $\ast$ {\bfseries obtenir\+Nom\+Joueur1\+Tournoi} ()
+\item 
+const char $\ast$ {\bfseries obtenir\+Nom\+Joueur2\+Tournoi} ()
+\item 
+const char $\ast$ {\bfseries obtenir\+Nom\+Joueur3\+Tournoi} ()
+\item 
+const char $\ast$ {\bfseries obtenir\+Nom\+Joueur4\+Tournoi} ()
+\item 
+bool {\bfseries obtenir\+Type\+Joueur1\+Tournoi} ()
+\item 
+bool {\bfseries obtenir\+Type\+Joueur2\+Tournoi} ()
+\item 
+bool {\bfseries obtenir\+Type\+Joueur3\+Tournoi} ()
+\item 
+bool {\bfseries obtenir\+Type\+Joueur4\+Tournoi} ()
+\item 
+int {\bfseries obtenir\+Profil\+Joueur1\+Tournoi} ()
+\item 
+int {\bfseries obtenir\+Profil\+Joueur2\+Tournoi} ()
+\item 
+int {\bfseries obtenir\+Profil\+Joueur3\+Tournoi} ()
+\item 
+int {\bfseries obtenir\+Profil\+Joueur4\+Tournoi} ()
+\item 
+bool {\bfseries obtenir\+Est\+Virtuel} ()
+\item 
+void {\bfseries joueur\+Maillet2} (double x, double y)
+\item 
+{\bfseries \+\_\+declspec} (dllexport) void next\+Partie()
+\item 
+void {\bfseries en\+Mode\+Edition} (bool mode\+Edition)
+\item 
+void {\bfseries adversaire\+Virtuel} (bool virtuel)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries hauteur}
+\item 
+int {\bfseries x}
+\item 
+int int {\bfseries y}
+\item 
+int {\bfseries y1}
+\item 
+int {\bfseries posY}
+\item 
+int bool {\bfseries attribuer}
+\item 
+int {\bfseries pointY}
+\item 
+int bool {\bfseries selection\+Unique}
+\item 
+int int int {\bfseries largeur}
+\item 
+double {\bfseries deplacementY}
+\item 
+bool {\bfseries b}
+\item 
+char $\ast$ {\bfseries nom2}
+\item 
+bool {\bfseries j1}
+\item 
+bool char $\ast$ {\bfseries nom1}
+\item 
+bool char bool {\bfseries j2}
+\item 
+bool char bool char bool {\bfseries j3}
+\item 
+bool char bool char bool char $\ast$ {\bfseries nom3}
+\item 
+bool char bool char bool char bool {\bfseries j4}
+\item 
+bool char bool char bool char bool char $\ast$ {\bfseries nom4}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+I\+N\+F2990 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2014-\/08-\/16 
+\end{DoxyDate}

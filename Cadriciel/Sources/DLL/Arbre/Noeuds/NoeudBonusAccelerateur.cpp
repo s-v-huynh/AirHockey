@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-/// @file NoeudTable.cpp
+/// @file NoeudBonusAccelerateur.cpp
 /// @author equipe06
 /// @date 2016-09-07
 /// @version 1.0
@@ -59,6 +59,17 @@ NoeudBonusAccelerateur::~NoeudBonusAccelerateur()
 {
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudBonusAccelerateur::copierAttributs(NoeudBonusAccelerateur& destination)
+///
+/// La fonction copie les attributs d'un autre noeud
+///
+/// @param[in] destination : NoeudBonusAccelerateur
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudBonusAccelerateur::copierAttributs(NoeudBonusAccelerateur& destination)
 {
     destination.rayonBonusAccelerateur_ = rayonBonusAccelerateur_;
@@ -75,20 +86,22 @@ void NoeudBonusAccelerateur::copierAttributs(NoeudBonusAccelerateur& destination
 ///
 /// @param[in] vueProjection : La matrice qui permet de 
 ///					transformer le modèle à sa position voulue.
+///				attribuerCouleur : bool
 ///
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-void NoeudBonusAccelerateur::afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const
+void NoeudBonusAccelerateur::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 {
 	glPushName(id_);
 	glPushMatrix();
+
 	// Appel à la version de la classe de base pour l'affichage des enfants.
-	NoeudComposite::afficherConcret(vueProjection, attribuerCouleur);
+	NoeudComposite::afficherConcret(matrVue, matrProjection, vueProjection, attribuerCouleur);
 
 	// Révolution autour du centre.
 	//glScaled(5.0, 5.0, 1.0);
-	auto modele = glm::rotate(transformationRelative_, 0.0f, glm::vec3(0, 1, 0));
+	auto modele = glm::rotate(transformationRelative_, 0.0f, glm::vec3(sqrtf(2), sqrtf(2), 0));
 	modele = glm::translate(modele, centreRotation_);
 	modele = glm::rotate(modele, angleRotation_, glm::vec3(0.0f, 0.0f, -1.0f));
 	modele = glm::translate(modele, centreRotation_);
@@ -102,7 +115,7 @@ void NoeudBonusAccelerateur::afficherConcret(const glm::mat4& vueProjection, con
 	couleurSelection[1] = couleurSelection_[1];
 	couleurSelection[2] = couleurSelection_[2];
 	// Affichage du modèle.
-	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, vueProjection*modele);
+	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, modele, matrVue, matrProjection, vueProjection*modele);
 	glPopMatrix();
 	glPopName();
 }
@@ -110,7 +123,7 @@ void NoeudBonusAccelerateur::afficherConcret(const glm::mat4& vueProjection, con
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudCube::animer(float temps)
+/// @fn void NoeudBonusAccelerateur::animer(float temps)
 ///
 /// Cette fonction effectue l'animation du noeud pour un certain
 /// intervalle de temps.
@@ -163,6 +176,17 @@ bool NoeudBonusAccelerateur::verifierSelection(GLubyte couleurObjet[])
 	}
 	return estPointe;
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn bool NoeudBonusAccelerateur::estDansLaTable()
+///
+/// Cette fonction verifie si le noeud est dans la table
+///
+/// @param[in] Aucun
+///
+/// @return si l'objet est dans la table (bool)
+///
+////////////////////////////////////////////////////////////////////////
 bool NoeudBonusAccelerateur::estDansLaTable()
 {
 	if (estModifier_) {
@@ -171,15 +195,38 @@ bool NoeudBonusAccelerateur::estDansLaTable()
 	std::vector<glm::dvec3> sommetsTable = this->obtenirParent()->obtenirSommets();
 	return utilitaire::pointsDansPolygone2D(obtenirSommets(), sommetsTable);
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudBonusAccelerateur::redefinirSommets()
+///
+/// Cette fonction redefinit les sommets
+///
+/// @param[in] Aucun
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudBonusAccelerateur::redefinirSommets()
 {
 	sommets_.erase(sommets_.begin(), sommets_.end());
 	sommets_.push_back(glm::dvec3(rayonBonusAccelerateur_ + obtenirPositionRelative().x, rayonBonusAccelerateur_ + obtenirPositionRelative().y, obtenirPositionRelative().z));
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudBonusAccelerateur::assignerObjetRendu\
+///    (modele::Modele3D const * modele, opengl::VBO const * liste)
+///
+/// Cette fonction assigne le rendu de l'objet
+///
+/// @param[in] modele : Modele3D, liste : VBO
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudBonusAccelerateur::assignerObjetRendu(modele::Modele3D const * modele, opengl::VBO const * liste)
 {
 	NoeudAbstrait::assignerObjetRendu(modele, liste);
-	rayonBonusAccelerateur_ = utilitaire::calculerSphereEnglobante(*modele_).rayon / 15.0;
+	rayonBonusAccelerateur_ = utilitaire::calculerSphereEnglobante(*modele_).rayon / 20.0;
 }
 void NoeudBonusAccelerateur::modifierRayonBonusAccelerateur(double rayon)
 {
@@ -190,6 +237,8 @@ void NoeudBonusAccelerateur::modifierRayonBonusAccelerateur(double rayon)
 /// @fn void NoeudBonusAccelerateur::attribuerCouleur()
 ///
 /// Cette fonction attribut une couleur.
+///
+/// @param[in] Aucun
 ///
 /// @return Aucun
 ///

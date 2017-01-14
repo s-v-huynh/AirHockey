@@ -1,0 +1,72 @@
+\hypertarget{class_noeud_rondelle}{}\section{Noeud\+Rondelle Class Reference}
+\label{class_noeud_rondelle}\index{Noeud\+Rondelle@{Noeud\+Rondelle}}
+
+
+Classe qui repr�sente un exemple de noeud de l\textquotesingle{}arbre de rendu.  
+
+
+
+
+{\ttfamily \#include $<$Noeud\+Rondelle.\+h$>$}
+
+Inheritance diagram for Noeud\+Rondelle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_noeud_rondelle}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_ga34a329c95e92769fb7ee559f9d8190ee}{Noeud\+Rondelle} (const std\+::string \&type\+Noeud)
+\begin{DoxyCompactList}\small\item\em Constructeur � partir du type du noeud. \end{DoxyCompactList}\item 
+\hyperlink{group__inf2990_gab89e7312f59c3296d502199a04b84255}{Noeud\+Rondelle} (const \hyperlink{class_noeud_rondelle}{Noeud\+Rondelle} \&)
+\begin{DoxyCompactList}\small\item\em Constructeur de copie. \end{DoxyCompactList}\item 
+\hyperlink{group__inf2990_ga72fbc525724f54469d00c55052403581}{$\sim$\+Noeud\+Rondelle} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gab79ced8b1f9779fc741bced080f8357f}{copier\+Attributs} (\hyperlink{class_noeud_rondelle}{Noeud\+Rondelle} \&destination)
+\begin{DoxyCompactList}\small\item\em Methode pour copier les attributs de copie. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_gae36211d198101ecb9ad8f252a3483a8b}{afficher\+Concret} (const glm\+::mat4 \&vue\+Projection, const bool \&attribuer\+Couleur) const
+\begin{DoxyCompactList}\small\item\em Affiche le cube. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_ga016689cb1c1968037902ae0013397bff}{animer} (float temps)
+\begin{DoxyCompactList}\small\item\em Effectue l\textquotesingle{}animation du cube. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_gaeb5a41b6e3b23d634caafc9c9e2ff6fd}{redessiner} ()
+\item 
+void \hyperlink{group__inf2990_ga7a7dea6fa17b186ff6e619b2e8b29bd8}{modifier\+Rayon\+Rondelle} (double rayon\+Rondelle)
+\begin{DoxyCompactList}\small\item\em modificateurs \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_ga05a7e3f48f1e321e9cf6cf8600b73701}{redefinir\+Sommets} ()
+\item 
+virtual bool \hyperlink{group__inf2990_gaf1459d2eaaf4c312fe5111455c1adb52}{est\+Dans\+La\+Table} ()
+\item 
+double \hyperlink{group__inf2990_ga514eb45118a873e6516557a25f31eb62}{obtenir\+Rayon\+Rondelle} ()
+\begin{DoxyCompactList}\small\item\em recuperateurs \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga98de58c361ce7fc0cae2c5097dcbc6d4}{modifier\+Vitesse} (glm\+::dvec2 vitesse)
+\item 
+glm\+::dvec2 \hyperlink{group__inf2990_ga49a559d3a16abc15e87cb320e20f2124}{obtenir\+Vitesse} ()
+\item 
+\hypertarget{class_noeud_rondelle_a713ef6e0c2adf2e293d15b31ddcd436e}{}\label{class_noeud_rondelle_a713ef6e0c2adf2e293d15b31ddcd436e} 
+double {\bfseries obtenir\+Vitesse\+Max} ()
+\item 
+void \hyperlink{group__inf2990_ga6806c8f683c987319ee74f3bea86124f}{assigner\+Objet\+Rendu} (modele\+::\+Modele3D const $\ast$modele, opengl\+::\+V\+BO const $\ast$liste) override
+\item 
+virtual void \hyperlink{group__inf2990_gac9e330d1fe7f2413474785b4f2280db5}{accepter\+Visiteur} (\hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait} $\ast$visiteur)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Classe qui repr�sente un exemple de noeud de l\textquotesingle{}arbre de rendu. 
+
+\begin{DoxyAuthor}{Author}
+Equipe06 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2016-\/09-\/07 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_rondelle_8h}{Noeud\+Rondelle.\+h}\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/Noeud\+Muret.\+cpp\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_rondelle_8cpp}{Noeud\+Rondelle.\+cpp}\end{DoxyCompactItemize}

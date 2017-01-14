@@ -1,0 +1,100 @@
+\hypertarget{class_partie}{}\section{Partie Class Reference}
+\label{class_partie}\index{Partie@{Partie}}
+
+
+Classe qui regroupe les parametres de de la partie.  
+
+
+
+
+{\ttfamily \#include $<$Partie.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_partie_ae0fd466396b1f1da7f24106ea1336b7c}{}\label{class_partie_ae0fd466396b1f1da7f24106ea1336b7c} 
+\hyperlink{class_partie_ae0fd466396b1f1da7f24106ea1336b7c}{Partie} (int nb\+But, bool joueur\+Virtuel)
+\begin{DoxyCompactList}\small\item\em Constructueur pour une partie standard. \end{DoxyCompactList}\item 
+\hypertarget{class_partie_a2eca467169d1e2cd9b0d6f77560ad68b}{}\label{class_partie_a2eca467169d1e2cd9b0d6f77560ad68b} 
+{\bfseries Partie} (int nb\+But, bool joueur\+G\+Virtuel, std\+::string nomjoueurG, bool joueur\+D\+Virtuel, std\+::string nomjoueurD)
+\item 
+\hypertarget{class_partie_a60f6de457bc2b70555f26964174303a7}{}\label{class_partie_a60f6de457bc2b70555f26964174303a7} 
+\hyperlink{class_partie_a60f6de457bc2b70555f26964174303a7}{Partie} (int nb\+But, \hyperlink{class_noeud_joueur}{Noeud\+Joueur} $\ast$, \hyperlink{class_noeud_joueur}{Noeud\+Joueur} $\ast$)
+\begin{DoxyCompactList}\small\item\em Constructueur pour une partie dans un tournoi. \end{DoxyCompactList}\item 
+\hypertarget{class_partie_ae4afeb7336bb84427272cfb7018b5e3d}{}\label{class_partie_ae4afeb7336bb84427272cfb7018b5e3d} 
+\hyperlink{class_partie_ae4afeb7336bb84427272cfb7018b5e3d}{$\sim$\+Partie} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+\hypertarget{class_partie_ad863171d133de4e10d91d29dd617a8a3}{}\label{class_partie_ad863171d133de4e10d91d29dd617a8a3} 
+int {\bfseries obtenir\+But\+Joueur1} () const
+\item 
+\hypertarget{class_partie_acab69753b80a060003dd947f7b8a42e8}{}\label{class_partie_acab69753b80a060003dd947f7b8a42e8} 
+int {\bfseries obtenir\+But\+Joueur2} () const
+\item 
+\hypertarget{class_partie_a98a84b2b398056f218a584051cbaa927}{}\label{class_partie_a98a84b2b398056f218a584051cbaa927} 
+void {\bfseries assigner\+Joueur1} (\hyperlink{class_noeud_joueur}{Noeud\+Joueur} $\ast$)
+\item 
+\hypertarget{class_partie_acd0cf884f2511e017631429416e6a81c}{}\label{class_partie_acd0cf884f2511e017631429416e6a81c} 
+void {\bfseries assigner\+Joueur1} (std\+::string)
+\item 
+\hypertarget{class_partie_aa9f2fd5ffdb8b8103d6be3906a4a235a}{}\label{class_partie_aa9f2fd5ffdb8b8103d6be3906a4a235a} 
+void {\bfseries assigner\+Joueur2} (std\+::string)
+\item 
+\hypertarget{class_partie_a19c706603646a1da6f58af464eea7c6e}{}\label{class_partie_a19c706603646a1da6f58af464eea7c6e} 
+void {\bfseries assigner\+Joueur2} (\hyperlink{class_noeud_joueur}{Noeud\+Joueur} $\ast$)
+\item 
+\hypertarget{class_partie_a5a34bec74d0dde2bf60f8658dd8f2d3c}{}\label{class_partie_a5a34bec74d0dde2bf60f8658dd8f2d3c} 
+void {\bfseries assignerbut\+J1} ()
+\item 
+\hypertarget{class_partie_aa95aa94fd0ee28fc7de2bde82d5bbdae}{}\label{class_partie_aa95aa94fd0ee28fc7de2bde82d5bbdae} 
+void {\bfseries assignerbut\+J2} ()
+\item 
+\hypertarget{class_partie_a1fa7f4e295f58f9293318583bd20894c}{}\label{class_partie_a1fa7f4e295f58f9293318583bd20894c} 
+void {\bfseries mise\+En\+Place\+Maillet} (bool est\+Virtuel)
+\item 
+\hypertarget{class_partie_af79c1062c8132d0ab1151f89129bc05a}{}\label{class_partie_af79c1062c8132d0ab1151f89129bc05a} 
+std\+::string {\bfseries obtenir\+Vainqueur} ()
+\item 
+\hypertarget{class_partie_a628475fb6e8c88b686f12f5694899226}{}\label{class_partie_a628475fb6e8c88b686f12f5694899226} 
+void {\bfseries reinitialiser} ()
+\item 
+\hypertarget{class_partie_ae8f33cf97ed68aef568a4c56ee7f9779}{}\label{class_partie_ae8f33cf97ed68aef568a4c56ee7f9779} 
+void {\bfseries arreter} ()
+\item 
+\hypertarget{class_partie_ac0747c32bd176efc2993a23100a44a0a}{}\label{class_partie_ac0747c32bd176efc2993a23100a44a0a} 
+void {\bfseries charger\+Zone} (string nom\+Zone)
+\item 
+\hypertarget{class_partie_aa4e3abdd7d14f8d8e3fc1af5f1cdbdf8}{}\label{class_partie_aa4e3abdd7d14f8d8e3fc1af5f1cdbdf8} 
+bool {\bfseries get\+Etat\+Partie} ()
+\item 
+\hypertarget{class_partie_ab88eb7e47b3da834363f2534786211fb}{}\label{class_partie_ab88eb7e47b3da834363f2534786211fb} 
+void {\bfseries set\+Etat\+Partie} (bool a)
+\item 
+\hypertarget{class_partie_a8b0b9e7f1893322ece16c461d9874298}{}\label{class_partie_a8b0b9e7f1893322ece16c461d9874298} 
+const string {\bfseries obtenir\+Joueur1} ()
+\item 
+\hypertarget{class_partie_a729d9bd870932bc2bbf9a6b3b510994c}{}\label{class_partie_a729d9bd870932bc2bbf9a6b3b510994c} 
+const string {\bfseries obtenir\+Joueur2} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_partie_a7d70f99d8f87219f2ddeaebc9773a623}{}\label{class_partie_a7d70f99d8f87219f2ddeaebc9773a623} 
+\hyperlink{class_facade_modele}{Facade\+Modele} $\ast$ {\bfseries facade}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe qui regroupe les parametres de de la partie. 
+
+\begin{DoxyAuthor}{Author}
+equipe06 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2016-\/10-\/20 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Application/\hyperlink{_partie_8h}{Partie.\+h}\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Application/\hyperlink{_partie_8cpp}{Partie.\+cpp}\end{DoxyCompactItemize}

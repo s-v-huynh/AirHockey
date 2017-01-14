@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-/// @file NoeudBonusAccelerateur.h
+/// @file NoeudCercle.h
 /// @author equipe06
 /// @date 2016-09-07
 /// @version 1.0
@@ -16,7 +16,7 @@
 
 class FacadeModele;
 ///////////////////////////////////////////////////////////////////////////
-/// @class NoeudBonusAccelerateur
+/// @class NoeudCercle
 /// @brief Classe qui représente un exemple de noeud de l'arbre de rendu.
 ///
 /// @author Equipe06
@@ -32,7 +32,7 @@ public:
 	void copierAttributs(NoeudCercle& destination);
 
 	/// Affiche le cube.
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
 
 	/// Effectue l'animation du cube.
 	virtual void animer(float temps);

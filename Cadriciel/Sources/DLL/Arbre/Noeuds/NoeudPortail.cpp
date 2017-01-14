@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-/// @file NoeudMaillet.cpp
+/// @file NoeudPortail.cpp
 /// @author equipe06
 /// @date 2016-09-07
 /// @version 1.0
@@ -30,7 +30,8 @@ int NoeudAbstrait::compteurPortail_ = 0;
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn NoeudRondelle::NoeudRondelle(const std::string& typeNoeud)
+/// @fn NoeudPortail::NoeudPortail(const std::string& typeNoeud)
+///: NoeudComposite{ typeNoeud }
 ///
 /// Ce constructeur ne fait qu'appeler la version de la classe et base
 /// et donner des valeurs par défaut aux variables membres.
@@ -62,10 +63,9 @@ NoeudPortail::NoeudPortail(const std::string& typeNoeud)
 }
 
 
-
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn NoeudRondelle::~NoeudTable()
+/// @fn NoeudPortail::~NoeudPortail()
 ///
 /// Ce destructeur désallouee la liste d'affichage du cube.
 ///
@@ -77,6 +77,17 @@ NoeudPortail::~NoeudPortail()
 	nbInstances_--;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::copierAttributs(NoeudPortail& destination)
+///
+/// Cette fonction permet de copier les attributs d'un noeud
+///
+/// @param[in] destination : Le type du noeud.
+///
+/// @return Aucune 
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::copierAttributs(NoeudPortail& destination)
 {
     destination.rayonPortail_ = rayonPortail_;
@@ -91,18 +102,20 @@ void NoeudPortail::copierAttributs(NoeudPortail& destination)
 }
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudRondelle::afficherConcret() const
+/// @fn void NoeudPortail::afficherConcret
+/// (const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 ///
 /// Cette fonction effectue le véritable rendu de l'objet.
 ///
 /// @param[in] vueProjection : La matrice qui permet de 
 ///					transformer le modèle à sa position voulue.
+///				attribuerCouleur : booleen
 ///
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
 //void NoeudPortail::afficherConcret(const glm::mat4& vueProjection) const
-void NoeudPortail::afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const
+void NoeudPortail::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 {
 
 	glPushName(id_);
@@ -117,25 +130,48 @@ void NoeudPortail::afficherConcret(const glm::mat4& vueProjection, const bool& a
 	couleurSelection[1] = couleurSelection_[1];
 	couleurSelection[2] = couleurSelection_[2];
 	//Appel à la version de la classe de base pour l'affichage des enfants.
-	NoeudComposite::afficherConcret(vueProjection, attribuerCouleur);
+	NoeudComposite::afficherConcret(matrVue, matrProjection, vueProjection, attribuerCouleur);
 	//Révolution autour du centre.
 	auto modele = glm::rotate(transformationRelative_, 0.0f, glm::vec3(sqrtf(2), sqrtf(2), 0));
 	modele = glm::translate(modele, centreRotation_);
 	modele = glm::rotate(modele, angleRotation_, glm::vec3(0.0f, 0.0f, -1.0f));
 	modele = glm::scale(modele, glm::vec3(rayonPortail_, rayonPortail_, rayonPortail_));
-	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, vueProjection*modele);
+	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, modele, matrVue, matrProjection, vueProjection*modele);
 	glPopMatrix();
 	glPopName();
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	
 }
 
-
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::accepterVisiteur(VisiteurAbstrait* visiteur)
+///
+/// Cette fonction accepte le visiteur
+///
+/// @param[in] Aucun
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::accepterVisiteur(VisiteurAbstrait* visiteur)
 {
 	visiteur->visiter(this);
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::assignerObjetRendu
+///     (modele::Modele3D const * modele, opengl::VBO const * liste)
+///
+/// Cette fonction assigne le rend de l'objet
+///
+/// @param[in] modele : Modele3D
+///				liste : VBO
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::assignerObjetRendu(modele::Modele3D const * modele, opengl::VBO const * liste)
 {
 	NoeudAbstrait::assignerObjetRendu(modele, liste);
@@ -143,21 +179,65 @@ void NoeudPortail::assignerObjetRendu(modele::Modele3D const * modele, opengl::V
 	rayonAttraction_ = rayonPortail_*PROPORTION_ATTRACTION;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::afficherRayonAttraction(bool afficher)
+///
+/// Cette fonction affiche le rayon d'attraction
+///
+/// @param[in] afficher : bool
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::afficherRayonAttraction(bool afficher)
 {
 	afficherRayonAttraction_ = afficher;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::assignerCercle(NoeudCercle * noeud)
+///
+/// Cette fonction assigne le cercle
+///
+/// @param[in] noeud : NoeudCercle
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::assignerCercle(NoeudCercle * noeud)
 {
 	cercle_ = noeud;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::modifierRayon(float rayonPortail)
+///
+/// Cette fonction modifie le rayon
+///
+/// @param[in] rayonPortail : float
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::modifierRayon(float rayonPortail)
 {
 	rayonPortail_ = rayonPortail;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::modifierVitesseRotation(float vitesse)
+///
+/// Cette fonction modifie la vitesse de rotation
+///
+/// @param[in] vitesse : float
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::modifierVitesseRotation(float vitesse)
 {
 	vitesseRotation_ += vitesse;
@@ -167,12 +247,33 @@ void NoeudPortail::modifierVitesseRotation(float vitesse)
 
 }
 
-
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn float NoeudPortail::obtenirRayon()
+///
+/// Cette fonction obtient le rayon
+///
+/// @param[in] Aucun
+///
+/// @return le rayon du portail
+///
+////////////////////////////////////////////////////////////////////////
 float NoeudPortail::obtenirRayon()
 {
 	return rayonPortail_;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::redefinirSommets()
+///
+/// Cette fonction redefinit les sommets
+///
+/// @param[in] Aucun
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::redefinirSommets()
 {
 	sommets_.erase(sommets_.begin(), sommets_.end());
@@ -189,7 +290,7 @@ void NoeudPortail::redefinirSommets()
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudCube::animer(float temps)
+/// @fn void NoeudPortail::animer(float temps)
 ///
 /// Cette fonction effectue l'animation du noeud pour un certain
 /// intervalle de temps.
@@ -199,8 +300,6 @@ void NoeudPortail::redefinirSommets()
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-
-
 void NoeudPortail::animer(float temps)
 {
 	// Appel à la version de la classe de base pour l'animation des enfants.
@@ -213,6 +312,17 @@ void NoeudPortail::animer(float temps)
 	NoeudComposite::animer(temps);
 
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::redessiner()
+///
+/// Cette fonction redessine
+///
+/// @param[in] Aucun
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::redessiner()
 {
 	NoeudComposite::redessiner();
@@ -223,6 +333,17 @@ void NoeudPortail::redessiner()
 //	return (sqrt(pow(point.x - obtenirPositionRelative().x, 2) + pow(point.y - obtenirPositionRelative().y, 2))
 //		<= (sphere.rayon - 3.2));
 //}
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::attribuerCouleur()
+///
+/// Cette fonction attribut une couleur au noeud
+///
+/// @param[in] Aucun
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::attribuerCouleur()
 {
 	if (NoeudAbstrait::compteurPortail_ < 180)
@@ -276,10 +397,32 @@ bool NoeudPortail::verifierSelection(GLubyte couleurObjet[])
 	return estPointe;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudPortail::setFrere(NoeudPortail* noeud)
+///
+/// Cette fonction assigne un frere au portail
+///
+/// @param[in] noeud : NoeudPortail*
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudPortail::setFrere(NoeudPortail* noeud) {
 	portailFrere_ = noeud;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn bool NoeudPortail::estDansLaTable()
+///
+/// Cette fonction verifie si le noeud est dans la table
+///
+/// @param[in] Aucun
+///
+/// @return booleen.
+///
+////////////////////////////////////////////////////////////////////////
 bool NoeudPortail::estDansLaTable()
 {
 	if (estModifier_) {
@@ -289,6 +432,17 @@ bool NoeudPortail::estDansLaTable()
 	return utilitaire::pointsDansPolygone2D(obtenirSommets(), sommetsTable);
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn NoeudPortail* NoeudPortail::getFrere()
+///
+/// Cette fonction verifie obtient le frere du portail
+///
+/// @param[in] Aucun
+///
+/// @return Le frere du portail (NoeudPortail*).
+///
+////////////////////////////////////////////////////////////////////////
 NoeudPortail* NoeudPortail::getFrere() {
 	return portailFrere_;
 }
@@ -299,6 +453,8 @@ NoeudPortail* NoeudPortail::getFrere() {
 ///
 /// Cette fonction permet d'obtenir le rayon d'attraction.
 ///
+///
+/// @param[in] Aucun
 ///
 /// @return double.
 ///

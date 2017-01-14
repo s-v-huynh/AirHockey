@@ -29,11 +29,11 @@ public:
 	NoeudMaillet(const std::string& typeNoeud);
 	/// Destructeur.
 	~NoeudMaillet();
-    //Methode utiliser pour la copie des attributs
+    ///Methode utiliser pour la copie des attributs
     void copierAttributs(NoeudMaillet& destination);
 
 	/// Affiche le cube.
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
 	/// Effectue l'animation du cube.
 	virtual void animer(float temps);
 	virtual void redessiner();

@@ -1,4 +1,7 @@
-﻿namespace InterfaceGraphique
+﻿using System;
+using System.Windows.Forms;
+
+namespace InterfaceGraphique
 {
     partial class ModeEdition
     {
@@ -136,11 +139,12 @@
             this.panel1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(604, 581);
+            this.panel1.Size = new System.Drawing.Size(604, 707);
             this.panel1.TabIndex = 1;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
+            this.panel1.Move += new System.EventHandler(this.panel1_Move);
             // 
             // label12
             // 
@@ -162,7 +166,7 @@
             this.panel2.Controls.Add(this.groupBox3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel2.Location = new System.Drawing.Point(0, 458);
+            this.panel2.Location = new System.Drawing.Point(0, 584);
             this.panel2.Margin = new System.Windows.Forms.Padding(1);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(604, 123);
@@ -448,17 +452,17 @@
             // 
             // orbiteToolStripMenuItem1
             // 
-            this.orbiteToolStripMenuItem1.Enabled = false;
             this.orbiteToolStripMenuItem1.Name = "orbiteToolStripMenuItem1";
             this.orbiteToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.orbiteToolStripMenuItem1.Text = "Orbite";
+            this.orbiteToolStripMenuItem1.Click += new System.EventHandler(this.orbiteToolStripMenuItem1_Click);
             // 
             // orthographiqueToolStripMenuItem1
             // 
-            this.orthographiqueToolStripMenuItem1.Enabled = false;
             this.orthographiqueToolStripMenuItem1.Name = "orthographiqueToolStripMenuItem1";
             this.orthographiqueToolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
             this.orthographiqueToolStripMenuItem1.Text = "Orthographique";
+            this.orthographiqueToolStripMenuItem1.Click += new System.EventHandler(this.orthographiqueToolStripMenuItem1_Click);
             // 
             // menuStrip3
             // 
@@ -469,7 +473,7 @@
             this.menuStrip3.Location = new System.Drawing.Point(0, 0);
             this.menuStrip3.Name = "menuStrip3";
             this.menuStrip3.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip3.Size = new System.Drawing.Size(823, 21);
+            this.menuStrip3.Size = new System.Drawing.Size(604, 24);
             this.menuStrip3.TabIndex = 8;
             this.menuStrip3.Text = "menuStrip3";
             this.menuStrip3.Visible = false;
@@ -479,7 +483,7 @@
             this.fichierToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuPrincipalCtrlQToolStripMenuItem1});
             this.fichierToolStripMenuItem2.Name = "fichierToolStripMenuItem2";
-            this.fichierToolStripMenuItem2.Size = new System.Drawing.Size(54, 19);
+            this.fichierToolStripMenuItem2.Size = new System.Drawing.Size(54, 22);
             this.fichierToolStripMenuItem2.Text = "Fichier";
             // 
             // menuPrincipalCtrlQToolStripMenuItem1
@@ -495,7 +499,7 @@
             this.orbiteToolStripMenuItem2,
             this.orthographiqueToolStripMenuItem2});
             this.vuesToolStripMenuItem1.Name = "vuesToolStripMenuItem1";
-            this.vuesToolStripMenuItem1.Size = new System.Drawing.Size(44, 19);
+            this.vuesToolStripMenuItem1.Size = new System.Drawing.Size(44, 22);
             this.vuesToolStripMenuItem1.Text = "Vues";
             // 
             // orbiteToolStripMenuItem2
@@ -503,12 +507,14 @@
             this.orbiteToolStripMenuItem2.Name = "orbiteToolStripMenuItem2";
             this.orbiteToolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
             this.orbiteToolStripMenuItem2.Text = "Orbite";
+            this.orbiteToolStripMenuItem2.Click += new System.EventHandler(this.orbiteToolStripMenuItem2_Click);
             // 
             // orthographiqueToolStripMenuItem2
             // 
             this.orthographiqueToolStripMenuItem2.Name = "orthographiqueToolStripMenuItem2";
             this.orthographiqueToolStripMenuItem2.Size = new System.Drawing.Size(159, 22);
             this.orthographiqueToolStripMenuItem2.Text = "Orthographique";
+            this.orthographiqueToolStripMenuItem2.Click += new System.EventHandler(this.orthographiqueToolStripMenuItem2_Click);
             // 
             // menuStrip1
             // 
@@ -712,13 +718,14 @@
             this.orthographiqueToolStripMenuItem.Name = "orthographiqueToolStripMenuItem";
             this.orthographiqueToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.orthographiqueToolStripMenuItem.Text = "Orthographique";
+            this.orthographiqueToolStripMenuItem.Click += new System.EventHandler(this.orthographiqueToolStripMenuItem_Click);
             // 
             // orbiteToolStripMenuItem
             // 
-            this.orbiteToolStripMenuItem.Enabled = false;
             this.orbiteToolStripMenuItem.Name = "orbiteToolStripMenuItem";
             this.orbiteToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.orbiteToolStripMenuItem.Text = "Orbite";
+            this.orbiteToolStripMenuItem.Click += new System.EventHandler(this.orbiteToolStripMenuItem_Click);
             // 
             // informationsToolStripMenuItem
             // 
@@ -897,7 +904,6 @@
             // toolStripButton14
             // 
             this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton14.Enabled = false;
             this.toolStripButton14.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton14.Image")));
             this.toolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton14.Name = "toolStripButton14";
@@ -925,7 +931,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(604, 581);
+            this.ClientSize = new System.Drawing.Size(604, 707);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel1);
@@ -961,6 +967,11 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void panel1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

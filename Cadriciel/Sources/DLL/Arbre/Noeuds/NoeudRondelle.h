@@ -29,22 +29,22 @@ class NoeudRondelle : public NoeudComposite
 public:
 	/// Constructeur � partir du type du noeud.
 	NoeudRondelle(const std::string& typeNoeud);
-	//Constructeur de copie
+	///Constructeur de copie
 	NoeudRondelle(const NoeudRondelle&);
 	/// Destructeur.
 	~NoeudRondelle();
-    //Methode pour copier les attributs de copie
+    ///Methode pour copier les attributs de copie
     void copierAttributs(NoeudRondelle& destination);
 	/// Affiche le cube.
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
 	/// Effectue l'animation du cube.
 	virtual void animer(float temps);
 	virtual void redessiner();
-	//modificateurs 
+	///modificateurs 
 	void modifierRayonRondelle(double rayonRondelle);
 	virtual void redefinirSommets();
 	virtual bool estDansLaTable();
-	//recuperateurs
+	///recuperateurs
 	double obtenirRayonRondelle();
 	void modifierVitesse(glm::dvec2 vitesse);
 	glm::dvec2 obtenirVitesse();

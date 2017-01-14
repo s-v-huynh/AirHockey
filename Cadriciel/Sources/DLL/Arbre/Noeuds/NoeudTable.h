@@ -15,12 +15,15 @@
 #include "GL/glew.h"
 #include "NoeudMaillet.h"
 #include "NoeudMailletVirtuel.h"
-//#include "NoeudRondelle.h"
+#include "PointControl.h"
 #include "NoeudPortail.h"
 #include "Utilitaire.h"
 #include "../VisiteurCollision.h"
 #include <vector>
+#include "../../../Commun/Utilitaire/OpenGL/OpenGL_Nuanceur.h"
+#include "../../Commun/Utilitaire/OpenGL/OpenGL_Programme.h"
 
+using namespace opengl;
 using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////
@@ -35,17 +38,20 @@ class NoeudTable : public NoeudComposite
 public:
 	/// Constructeur à partir du type du noeud.
 	NoeudTable(const std::string& typeNoeud);
+	//void assignerUniformMatrix4fv(const GLchar * nom, MatricePipeline & val);
+	void point();
 	/// Destructeur.
 	~NoeudTable();
 
 	/// Affiche le cube.
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
+
+
 
 	/// Effectue l'animation du cube.
 	virtual void animer(float temps);
 	virtual void redessiner();
-	void dessinerCarre(glm::vec3 t) const;
-	void dessinerPointDeControle() const;
+
 	virtual double obtenirFriction() const;
 	void modifierFriction(double friction);
 	double obtenirCoefRebondissement();
@@ -68,6 +74,7 @@ public:
 	void incrementerDroite();
 	void reinitialiserBut();
 private:
+	//static opengl::Programme programme;
 	/// Angle dans le sinus de l'oscillation
 	float angle_{ 0 };
 	/// Liste d'affichage pour l'affichage de ce noeud.
@@ -77,11 +84,7 @@ private:
 	GLint locVertex;
 	GLint locColor;
 	/// Fonction qui affiche la surface de la table
-
-	void dessinerPointsDeControle() const;
-	bool deplacerPointDeControle(double x, double y);
-	/// Fonction qui v�rifie si les points de contr�le sont include dans la zone d'�dition
-	bool pointsDansZoneEdition() const;
+	GLubyte couleurTable_[3];
 
 	/// position des 8 points de controle
 	glm::dvec3  ptControle_[13];
@@ -125,15 +128,19 @@ private:
 	NoeudRondelle* rondelle_;
 	//liste des portails dans la table
 	std::vector<NoeudPortail*> listePortails_;
+//	std::vector<PointControl*> listePoint_;
+
 	VisiteurCollision* collision_;
 	VisiteurCollision* collisionM_;
 	vector<glm::dvec3> sommetsZone_;
-
+//	PointControl* point_;
 	int nbButGauche_ = 0;
 	int nbButDroite_ = 0;
-
+//	PointControl* test;
 	int init_;
-
+	 GLuint prog_;
+	//opengl::Nuanceur nuanceurSommet_;
+	//opengl::Programme programme_;
 };
 
 

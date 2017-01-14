@@ -49,7 +49,7 @@ private:
 inline UsineNoeudBonusAccelerateur::UsineNoeudBonusAccelerateur(const std::string& nom)
 	:UsineAbstraite(nom)
 {
-	modele_.charger("media/acceF.obj");
+	modele_.charger("media/acceN.obj");
 	vbo_ = opengl::VBO(&modele_);
 	vbo_.charger();
 }

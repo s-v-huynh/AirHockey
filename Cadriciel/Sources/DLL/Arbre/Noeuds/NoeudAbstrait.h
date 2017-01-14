@@ -156,9 +156,10 @@ public:
 	/// Assigne le mode d'affichage des polygones.
 	virtual void assignerModePolygones(GLenum modePolygones);
 	/// Affiche le noeud.
-	virtual void afficher(const glm::mat4& vueProjection, const bool& attribuerCouleur) const;
+	virtual void afficher(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur) const;
+	void afficher(const glm::mat4 & vueProjection, const bool & attribuerCouleur) const;
 	/// Affiche le noeud de manière concrète.
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur) const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur) const;
 	/// Anime le noeud.
 	virtual void animer(float dt);
 	//Redessiner le noeud
@@ -207,6 +208,7 @@ public:
 	static int compteurBonus_;
 	static int compteurMaillet_;
 	static int compteurMailletV_;
+	static int compteurPControl_;
 protected:
 	/// Type du noeud.
 	std::string type_;
@@ -249,7 +251,7 @@ protected:
 	glm::vec3 centreRotation_;
 
 	unsigned int nombreSelectionnes_;
-
+	float rayonPortail_= 0.5;
 	double facteurEchelle_;
 
 	float angleRotation_;

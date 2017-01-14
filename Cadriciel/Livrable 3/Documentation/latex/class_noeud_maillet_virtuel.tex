@@ -1,0 +1,56 @@
+\hypertarget{class_noeud_maillet_virtuel}{}\section{Noeud\+Maillet\+Virtuel Class Reference}
+\label{class_noeud_maillet_virtuel}\index{Noeud\+Maillet\+Virtuel@{Noeud\+Maillet\+Virtuel}}
+Inheritance diagram for Noeud\+Maillet\+Virtuel\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_noeud_maillet_virtuel}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_ga59b290e7c237093d2f912f5280d2f5af}{Noeud\+Maillet\+Virtuel} (const std\+::string \&type\+Noeud)
+\begin{DoxyCompactList}\small\item\em Constructeur à partir du type du noeud. \end{DoxyCompactList}\item 
+virtual \hyperlink{group__inf2990_ga03d899ca4f3d8ff34904c14576c124e2}{$\sim$\+Noeud\+Maillet\+Virtuel} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+{\bfseries Noeud\+Maillet\+Virtuel} (\hyperlink{class_noeud_maillet_virtuel}{Noeud\+Maillet\+Virtuel} \&destination)
+\item 
+virtual void \hyperlink{group__inf2990_ga39980c2a4c8326e2d5c6b27029122c6f}{afficher\+Concret} (const glm\+::mat4 \&vue\+Projection, const bool \&attribuer\+Couleur) const
+\begin{DoxyCompactList}\small\item\em Affiche le cube. \end{DoxyCompactList}\item 
+void {\bfseries moveY} (double temps)
+\item 
+void \hyperlink{group__inf2990_ga415fd16f7eb229e23f7323b690f17c1b}{moveX} (double temps)
+\item 
+virtual void \hyperlink{group__inf2990_ga01ed83c56c34e158f99bc0e5510eb3a7}{animer} (float temps)
+\begin{DoxyCompactList}\small\item\em Effectue l\textquotesingle{}animation du cube. \end{DoxyCompactList}\item 
+bool {\bfseries verifier\+Selection} (G\+Lubyte couleur\+Objet\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{group__inf2990_gab8d0fbb388595cc40c630ae5f3fcd18e}{accepter\+Visiteur} (\hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait} $\ast$visiteur)
+\item 
+void {\bfseries modifier\+Rayon\+Maillet} (double rayon\+Maillet)
+\item 
+double {\bfseries obtenir\+Rayon\+MailletV} ()
+\item 
+void \hyperlink{group__inf2990_ga67ed45ef7581873709d171c69729c5d5}{assigner\+Probabilite\+De\+Jeu} (double proba)
+\item 
+void \hyperlink{group__inf2990_gaf2e3b81ef042d258771f7808e49a8585}{assigner\+Rondelle} (\hyperlink{class_noeud_rondelle}{Noeud\+Rondelle} $\ast$rondelle)
+\begin{DoxyCompactList}\small\item\em assigner Rondelle \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gaee9cb04c75df57917c44edffdeec703e}{assigner\+Vitesse} (double vitesse)
+\begin{DoxyCompactList}\small\item\em assigner Vitesse \end{DoxyCompactList}\item 
+double {\bfseries obtenir\+Vitesse} ()
+\item 
+void \hyperlink{group__inf2990_gad03b43314351abf5a165d2d5cab18684}{assigner\+Largeur\+Buts} (int largeur\+Buts)
+\begin{DoxyCompactList}\small\item\em assigner la demi largeur des buts \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga9ab7cf88d41523c617e19adc9f91d946}{assigner\+Objet\+Rendu} (modele\+::\+Modele3D const $\ast$modele, opengl\+::\+V\+BO const $\ast$liste) override
+\begin{DoxyCompactList}\small\item\em Assigne le modèle3D et la liste d\textquotesingle{}affichage du noeud courant. \end{DoxyCompactList}\item 
+virtual void {\bfseries redefinir\+Sommets} ()
+\item 
+bool \hyperlink{group__inf2990_gad20bce4c9afb2a635fe4d0957b6681e7}{est\+Dans\+La\+Table} ()
+\begin{DoxyCompactList}\small\item\em permet de verifier si un objet est toujours a l\textquotesingle{}interieur de la table. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/Noeud\+Maillet\+Virtuel.\+h\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/Noeud\+Maillet\+Virtuel.\+cpp\end{DoxyCompactItemize}

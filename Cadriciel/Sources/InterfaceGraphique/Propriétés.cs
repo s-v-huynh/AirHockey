@@ -1,4 +1,13 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////
+/// @file Proprietes.cs
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

@@ -1,4 +1,13 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////
+/// @file ModeEdition.cs
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +23,7 @@ namespace InterfaceGraphique
 {
     public partial class ModeEdition : Form
     {
-        /*private static EtatEdition etat_ = null;*/
+        /*pri ate static EtatEdition etat_ = null;*/
         private int xMouseDown_ = int.MaxValue;
         private int yMouseDown_ = int.MinValue;
         private Keys modificateur_ = Keys.None;
@@ -23,6 +32,7 @@ namespace InterfaceGraphique
         int idSelectionner;
         int idCreer;
         bool enSelection = false;
+        bool vue = false;
         public static bool zoomInElas = false;
         public static bool zoomOutElas = false;
         private int valeurY = 0;
@@ -59,7 +69,7 @@ namespace InterfaceGraphique
             toolStrip1.BackColor = Color.FromArgb(202, 213, 217);
             InitialiserAnimation();
             FonctionsNatives.chargerConfigurationOptions();
-            //Configuration.haut = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirHaut());
+            Configuration.haut = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirHaut());
             Configuration.bas = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirBas());
             Configuration.gauche = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirGauche());
             Configuration.droite = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirDroite());
@@ -113,6 +123,7 @@ namespace InterfaceGraphique
             if (Program.estDansModeEdition)
             {
                 this.Text = "Mode Édition";
+                FonctionsNatives.mettreEnPause();
             }
 
             if (Program.estDansTournoi)
@@ -164,7 +175,7 @@ namespace InterfaceGraphique
 
         public void MettreAJour(double tempsInterAffichage)
         {
-            if (!Program.tracerRectangle)
+            if (!Program.tracerRectangle && Visible)
             {
                 try
                 {
@@ -306,6 +317,8 @@ namespace InterfaceGraphique
             
             if (e.Button == MouseButtons.Left)
             {
+                FonctionsNatives.sauverSouris();
+               // FonctionsNatives.deplacerSouris(e.X, e.Y);
                 
                 switch (etatEdition)
                 {
@@ -335,7 +348,6 @@ namespace InterfaceGraphique
                                 string positionZ = FonctionsNatives.obtenirPositionObjetZ().ToString();
                                 string angleRotationObjet = FonctionsNatives.obtenirAngleRotationObjet().ToString();
                                 string facteurEchelleObjet = FonctionsNatives.obtenirFacteurEchelleObjet().ToString();
-
                                 textBox4.Text = positionX;
                                 textBox5.Text = positionY;
                                 textBox6.Text = positionZ;
@@ -433,21 +445,72 @@ namespace InterfaceGraphique
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+
+            if(keyData == Keys.J)
+            {
+                if (FonctionsNatives.obtenirEtatAmbiante()) {
+                    FonctionsNatives.modifierEtatAmbiante(false);
+                    //FonctionsNatives.modifierEtatDirectionnelle(true);
+                }
+                else
+                {
+                    FonctionsNatives.modifierEtatAmbiante(true);
+                    FonctionsNatives.modifierEtatDirectionnelle(false);
+
+                }
+
+            }
+
+            if (keyData == Keys.K)
+            {
+                if (FonctionsNatives.obtenirDirectionnelActive())
+                {
+                    FonctionsNatives.modifierEtatDirectionnelle(false);
+                    //FonctionsNatives.modifierEtatAmbiante(true);
+                }
+                else
+                {
+                    FonctionsNatives.modifierEtatDirectionnelle(true);
+                    FonctionsNatives.modifierEtatAmbiante(false);
+                    FonctionsNatives.modifierEtatSpot(false);
+                }
+
+            }
+            if (keyData == Keys.L)
+            {
+                if (FonctionsNatives.obtenirEtatSpot())
+                {
+                    FonctionsNatives.modifierEtatSpot(false);
+                }
+                else
+                {
+                    FonctionsNatives.modifierEtatSpot(true);
+                    //FonctionsNatives.modifierEtatAmbiante(false);
+                    FonctionsNatives.modifierEtatDirectionnelle(false);
+                }
+
+            }
+
             if (keyData == Keys.Up)
             {
-                FonctionsNatives.deplacerXY(0.0, -0.005);
+                FonctionsNatives.deplacerXY(0.0, -0.005,0,-5);
+               // FonctionsNatives.deplacerClavier(0.0, -5.0);
             }
             if (keyData == Keys.Down)
             {
-                FonctionsNatives.deplacerXY(0.0, 0.005);
+                FonctionsNatives.deplacerXY(0.0, 0.005, 0, 5);
+                //FonctionsNatives.deplacerClavier(0.0, 50.0);
             }
             if (keyData == Keys.Left)
             {
-                FonctionsNatives.deplacerXY(0.005, 0.0);
+                FonctionsNatives.deplacerXY(0.005, 0.0, 5, 0);
+                //FonctionsNatives.deplacerClavier(0.005, 0.0);
             }
             if (keyData == Keys.Right)
             {
-                FonctionsNatives.deplacerXY(-0.005, 0.0);
+                FonctionsNatives.deplacerXY(-0.005, 0.0, -5, 0);
+                //FonctionsNatives.deplacerClavier(-0.005, 0.0);
+
             }
             if (keyData == Keys.OemMinus || keyData == Keys.Subtract)
             {
@@ -548,16 +611,105 @@ namespace InterfaceGraphique
             //    if (Program.estDansModeEdition)
             //        Console.WriteLine("MODE EDITION !");
 
+            //if (keyData == Keys.P)
+            //{
+            //    if (Program.estDansModeEdition)
+            //        Console.WriteLine("MODE EDITION !");
+
+            //    if (Program.estDansPartieRapide)
+            //        Console.WriteLine("PARTIE RAPIDE !");
+
+            //    if (Program.estDansTournoi)
+            //        Console.WriteLine("TOURNOI !");
+            //}
+            if(keyData == Keys.D)
+            {
+                if (Program.estDansModeEdition)
+                    etatEdition = Etat.deplacement;
+            }
+            if (keyData == Keys.S)
+            {
+                if (Program.estDansModeEdition)
+                    etatEdition = Etat.selection;
+            }
+            if (keyData == Keys.R)
+            {
+                if (Program.estDansModeEdition)
+                    etatEdition = Etat.rotation;
+            }
+            if (keyData == Keys.E)
+            {
+                if (Program.estDansModeEdition)
+                    etatEdition = Etat.echelle;
+            }
+            if (keyData == Keys.C)
+            {
+                if (Program.estDansModeEdition)
+                    etatEdition = Etat.duplication;
+            }
+            if (keyData == Keys.Z)
+            {
+                if (Program.estDansModeEdition)
+                    etatEdition = Etat.zoom;
+            }
+            if (keyData == Keys.M)
+            {
+                if (Program.estDansModeEdition)
+                {
+                    etatEdition = Etat.ajout;
+                    nomObjet = "muret";
+                }
+            }
             if (keyData == Keys.P)
             {
                 if (Program.estDansModeEdition)
-                    Console.WriteLine("MODE EDITION !");
+                {
+                    etatEdition = Etat.ajout;
+                    nomObjet = "portail";
+                }
+            }
+            if (keyData == Keys.B)
+            {
+                if (Program.estDansModeEdition)
+                {
+                    etatEdition = Etat.ajout;
+                    nomObjet = "bonus";
+                }
+            }
+            if (keyData == Keys.T)
+            {
+                if (!enModeTest)
+                {
+                    FonctionsNatives.enModeEdition(false);
+                    panel2.Visible = false;
+                    toolStrip1.Visible = false;
+                    menuStrip1.Visible = false;
+                    enModeTest = true;
+                    //Configuration.estVirtuel;
+                    this.Text = "Mode Test";
+                }
+                else
+                {
+                    FonctionsNatives.enModeEdition(true);
+                    Program.peutAfficher = true;
+                    panel2.Visible = true;
+                    toolStrip1.Visible = true;
+                    menuStrip1.Visible = true;
 
-                if (Program.estDansPartieRapide)
-                    Console.WriteLine("PARTIE RAPIDE !");
+                    menuStrip2.Visible = false;
+                    label12.Visible = false;
 
-                if (Program.estDansTournoi)
-                    Console.WriteLine("TOURNOI !");
+                    enModeTest = false;
+                    this.Text = "Mode Édition";
+                }
+            }
+            if(keyData == Keys.D1 || keyData == Keys.NumPad1)
+            {
+                FonctionsNatives.activationVueOrtho();
+            }
+            if (keyData == Keys.D2 || keyData == Keys.NumPad2)
+            {
+                FonctionsNatives.activationVueOrbite();
             }
             if (!Program.joueurVirtuel)
             {
@@ -623,6 +775,7 @@ namespace InterfaceGraphique
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             //FonctionsNatives.enModeEdition(e)
+           // FonctionsNatives.deplacerSouris(e.X,e.Y);
             if (Program.estDansPartieRapide)
             {
                 panel2.Visible = false;
@@ -634,6 +787,7 @@ namespace InterfaceGraphique
                 if (FonctionsNatives.afficherPanelRapide())
                 {
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    FonctionsNatives.mettreEnPause();
                     Program.tempsJeu.Reset();
                     Program.timerJeu.Stop();
                     Program.finPartiRapide.nomVainqueur(FonctionsNatives.nomVainqueurPartieRapide());
@@ -757,7 +911,9 @@ namespace InterfaceGraphique
             etatEdition = Etat.zoom;
             if (etatEdition == Etat.zoom)
             {
+                
                 int nombreDeZoom = e.Delta / 120;
+                //Console.WriteLine(nombreDeZoom);
                 for (int i = 0; i < Math.Abs(nombreDeZoom); i++)
                 {
                     if (nombreDeZoom < 0)
@@ -1200,15 +1356,61 @@ namespace InterfaceGraphique
         {
             this.Hide();
             Program.menuPrincipal.Show();
+            FonctionsNatives.mettreEnPause();
         }
 
         /// Ctrl + Q pour retourner dans le menu principal
         private void ModeEdition_KeyDown_1(object sender, KeyEventArgs e)
         {
-            if(e.Control && e.KeyCode == Keys.Q)
+            if (e.Control && e.KeyCode == Keys.Q)
             {
                 this.Hide();
                 Program.menuPrincipal.Show();
+                FonctionsNatives.mettreEnPause();
+            }
+            if (e.Control && e.KeyCode == Keys.S)
+            {
+                if (fichierCourant == "")
+                {
+                    string nomFichier = "";
+                    SaveFileDialog saveDialog = new SaveFileDialog();
+                    saveDialog.Filter = "XML Files| *.xml";
+                    DialogResult result = saveDialog.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        nomFichier = saveDialog.FileName;
+                    }
+                    if (nomFichier == "default.xml")
+                    {
+                        MessageBox.Show("Impossible d'enregistrer dans le fichier par defaut.");
+                    }
+                    if (nomFichier != "")
+                        FonctionsNatives.sauvegarderArbre(nomFichier);
+                    fichierCourant = nomFichier;
+                }
+
+                else
+                {
+                    FonctionsNatives.sauvegarderArbre(fichierCourant);
+                }
+            }
+            if (e.Control && e.KeyCode == Keys.N)
+            {
+                FonctionsNatives.initialisationParDefaut();
+            }
+            if (e.Control && e.KeyCode == Keys.O)
+            {
+                string nomFichier = "";
+                OpenFileDialog openDialog = new OpenFileDialog();
+                openDialog.Filter = "XML Files| *.xml";
+                DialogResult result = openDialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    nomFichier = openDialog.FileName;
+                }
+                if (nomFichier != "")
+                    FonctionsNatives.initialiserChargement(nomFichier);
+                fichierCourant = nomFichier;
             }
         }
 
@@ -1244,7 +1446,7 @@ namespace InterfaceGraphique
             FonctionsNatives.enModeTest(false);
             this.Hide();
             Program.menuPrincipal.Show();
-
+            FonctionsNatives.mettreEnPause();
             panel2.Visible = true;
             toolStrip1.Visible = true;
             menuStrip1.Visible = true;
@@ -1282,10 +1484,12 @@ namespace InterfaceGraphique
             //        f.Close();
             //    }
             //}
+            FonctionsNatives.enModeTest(false);
             menuStrip3.Visible = false;
             label12.Visible = false;
             this.Hide();
             Program.menuPrincipal.Show();
+            FonctionsNatives.mettreEnPause();
         }
 
         /// Pour fermer le form de edition
@@ -1303,7 +1507,8 @@ namespace InterfaceGraphique
                 e.Cancel = true;
                 this.Hide();
                 Program.menuPrincipal.Show();
-                }
+                FonctionsNatives.mettreEnPause();
+            }
             }
 
         /// Pour fermer le form de edition
@@ -1313,6 +1518,7 @@ namespace InterfaceGraphique
             label12.Visible = false;
             this.Hide();
             Program.menuPrincipal.Show();
+            FonctionsNatives.mettreEnPause();
         }
 
         private void ModeEdition_SizeChanged(object sender, EventArgs e)
@@ -1320,5 +1526,42 @@ namespace InterfaceGraphique
             FonctionsNatives.redimensionnerFenetre(panel1.Width, panel1.Height);
             FonctionsNatives.sizeFenetre(panel1.Width, panel1.Height);
         }
+
+        private void orbiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FonctionsNatives.activationVueOrbite();
+        }
+
+        private void orthographiqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FonctionsNatives.activationVueOrtho();
+        }
+
+        private void panel1_Move(object sender, EventArgs e)
+        {
+            //FonctionsNatives.deplacerSouris(this.Location.X, this.Location.Y);
+        }
+
+        private void orbiteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FonctionsNatives.activationVueOrbite();
+        }
+
+        private void orthographiqueToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FonctionsNatives.activationVueOrtho();
+        }
+        //Partie Rapide et Tournoi
+        private void orbiteToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            FonctionsNatives.activationVueOrbite();
+
+        }
+
+        private void orthographiqueToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            FonctionsNatives.activationVueOrtho();
+        
     }
+}
 }

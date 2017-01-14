@@ -1,6 +1,6 @@
 #pragma once
 ///////////////////////////////////////////////////////////////////////////
-/// @file NoeudMaillet.h
+/// @file NoeudMailletVirtuel.h
 /// @author equipe06
 /// @date 2016-09-07
 /// @version 1.0
@@ -17,8 +17,8 @@
 #include "glm/gtx/norm.hpp"
 
 #include "NoeudRondelle.h"
-
-
+class ArbreRenduINF2990;
+class FacadeModele;
 ///////////////////////////////////////////////////////////////////////////
 /// @class NoeudMaillet
 /// @brief Classe qui représente un exemple de noeud de l'arbre de rendu.
@@ -33,11 +33,11 @@ public:
 	NoeudMailletVirtuel(const std::string& typeNoeud);
 	/// Destructeur.
 	virtual ~NoeudMailletVirtuel();
-	//Methode utiliser pour la copie des attributs
+	///Methode utiliser pour la copie des attributs
 	NoeudMailletVirtuel(NoeudMailletVirtuel& destination);
 
 	/// Affiche le cube.
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
 	void moveY(double temps);
 	void moveX(double temps);
 	/// Effectue l'animation du cube.

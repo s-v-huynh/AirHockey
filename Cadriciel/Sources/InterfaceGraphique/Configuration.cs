@@ -1,4 +1,14 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////
+/// @file Configuration.cs
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -171,7 +181,7 @@ namespace InterfaceGraphique
 
 
             /// Conversion char* en string ANSI
-           // haut = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirHaut());
+            haut = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirHaut());
             bas = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirBas());
             gauche = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirGauche());
             droite = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(FonctionsNatives.obtenirDroite());
@@ -589,10 +599,10 @@ namespace InterfaceGraphique
             //foreach (TabPage tab in tabControl1.TabPages)
             //{
 
-            //    tabControl1.SelectedTab = tab;
-            //    // 0 et 2 sont les labels
-            //    string tmp = tab.Controls[0].Text + " " + tab.Controls[1].Text + " " + tab.Controls[2].Text + " " + tab.Controls[3].Text;
-            //    Console.WriteLine(tab.Name + " " + tmp + "Tabs");
+               // tabControl1.SelectedTab = tab;
+                // 0 et 2 sont les labels
+               // string tmp = tab.Controls[0].Text + " " + tab.Controls[1].Text + " " + tab.Controls[2].Text + " " + tab.Controls[3].Text;
+                //Console.WriteLine(tab.Name + " " + tmp + "Tabs");
 
             //}
             FonctionsNatives.sauvegardeProfils();

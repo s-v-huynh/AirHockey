@@ -49,7 +49,7 @@ private:
 inline UsineNoeudCercle::UsineNoeudCercle(const std::string& nom)
 	:UsineAbstraite(nom)
 {
-	modele_.charger("media/cercle2.obj");
+	modele_.charger("media/cercle3.obj");
 	vbo_ = opengl::VBO(&modele_);
 	vbo_.charger();
 }

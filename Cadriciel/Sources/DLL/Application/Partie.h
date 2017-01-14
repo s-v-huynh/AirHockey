@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////////////////////////////////
-/// @file FacadeModele.h
-/// @author DGI
-/// @date 2005-06-15
+/// @file Parti.h
+/// @author Equipe 6
+/// @date 2016-11-10
 /// @version 1.0 
 ///
 /// @addtogroup inf2990 INF2990

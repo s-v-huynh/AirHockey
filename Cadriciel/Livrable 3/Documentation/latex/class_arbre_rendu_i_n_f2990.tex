@@ -1,0 +1,91 @@
+\hypertarget{class_arbre_rendu_i_n_f2990}{}\section{Arbre\+Rendu\+I\+N\+F2990 Class Reference}
+\label{class_arbre_rendu_i_n_f2990}\index{Arbre\+Rendu\+I\+N\+F2990@{Arbre\+Rendu\+I\+N\+F2990}}
+
+
+Classe qui représente l\textquotesingle{}arbre de rendu spécifique au projet de I\+N\+F2990.  
+
+
+
+
+{\ttfamily \#include $<$Arbre\+Rendu\+I\+N\+F2990.\+h$>$}
+
+Inheritance diagram for Arbre\+Rendu\+I\+N\+F2990\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_arbre_rendu_i_n_f2990}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_ga67528b7fa54e8ef8f96ef2e0bad06d2d}{Arbre\+Rendu\+I\+N\+F2990} ()
+\begin{DoxyCompactList}\small\item\em Constructeur par défaut. \end{DoxyCompactList}\item 
+virtual \hyperlink{group__inf2990_gaa67526b2fd719f6bcef7a4547bd25c7b}{$\sim$\+Arbre\+Rendu\+I\+N\+F2990} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga678d89e1f12ae16ee7dcf6de3db637a3}{initialiser} ()
+\begin{DoxyCompactList}\small\item\em Initialise l\textquotesingle{}arbre de rendu à son état initial. \end{DoxyCompactList}\item 
+void {\bfseries initialiser\+Partie\+Avec\+Virtuel} ()
+\item 
+void {\bfseries initialiser\+Partie\+Avec\+Humain} ()
+\item 
+int {\bfseries ajouter\+Nouveau\+Element} (const std\+::string \&nom\+Objet, glm\+::dvec3 positionR)
+\item 
+int {\bfseries ajouter\+Nouveau\+Portail} (const std\+::string \&nom\+Objet, glm\+::dvec3 positionR)
+\item 
+void {\bfseries ajouter\+Paire\+Portails} (\hyperlink{class_noeud_abstrait}{Noeud\+Abstrait} $\ast$portail)
+\item 
+\hypertarget{class_arbre_rendu_i_n_f2990_a00fc30fb9a84c745a7a73007e66fce74}{}\label{class_arbre_rendu_i_n_f2990_a00fc30fb9a84c745a7a73007e66fce74} 
+void {\bfseries modifier\+Prochain\+Id} (int id)
+\item 
+\hypertarget{class_arbre_rendu_i_n_f2990_aa9fa6c79c277ea85540bb8e80e7cbac9}{}\label{class_arbre_rendu_i_n_f2990_aa9fa6c79c277ea85540bb8e80e7cbac9} 
+int {\bfseries obtenir\+Prochain\+Id} ()
+\item 
+void {\bfseries marquer\+Selection} (int identifiant, bool en\+Inverse)
+\item 
+void {\bfseries assigner\+Zone\+Jeux} (\hyperlink{class_noeud_abstrait}{Noeud\+Abstrait} $\ast$zone)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::string \hyperlink{group__inf2990_ga1035430c1c08b95d17f891ae89b33b80}{N\+O\+M\+\_\+\+A\+R\+A\+I\+G\+N\+EE} \{ \char`\"{}araignee\char`\"{} \}
+\begin{DoxyCompactList}\small\item\em La chaîne représentant le type des araignées. \end{DoxyCompactList}\item 
+static const std\+::string \hyperlink{group__inf2990_gae849656178f4dad34106f525bf37341a}{N\+O\+M\+\_\+\+C\+O\+N\+E\+C\+U\+BE} \{ \char`\"{}conecube\char`\"{} \}
+\begin{DoxyCompactList}\small\item\em La chaîne représentant le type des cones-\/cubes. \end{DoxyCompactList}\item 
+static const std\+::string \hyperlink{group__inf2990_ga89e651c1a28481ce70f473bd15555114}{N\+O\+M\+\_\+\+T\+A\+B\+LE} \{ \char`\"{}table\char`\"{} \}
+\begin{DoxyCompactList}\small\item\em La chaîne représentant le type des table. \end{DoxyCompactList}\item 
+static const std\+::string \hyperlink{group__inf2990_ga2ebc17f2d21cd4e66216a7d2c374493e}{N\+O\+M\+\_\+\+R\+O\+N\+D\+E\+L\+LE} \{ \char`\"{}rondelle\char`\"{} \}
+\begin{DoxyCompactList}\small\item\em La chaîne représentant le type des rondelle. \end{DoxyCompactList}\item 
+static const std\+::string \hyperlink{group__inf2990_ga0c6b49184808c14c52d8e4a2ee00a00e}{N\+O\+M\+\_\+\+M\+A\+I\+L\+L\+E\+T\+\_\+1} \{ \char`\"{}maillet\char`\"{} \}
+\begin{DoxyCompactList}\small\item\em La chaîne représentant le type des maillet. \end{DoxyCompactList}\item 
+static const std\+::string {\bfseries N\+O\+M\+\_\+\+M\+A\+I\+L\+L\+E\+T\+\_\+V} \{ \char`\"{}mailletV\char`\"{} \}
+\item 
+static const std\+::string {\bfseries N\+O\+M\+\_\+\+M\+A\+I\+L\+L\+E\+T\+\_\+2} \{ \char`\"{}maillet2\char`\"{} \}
+\item 
+static const std\+::string {\bfseries N\+O\+M\+\_\+\+C\+E\+R\+C\+LE} \{ \char`\"{}cercle\char`\"{} \}
+\item 
+static const std\+::string \hyperlink{group__inf2990_gafd57ee426cc672e15633e991ae1af778}{N\+O\+M\+\_\+\+B\+O\+N\+US} \{ \char`\"{}bonus\char`\"{} \}
+\begin{DoxyCompactList}\small\item\em La chaîne représentant le type des bonus. \end{DoxyCompactList}\item 
+static const std\+::string {\bfseries N\+O\+M\+\_\+\+P\+O\+R\+T\+A\+IL} \{ \char`\"{}portail\char`\"{} \}
+\item 
+static const std\+::string {\bfseries N\+O\+M\+\_\+\+M\+U\+R\+ET} \{ \char`\"{}muret\char`\"{} \}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Classe qui représente l\textquotesingle{}arbre de rendu spécifique au projet de I\+N\+F2990. 
+
+Cette classe s\textquotesingle{}occupe de configurer les usines des noeuds qui seront utilisés par le projet.
+
+\begin{DoxyAuthor}{Author}
+Martin Bisson 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2007-\/03-\/23 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Arbre/\hyperlink{_arbre_rendu_i_n_f2990_8h}{Arbre\+Rendu\+I\+N\+F2990.\+h}\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/\+Arbre/\hyperlink{_arbre_rendu_i_n_f2990_8cpp}{Arbre\+Rendu\+I\+N\+F2990.\+cpp}\end{DoxyCompactItemize}

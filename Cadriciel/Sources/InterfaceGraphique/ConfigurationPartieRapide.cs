@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////////
+/// @file ConfigurationPartieRapide.cs
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
 
 //using System;
 //using System.Collections.Generic;
@@ -155,9 +164,10 @@ namespace InterfaceGraphique
                 //exectction fonction partie rapide
                 FonctionsNatives.initialiserChargement(Program.fichierXMLAChargerRapide);
                 FonctionsNatives.initialiserPartie(Program.nbBut, Program.joueurVirtuel);
+
                 //FonctionsNatives.initialiserChargement(Program.fichierXMLAChargerRapide);
                 //FonctionsNatives.lancerPartieRapide();\
-                // FonctionsNatives.adversaireVirtuel(Program.joueurVirtuel);
+               // FonctionsNatives.adversaireVirtuel(Program.joueurVirtuel);
 
                 Program.tempsJeu.Reset();
                 Program.tempsJeu.Start();
@@ -165,7 +175,9 @@ namespace InterfaceGraphique
                 Program.timerJeu.Start();
                 Program.timerJeu.Tick += new EventHandler(timerJeuTick);
                 // FonctionsNatives.adversaireVirtuel(Program.joueurVirtuel);
+                FonctionsNatives.enModeTest(false);
                 FonctionsNatives.jouerSonDeFond();
+                
             }
         }
 

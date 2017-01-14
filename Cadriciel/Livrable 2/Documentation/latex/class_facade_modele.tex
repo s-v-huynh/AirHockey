@@ -1,0 +1,269 @@
+\hypertarget{class_facade_modele}{}\section{Facade\+Modele Class Reference}
+\label{class_facade_modele}\index{Facade\+Modele@{Facade\+Modele}}
+
+
+Classe qui constitue une interface (une fa�ade) sur l\textquotesingle{}ensemble du mod�le et des classes qui le composent.  
+
+
+
+
+{\ttfamily \#include $<$Facade\+Modele.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__inf2990_gabf12ccafbabf1049cb8327cf78699a1b}{initialiser\+Open\+GL} (H\+W\+ND h\+Wnd)
+\begin{DoxyCompactList}\small\item\em Cr�e un contexte Open\+GL et initialise celui-\/ci. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga4128d21c2ccdaefdb8a2ae7929bb2175}{charger\+Configuration} () const
+\begin{DoxyCompactList}\small\item\em Charge la configuration � partir d\textquotesingle{}un fichier X\+ML. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gaa38f6ffdb4ae0b8e77e0108a57da2714}{enregistrer\+Configuration} () const
+\begin{DoxyCompactList}\small\item\em Enregistre la configuration courante dans un fichier X\+ML. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gac7b831ce13626514e9637c4533d7c15d}{liberer\+Open\+GL} ()
+\begin{DoxyCompactList}\small\item\em Lib�re le contexte Open\+GL. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga0bdd801a0d7be5059c4d9ff8f55f6b62}{afficher} () const
+\begin{DoxyCompactList}\small\item\em Affiche le contenu du mod�le. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga8fd84489fa3f0936e6fd5a2e6d9d9439}{afficher\+Base} () const
+\begin{DoxyCompactList}\small\item\em Affiche la base du contenu du mod�le. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga12ab3532311b25c8f95bf116ff50c340}{initialiser\+Rectangle\+Elas} (int x, int y)
+\begin{DoxyCompactList}\small\item\em initialier le rectangle elastique \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gad62020361b7b54738ce1f043b593a899}{mettre\+A\+Jour\+Rectangle\+Elas} (int x1, int y1)
+\begin{DoxyCompactList}\small\item\em mettre a jour le rectangle elastique \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gadcc8863ea29b0f4cea87325cc910455f}{terminer\+Rectangle\+Elas} ()
+\begin{DoxyCompactList}\small\item\em finalise le rectangle elastique \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gad76f00b2335eadd3807334196490c162}{zoom\+In\+Elas} ()
+\begin{DoxyCompactList}\small\item\em Zoom in grace au rectangle elestique. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga0364cd87c45bb8555e5489529c9397e3}{zoom\+Out\+Elas} ()
+\begin{DoxyCompactList}\small\item\em Zoom in grace au rectangle elestique. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gad72a7884085823a04fde536274aa3f12}{selection\+Rectangle} ()
+\begin{DoxyCompactList}\small\item\em Selection avec rectangle elastique. \end{DoxyCompactList}\item 
+vue\+::\+Vue $\ast$ \hyperlink{group__inf2990_gaa56cf96b7e381e0f14e2c9a55be913bf}{obtenir\+Vue} ()
+\begin{DoxyCompactList}\small\item\em Retourne la vue courante. \end{DoxyCompactList}\item 
+const \hyperlink{class_arbre_rendu_i_n_f2990}{Arbre\+Rendu\+I\+N\+F2990} $\ast$ \hyperlink{group__inf2990_ga381a8c1927abe900473fe663a0a9132d}{obtenir\+Arbre\+Rendu\+I\+N\+F2990} () const
+\begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}arbre de rendu. \end{DoxyCompactList}\item 
+\hyperlink{class_arbre_rendu_i_n_f2990}{Arbre\+Rendu\+I\+N\+F2990} $\ast$ \hyperlink{group__inf2990_ga12d5594db6a9507b24c7e1ffcd6751af}{obtenir\+Arbre\+Rendu\+I\+N\+F2990} ()
+\begin{DoxyCompactList}\small\item\em Retourne l\textquotesingle{}arbre de rendu. \end{DoxyCompactList}\item 
+int \hyperlink{group__inf2990_ga9748abad7e15bbdd3e4f75910bd0ea0e}{ajouter\+Nouveau\+Element} (char $\ast$nom\+Objet, int x, int y)
+\begin{DoxyCompactList}\small\item\em Permet d\textquotesingle{}ajouter un noeud sans transformation sur la scene. \end{DoxyCompactList}\item 
+int {\bfseries ajouter\+Nouveau\+Portail} (char $\ast$nom\+Objet, int x, int y)
+\item 
+void \hyperlink{group__inf2990_ga4c2a991fe2297e44eeee0de111fb08d2}{reinitialiser} ()
+\begin{DoxyCompactList}\small\item\em R�initialise la sc�ne. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga24dcb4e32cf104797158b398bafbfbb7}{animer} (float temps)
+\begin{DoxyCompactList}\small\item\em Anime la sc�ne. \end{DoxyCompactList}\item 
+void {\bfseries redessiner} ()
+\item 
+void \hyperlink{group__inf2990_ga85f2afcb297fbcaeb3cb96402e440671}{determiner\+Couleur\+Pixel} (int posX, int posY, G\+Lubyte couleur\+Pixel\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{group__inf2990_ga2b89ce775f045c41e61081d6271eaf1e}{selection\+Objet} (int posX, int posY, bool selection\+Unique)
+\item 
+void \hyperlink{group__inf2990_gaffcf7c590a0ae08d5b018d646b6e6b9d}{mettre\+A\+Echelle} (int x, int y)
+\item 
+void \hyperlink{group__inf2990_gae4dafde19e9c66c81a2937af9884a987}{initialiser\+Rotation} (int pointY)
+\begin{DoxyCompactList}\small\item\em Initialise la rotation en prenant le point initial de la souris. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gaa11820c8cd950a8aa4bab5c8a5cffae2}{initialiser\+Deplacement} (int pointX, int pointY)
+\begin{DoxyCompactList}\small\item\em Initialise le deplacement en prenant le point initial de la souris. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga3df43140795a4426e4408e968a21f22f}{effectuer\+Rotation} (int pointY)
+\begin{DoxyCompactList}\small\item\em Effectuer la rotation sur les objets selectionnes. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga3674bdc526c4046c7a53393fa0183d1c}{effectuer\+Deplacement} (float x, float y)
+\begin{DoxyCompactList}\small\item\em Effectuer le deplacement des objets. \end{DoxyCompactList}\item 
+double \hyperlink{group__inf2990_gad132f27b4e86f25aef4d8b9ad93fe210}{obtenir\+Friction\+Table} ()
+\item 
+double \hyperlink{group__inf2990_ga2f768cce7db86eba06e1e448a4efa2f2}{obtenir\+Acceleration\+Bonus} ()
+\item 
+double \hyperlink{group__inf2990_ga1376bb78e311e9c724cd87d454a385b6}{obtenir\+Coef\+Rebondissement} ()
+\item 
+int \hyperlink{group__inf2990_gae6d3005130428ead82d1dfbcab7332ca}{obtenir\+Position\+ObjetX} ()
+\item 
+int \hyperlink{group__inf2990_ga9cebbfb71c3263597c8f0ddfb0bf78bd}{obtenir\+Position\+ObjetY} ()
+\item 
+int \hyperlink{group__inf2990_gadbef9c5a1e0a2c76a0de1186763b4801}{obtenir\+Position\+ObjetZ} ()
+\item 
+int \hyperlink{group__inf2990_ga23433e7ffee476584b4744e788e852cd}{obtenir\+Angle\+Rotation\+Objet} ()
+\item 
+double \hyperlink{group__inf2990_ga57c0c4ae3a71280a05382ff4d5e12e54}{obtenir\+Facteur\+Echelle\+Objet} ()
+\item 
+void \hyperlink{group__inf2990_ga4800fc8f01068272efcd95566afcf6d0}{mettre\+Echelle\+Objet\+Bouton} (double facteur)
+\item 
+void \hyperlink{group__inf2990_ga3b73f7b713b8a145864d4fe9a14364fb}{rotation\+Objet\+Bouton} (int angle)
+\item 
+void \hyperlink{group__inf2990_ga747d92f0e95625f5efd1e0ea6c0d7335}{deplacement\+Objet\+Bouton} (float pointX, float pointY)
+\item 
+void \hyperlink{group__inf2990_ga9bf185e12bfee5ee7578510184a982bd}{friction\+Table\+Bouton} (double friction\+Table)
+\item 
+void \hyperlink{group__inf2990_ga25fbe237c5982b3d1cacc1c83473dae5}{acceleration\+Bonus\+Bouton} (double acceleration\+Bonus)
+\item 
+void \hyperlink{group__inf2990_ga6f6a68a9d911937984a82e2695833f6b}{coef\+Rebondissement\+Bouton} (double coef\+Rebondissement)
+\item 
+void \hyperlink{group__inf2990_gab7f0c394d8d0146df2d650fa4bacfa0c}{selectionner} (int x, int y, bool selection\+Unique)
+\item 
+void \hyperlink{group__inf2990_gadd21511d1467ade48b9cd03ea6e2519d}{selectionner\+Rectangle} (int x, int y, int hauteur, int largeur, bool selection\+Unique)
+\item 
+void \hyperlink{group__inf2990_gac902d1469506a0bff2f1ef4e7807ded1}{modifier\+Etat\+C\+T\+RL} (bool etat\+C\+T\+RL)
+\item 
+void \hyperlink{group__inf2990_ga69c996f033b587e631ad3c620002ed98}{effacer\+Selection} ()
+\begin{DoxyCompactList}\small\item\em Efface les enfants sélectionnés. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga6741b9a8e4d6e0b3405543e999709350}{selectionner\+Tout} ()
+\begin{DoxyCompactList}\small\item\em Sélectionne tous les enfants de même que le noeud. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga620c6ede44e1bfec76fe10d5e8477a2a}{deselectionner\+Tout} ()
+\begin{DoxyCompactList}\small\item\em Désélectionne tous les enfants de même que le noeud. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_gaeb73029786b508340552d920f690953f}{dupliquer\+Selection} (int x, int y)
+\item 
+void \hyperlink{group__inf2990_ga44bb2e40cdc87d4785d67e5a2dfabf77}{supprimer\+Selection} ()
+\item 
+void \hyperlink{group__inf2990_ga6dda34af65a0be1b2cc957865b678036}{deplacer\+Selection} (int x, int y)
+\item 
+void \hyperlink{group__inf2990_ga98b4ad1b668b2c2a56ebfb6a27f89ddd}{sauvegarde\+Par\+Defaut} ()
+\item 
+void \hyperlink{group__inf2990_ga8a9b90821b4affb5e5513de0ee52bb7b}{sauvegarder\+Arbre} (std\+::string nom\+Fichier)
+\item 
+void \hyperlink{group__inf2990_gaa6fff338318e965260de66f2dd8a92f5}{initialisation\+Par\+Defaut} ()
+\item 
+void \hyperlink{group__inf2990_ga75c207d1fd0d48c4eee89cac802e1f52}{initialiser\+Chargement} (std\+::string nom\+Fichier)
+\item 
+void {\bfseries charger\+Arbre} (\hyperlink{class_arbre_rendu_i_n_f2990}{Arbre\+Rendu\+I\+N\+F2990} $\ast$arbre, \hyperlink{class_noeud_abstrait}{Noeud\+Abstrait} $\ast$noeud\+Courant, tinyxml2\+::\+X\+M\+L\+Node $\ast$parent)
+\item 
+void \hyperlink{group__inf2990_ga96713f5172d7856e11c0ce2b9aee3354}{charger\+Configuration\+Options} ()
+\item 
+void \hyperlink{group__inf2990_ga8e83945e10401fd01c25a0356aaa467a}{mise\+A\+Jour\+Sauvegarde\+Configuration} (bool peut\+Afficher\+Debogage, bool peut\+Afficher\+Collision, bool peut\+Afficher\+Vitesse\+Rondelle, bool peut\+Afficher\+Eclairage, bool peut\+Afficher\+Attraction\+Portail, int nb\+Buts, char $\ast$haut, char $\ast$bas, char $\ast$gauche, char $\ast$droite, bool est\+Virtuel)
+\item 
+void {\bfseries mise\+A\+Jour\+Chargement\+Configuration} (bool peut\+Afficher\+Debogage, bool peut\+Afficher\+Collision, bool peut\+Afficher\+Vitesse\+Rondelle, bool peut\+Afficher\+Eclairage, bool peut\+Afficher\+Attraction\+Portail, int nb\+Buts, char $\ast$haut, char $\ast$bas, char $\ast$gauche, char $\ast$droite, bool est\+Virtuel)
+\item 
+void \hyperlink{group__inf2990_ga2abaa6d8b60740932e156fcdac94fe33}{sauvegarder\+Configuration\+Options} (char $\ast$haut, char $\ast$bas, char $\ast$gauche, char $\ast$droite)
+\item 
+bool {\bfseries obtenir\+Peut\+Afficher\+Debogage} ()
+\item 
+bool \hyperlink{group__inf2990_gaf53d5c1a7b11c7a187080ce3e58811f4}{obtenir\+Peut\+Afficher\+Collision} ()
+\item 
+bool \hyperlink{group__inf2990_ga89d12aa893262cc19dda94de7685e05e}{obtenir\+Peut\+Afficher\+Vitesse} ()
+\item 
+bool \hyperlink{group__inf2990_ga471c6fd7ba07062b8a831f6cef8eec8b}{obtenir\+Peut\+Afficher\+Eclairage} ()
+\item 
+bool \hyperlink{group__inf2990_gae7fee4c771d7e99f5973a52c2c53f929}{obtenir\+Peut\+Afficher\+Attraction\+Portail} ()
+\item 
+int \hyperlink{group__inf2990_ga2711a3dfeea35df137399bf9b70a8e8f}{obtenir\+Nb\+Buts} ()
+\item 
+const char $\ast$ \hyperlink{group__inf2990_gab24e8855fff89b6b216380d4411c162b}{obtenir\+Haut} ()
+\item 
+const char $\ast$ \hyperlink{group__inf2990_gaa0586d36dcf7754f4faf63a98bc9616d}{obtenir\+Bas} ()
+\item 
+const char $\ast$ \hyperlink{group__inf2990_ga2e822ac6b12a0cd2583ee2f7dbeb7a60}{obtenir\+Gauche} ()
+\item 
+const char $\ast$ \hyperlink{group__inf2990_gad6525ab642196854615ecdb3313ddd8b}{obtenir\+Droite} ()
+\item 
+bool \hyperlink{group__inf2990_gafa3ae8eed6176af302d3b1f20143a49c}{obtenir\+Est\+Virtuel} ()
+\item 
+void \hyperlink{group__inf2990_ga23b1fe16682e55d35d633bf939110343}{creer\+Profil} (char $\ast$nom, int vitesse, int passivite)
+\item 
+void {\bfseries ajouter\+Profil} (\hyperlink{class_profil_virtuel}{Profil\+Virtuel} profil)
+\item 
+void \hyperlink{group__inf2990_gaf4579c0cd1f6a30d196cbcee74dab4d1}{ajouter\+Nouveau\+Profil} (char $\ast$nom, int vitesse, int passivite)
+\item 
+void \hyperlink{group__inf2990_ga13743b58c50d8b9d5d0b924999003667}{ajouter\+Nouveau\+Profil} (std\+::string nom, int vitesse, int passivite)
+\item 
+int \hyperlink{group__inf2990_ga416b992be6a5d386f20356137a7dfc04}{nombre\+Profils} ()
+\item 
+const char $\ast$ \hyperlink{group__inf2990_ga48f8514c50e91412a9a5f8b1b31608c4}{nom\+Du\+Profil} (int profil\+Choisi)
+\item 
+int \hyperlink{group__inf2990_gae52e8b966494531bb39eeaf38fbe835d}{vitesse\+Du\+Profil} (int profil\+Choisi)
+\item 
+int \hyperlink{group__inf2990_gad374d0e071223157ade5a26000147fee}{passivite\+Du\+Profil} (int profil\+Choisi)
+\item 
+void \hyperlink{group__inf2990_ga5790b64f21bda18cb0bfbb7fd9d3f178}{sauvegarde\+Profils} ()
+\item 
+void \hyperlink{group__inf2990_gaf4d9550852335d55a5196893444d159f}{chargement\+Profils} ()
+\item 
+void {\bfseries clear\+X\+ML} ()
+\item 
+void \hyperlink{group__inf2990_ga1feb4072d211b61f86f1ed2d499ca3c3}{supprimer\+Profil} (std\+::string nom)
+\item 
+void \hyperlink{group__inf2990_gad015b5798cb7e60834c44233d147d166}{reinitialiser\+Profils} ()
+\item 
+void {\bfseries initialiser\+Partie} (int, bool)
+\item 
+void {\bfseries lancer\+Partie\+Rapide} ()
+\item 
+void {\bfseries lancer\+Partie\+Tournoi} (std\+::string nom1, std\+::string nom2)
+\item 
+void {\bfseries assigner\+But} (bool joueur1)
+\item 
+void {\bfseries initialiser\+Partie\+Tournoi} ()
+\item 
+void \hyperlink{group__inf2990_ga4a9b8ae1fda44aaff19b1c31c87cd35e}{arreter\+Partie} ()
+\item 
+void {\bfseries arreter\+Partie} (std\+::string)
+\item 
+void {\bfseries arreter\+Tournoi} ()
+\item 
+void {\bfseries initialiser\+Tournoi} (int, bool, string, bool, string, bool, string, bool, string)
+\item 
+void {\bfseries joueur\+Maillet1} (int x, int y)
+\item 
+void {\bfseries joueur\+Maillet2} (double x, double y)
+\item 
+\hypertarget{class_facade_modele_ab84cc5f6238eefd8c51f4febecffb09f}{}\label{class_facade_modele_ab84cc5f6238eefd8c51f4febecffb09f} 
+bool {\bfseries est\+Dans\+Table} (glm\+::dvec3 point)
+\item 
+\hypertarget{class_facade_modele_ae7433a430200451b6353d3cb96e3cb7f}{}\label{class_facade_modele_ae7433a430200451b6353d3cb96e3cb7f} 
+bool {\bfseries est\+Dan\+Table} (\hyperlink{class_noeud_abstrait}{Noeud\+Abstrait} $\ast$noeud)
+\item 
+void {\bfseries reinitialiser\+Test} ()
+\item 
+void \hyperlink{group__inf2990_gaa15ce9a1038a9b4674882ceb9ad9c195}{ajouter\+Nom\+Profil} (std\+::string nom)
+\item 
+void {\bfseries next\+Partie} ()
+\item 
+bool {\bfseries afficher\+Panel\+Rapide} ()
+\item 
+int {\bfseries score\+Final\+Perdant} ()
+\item 
+bool {\bfseries nom\+Vainqueur\+Partie\+Rapide} ()
+\item 
+bool {\bfseries get\+Joueur1\+Passe} ()
+\item 
+bool {\bfseries get\+Joueur3\+Passe} ()
+\item 
+bool {\bfseries get\+Vainqueur1\+Passe} ()
+\item 
+bool {\bfseries get\+Actualiser1} ()
+\item 
+bool {\bfseries get\+Actualiser2} ()
+\item 
+bool {\bfseries get\+Actualiser3} ()
+\item 
+void {\bfseries reinitialiser\+Partie} ()
+\item 
+bool {\bfseries buts\+Actifs} ()
+\item 
+void {\bfseries adversaire\+Virtuel} (bool virtuel)
+\item 
+bool {\bfseries adversaire\+Est\+Virtuel} ()
+\item 
+void {\bfseries en\+Mode\+Edition} (bool mode\+Edition)
+\item 
+\hypertarget{class_facade_modele_ad238c88b5a05c382e5dee186527d5b9a}{}\label{class_facade_modele_ad238c88b5a05c382e5dee186527d5b9a} 
+bool {\bfseries mode\+Edition} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_facade_modele}{Facade\+Modele} $\ast$ \hyperlink{group__inf2990_gaf52e6d65d1a911d3e1699fc30af97d38}{obtenir\+Instance} ()
+\begin{DoxyCompactList}\small\item\em Obtient l\textquotesingle{}instance unique de la classe. \end{DoxyCompactList}\item 
+static void \hyperlink{group__inf2990_gacbf0495fda26f5be37089470dc5f4372}{liberer\+Instance} ()
+\begin{DoxyCompactList}\small\item\em Lib�re l\textquotesingle{}instance unique de la classe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe qui constitue une interface (une fa�ade) sur l\textquotesingle{}ensemble du mod�le et des classes qui le composent. 
+
+\begin{DoxyAuthor}{Author}
+Martin Bisson 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2007-\/02-\/20 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Sources/\+D\+L\+L/\+Application/\hyperlink{_facade_modele_8h}{Facade\+Modele.\+h}\item 
+Sources/\+D\+L\+L/\+Application/\hyperlink{_facade_modele_8cpp}{Facade\+Modele.\+cpp}\end{DoxyCompactItemize}

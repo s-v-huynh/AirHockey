@@ -49,7 +49,7 @@ private:
 inline UsineNoeudMailletVirtuel::UsineNoeudMailletVirtuel(const std::string& nom)
 	:UsineAbstraite(nom)
 {
-	modele_.charger("media/mailletF.obj");
+	modele_.charger("media/mailletL3.obj");
 	vbo_ = opengl::VBO(&modele_);
 	vbo_.charger();
 }

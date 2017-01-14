@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-/// @file VisiteurRotation.cpp
+/// @file VisiteurSelection.cpp
 /// @author equipe06
 /// @date 2016-09-27
 /// @version 1.0
@@ -161,6 +161,18 @@ void VisiteurSelection::visiter(NoeudMaillet* noeud)
 		}
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void VisiteurSelection::vvisiter(NoeudMailletVirtuel* noeud)
+///
+/// Cette methode permet d'appliquer l'algorithme de selection
+/// à un objet de la classe NoeudMailletVirtuel.
+///
+/// @param[in] noeud : le noeud en question.
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void VisiteurSelection::visiter(NoeudMailletVirtuel* noeud)
 {
 
@@ -182,7 +194,7 @@ void VisiteurSelection::visiter(NoeudMailletVirtuel* noeud)
 /// @fn void VisiteurSelection::visiter(NoeudRondelle* noeud)
 ///
 /// Cette methode permet d'appliquer l'algorithme de selection
-/// à un objet de la classe NoeudMaillet.
+/// à un objet de la classe NoeudRondelle.
 ///
 /// @param[in] noeud : le noeud en question.
 ///

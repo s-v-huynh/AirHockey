@@ -1,4 +1,13 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////
+/// @file Program.cs
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -28,13 +37,12 @@ namespace InterfaceGraphique
         public static Object unLock = new Object();
         public static bool peutAfficher = true;
         public static bool tracerRectangle = false;
-        public static int nbBut = 1;
+        public static int nbBut = 0;
         public static bool joueurVirtuel = false;
 
         public static ModeEdition edition;
 
         public static ArbreTournoi arbre;
-
         public static FinPartiRapide finPartiRapide;
 
         public static bool estDansPartieRapide = false;
@@ -97,14 +105,19 @@ namespace InterfaceGraphique
                 dernierTemps = currentTime;
 
                 tempsAccumule += elapsedTime;
-                 //Console.WriteLine("Ticks per second: " + tempsEcouleVoulu + " Temps:" +  (double)tempsAccumule.Ticks / TimeSpan.TicksPerSecond);
+                // Console.WriteLine("Ticks per second: " + tempsEcouleVoulu + " Temps:" +  (double)tempsAccumule.Ticks / TimeSpan.TicksPerSecond);
                 if (tempsAccumule >= tempsEcouleVoulu)
                 {
                     lock (unLock)
                     {
                         if (edition != null && peutAfficher)
+                        {
                             edition.MettreAJour((double)tempsAccumule.Ticks / TimeSpan.TicksPerSecond);
-                       // Console.WriteLine("Ticks per second: " +  TimeSpan.TicksPerSecond + " Temps:" +  (double)tempsAccumule.Ticks / TimeSpan.TicksPerSecond);
+                           
+                        }
+                            
+                           
+                        //Console.WriteLine("Ticks per second: " +  TimeSpan.TicksPerSecond + " Temps:" +  (double)tempsAccumule.Ticks / TimeSpan.TicksPerSecond);
                     }
                     tempsAccumule = TimeSpan.Zero;
                 }

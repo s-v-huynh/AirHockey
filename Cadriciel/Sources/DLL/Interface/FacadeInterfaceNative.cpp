@@ -101,7 +101,6 @@ extern "C"
 	////////////////////////////////////////////////////////////////////////
 	__declspec(dllexport) void __cdecl redimensionnerFenetre(int largeur, int hauteur)
 	{
-		
 		FacadeModele::obtenirInstance()->obtenirVue()->redimensionnerFenetre(largeur, hauteur);
 	}
 
@@ -285,6 +284,14 @@ extern "C"
 		FacadeModele::obtenirInstance()->effectuerRotation(pointY);
 	}
 
+	__declspec(dllexport) void sauverSouris()
+	{
+		FacadeModele::obtenirInstance()->sauverSouris();
+	}
+	__declspec(dllexport) void deplacerSouris(int x, int y)
+	{
+		FacadeModele::obtenirInstance()->deplacerSouris(x, y);
+	}
 
 	__declspec(dllexport) void effectuerDeplacement(float pointX, float pointY)
 	{
@@ -344,7 +351,10 @@ extern "C"
 	{
 		FacadeModele::obtenirInstance()->deplacementObjetBouton(pointX, pointY);
 	}
-
+	__declspec(dllexport) void deplacer(int pointX, int pointY)
+	{
+		//FacadeModele::obtenirInstance()->deplacer()
+	}
 	__declspec(dllexport) void frictionTableBouton(double frictionTable)
 	{
 		FacadeModele::obtenirInstance()->frictionTableBouton(frictionTable);
@@ -442,9 +452,13 @@ extern "C"
 	{
 		FacadeModele::obtenirInstance()->initialiserChargement(nomFichier);
 	}
-	__declspec(dllexport) void deplacerXY(double deplacementX, double deplacementY)
+	__declspec(dllexport) void deplacerXY(double deplacementX, double deplacementY, int x, int y)
 	{
-		FacadeModele::obtenirInstance()->obtenirVue()->deplacerXY(deplacementX, deplacementY);
+		FacadeModele::obtenirInstance()->obtenirVue()->deplacerXY(deplacementX, deplacementY,x,y);
+	}
+	__declspec(dllexport) void deplacerClavier(double x, double y)
+	{
+		FacadeModele::obtenirInstance()->deplacerClavier(x, y);
 	}
 	////////////////////////////////////////////////////////////////////////
 	///
@@ -992,7 +1006,7 @@ extern "C"
 		FacadeModele::obtenirInstance()->reinitialiserPartie();
 	}
 
-	void adversaireVirtuel(bool virtuel)
+	__declspec(dllexport) void adversaireVirtuel(bool virtuel)
 	{
 		FacadeModele::obtenirInstance()->adversaireVirtuel(virtuel);
 	}
@@ -1000,6 +1014,36 @@ extern "C"
 	__declspec(dllexport) bool joueurVirtuelDansPartieCourante()
 	{
 		return FacadeModele::obtenirInstance()->joueurVirtuelDansPartieCourante();
+	}
+
+	__declspec(dllexport) bool obtenirEtatAmbiante()
+	{
+		return FacadeModele::obtenirInstance()->obtenirEtatAmbiante();
+	}
+
+	__declspec(dllexport) bool obtenirDirectionnelActive()
+	{
+		return FacadeModele::obtenirInstance()->obtenirDirectionnelActive();
+	}
+
+	__declspec(dllexport) bool obtenirEtatSpot()
+	{
+		return FacadeModele::obtenirInstance()->obtenirEtatSpot();
+	}
+
+	__declspec(dllexport) void modifierEtatAmbiante(bool etat)
+	{
+		FacadeModele::obtenirInstance()->modifierEtatAmbiante(etat);
+	}
+
+	__declspec(dllexport) void modifierEtatDirectionnelle(bool etat)
+	{
+		FacadeModele::obtenirInstance()->modifierEtatDirectionnelle(etat);
+	}
+
+	__declspec(dllexport) void modifierEtatSpot(bool etat)
+	{
+		FacadeModele::obtenirInstance()->modifierEtatSpot(etat);
 	}
 
 	__declspec(dllexport) void reinitialiserTest()
@@ -1015,13 +1059,9 @@ extern "C"
 	{
 		FacadeModele::obtenirInstance()->jouerSonDeFond();
 	}
-	/*__declspec(dllexport) void jouerSonMaillet() 
+	__declspec(dllexport) void jouerSonMaillet() 
 	{
 		FacadeModele::obtenirInstance()->jouerSonMaillet();
-	}
-	__declspec(dllexport) void jouerSonDeFond() 
-	{
-		FacadeModele::obtenirInstance()->jouerSonDeFond();
 	}
 	__declspec(dllexport) void jouerSonPortail() 
 	{
@@ -1030,7 +1070,7 @@ extern "C"
 	__declspec(dllexport) void jouerSonBut() 
 	{
 		FacadeModele::obtenirInstance()->jouerSonBut();
-	}*/
+	}
 	__declspec(dllexport) void mettreEnPause() 
 	{
 		FacadeModele::obtenirInstance()->mettreEnPause();
@@ -1055,11 +1095,14 @@ extern "C"
 		FacadeModele::obtenirInstance()->tempsJouer(tempsJouer);
 	}
 
-	/*__declspec(dllexport) void enModeTest(bool modeTest)
+	__declspec(dllexport) void activationVueOrtho()
 	{
-		FacadeModele::obtenirInstance()->enModeTest(modeTest);
-	}*/
-	
+		FacadeModele::obtenirInstance()->activationVueOrtho();
+	}
+	__declspec(dllexport) void activationVueOrbite()
+	{
+		FacadeModele::obtenirInstance()->activationVueOrbite();
+	}
 }
 
 

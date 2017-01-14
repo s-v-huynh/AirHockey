@@ -8,7 +8,7 @@
 /// @{
 ///////////////////////////////////////////////////////////////////////////
 #include "VisiteurEchelle.h"
-
+#include "NoeudTypes.h"
 double grand = 1.01;
 double petit = 0.99;
 
@@ -245,3 +245,6 @@ void VisiteurEchelle::visiter(NoeudBonusAccelerateur * noeud)
 		noeud->modifierRayonBonusAccelerateur(noeud->obtenirFacteurEchelle());
 	}
 }
+////////////////////////////////////////////////
+/// @}
+////////////////////////////////////////////////

@@ -10,7 +10,7 @@
 #ifndef __UTILITAIRE_PROJECTION_H__
 #define __UTILITAIRE_PROJECTION_H__
 
-
+#include"GL/glew.h"
 #include "glm/glm.hpp"
 
 namespace vue {
@@ -48,7 +48,8 @@ namespace vue {
 		virtual void redimensionnerFenetre(int largeur, int hauteur) = 0;
 		/// Obtention de la matrice de projection.
 		virtual glm::mat4 obtenirMatrice() const = 0;
-
+		virtual void appliquer()const =0;
+		 
 
 		/// Obtention des dimensions de la fenêtre de clotûre.
 		inline glm::ivec2 obtenirDimensionCloture() const;
@@ -61,13 +62,17 @@ namespace vue {
 		double const getZAvant() { return zAvant_; };
 		double const getZArriere() { return zArriere_; };
 		double const getIncrementZoom() { return incrementZoom_; };
-
+		inline void actualisationProjection()const;
 	protected:
 		/// Dimension de la clôture en X.
 		int largeurCloture_;
 		/// Dimension de la clôture en Y.
 		int hauteurCloture_;
 
+		int xMaxCloutre_;
+		int yMaxCloutre_;
+		int xMinCloutre_;
+		int yMinCloutre_;
 		/// Avant du volume de visualisation.
 		double zAvant_;
 		/// Arrière du volume de visualisation.
@@ -117,6 +122,30 @@ namespace vue {
 	inline bool Projection::estPerspective() const
 	{
 		return estPerspective_;
+	}
+
+	inline void Projection::actualisationProjection() const
+	{
+		/*GLint vue;
+		glGetIntegerv(GL_MATRIX_MODE, &vue);
+		glPushMatrix();
+		glMatrixMode(GL_PROJECTION);
+		auto allo = obtenirMatrice();
+		glLoadMatrixf(&allo[0][0]);
+		glMatrixMode(vue);
+		glPopMatrix();*/
+
+		//GLint vue;
+		//glGetIntegerv(GL_MATRIX_MODE, &vue);
+
+		//glMatrixMode(GL_PROJECTION);
+		//glLoadIdentity();
+
+		//// Application de la projection.
+		/////auto allo = obtenirMatrice();
+		////glLoadMatrixf(&allo[0][0]);
+
+		//glMatrixMode(vue);
 	}
 
 

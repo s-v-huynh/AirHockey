@@ -1,0 +1,29 @@
+<root>
+    <table X="0" Y="0" Z="0" ANGLE_ROTATION="0" FACTEUR_ECHELLE="1" ACCELERATION="3" COEFFICIENT_REBONDISSEMENT="50" COEFFICIENT_FRICTION="0.97999999999999998">
+        <poin X="69" Y="-47" Z="0" ANGLE_ROTATION="0">
+            <poin X="69" Y="0" Z="0" ANGLE_ROTATION="0">
+                <poin X="69" Y="47" Z="0" ANGLE_ROTATION="0">
+                    <poin X="0" Y="47" Z="0" ANGLE_ROTATION="0">
+                        <poin X="-69" Y="47" Z="0" ANGLE_ROTATION="0">
+                            <poin X="-69" Y="0" Z="0" ANGLE_ROTATION="0">
+                                <poin X="-69" Y="-47" Z="0" ANGLE_ROTATION="0">
+                                    <poin X="0" Y="-47" Z="0" ANGLE_ROTATION="0">
+                                        <poin X="0" Y="0" Z="0" ANGLE_ROTATION="0">
+                                            <bonus X="-39.072849" Y="14.285714" Z="0" FACTEUR_ECHELLE="1" ANGLE_ROTATION="0">
+                                                <bonus X="-27.814569" Y="-19.094767" Z="0" FACTEUR_ECHELLE="1" ANGLE_ROTATION="0">
+                                                    <bonus X="42.715233" Y="17.114569" Z="0" FACTEUR_ECHELLE="1" ANGLE_ROTATION="0">
+                                                        <bonus X="54.304638" Y="-20.509193" Z="0" FACTEUR_ECHELLE="1" ANGLE_ROTATION="0"/>
+                                                    </bonus>
+                                                </bonus>
+                                            </bonus>
+                                        </poin>
+                                    </poin>
+                                </poin>
+                            </poin>
+                        </poin>
+                    </poin>
+                </poin>
+            </poin>
+        </poin>
+    </table>
+</root>

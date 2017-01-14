@@ -1,0 +1,78 @@
+\hypertarget{class_partie}{}\section{Partie Class Reference}
+\label{class_partie}\index{Partie@{Partie}}
+
+
+Classe qui regroupe les parametres de de la partie.  
+
+
+
+
+{\ttfamily \#include $<$Partie.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_gae0fd466396b1f1da7f24106ea1336b7c}{Partie} (int nb\+But, bool joueur\+Virtuel)
+\begin{DoxyCompactList}\small\item\em Constructueur pour une partie standard. \end{DoxyCompactList}\item 
+{\bfseries Partie} (int nb\+But, bool joueur\+G\+Virtuel, std\+::string nomjoueurG, bool joueur\+D\+Virtuel, std\+::string nomjoueurD)
+\item 
+\hyperlink{group__inf2990_ga60f6de457bc2b70555f26964174303a7}{Partie} (int nb\+But, \hyperlink{class_noeud_joueur}{Noeud\+Joueur} $\ast$, \hyperlink{class_noeud_joueur}{Noeud\+Joueur} $\ast$)
+\begin{DoxyCompactList}\small\item\em Constructueur pour une partie dans un tournoi. \end{DoxyCompactList}\item 
+\hyperlink{group__inf2990_gae4afeb7336bb84427272cfb7018b5e3d}{$\sim$\+Partie} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+int {\bfseries obtenir\+But\+Joueur1} () const
+\item 
+int {\bfseries obtenir\+But\+Joueur2} () const
+\item 
+void {\bfseries assigner\+Joueur1} (\hyperlink{class_noeud_joueur}{Noeud\+Joueur} $\ast$)
+\item 
+void {\bfseries assigner\+Joueur1} (std\+::string)
+\item 
+void {\bfseries assigner\+Joueur2} (std\+::string)
+\item 
+void {\bfseries assigner\+Joueur2} (\hyperlink{class_noeud_joueur}{Noeud\+Joueur} $\ast$)
+\item 
+void {\bfseries assignerbut\+J1} ()
+\item 
+void {\bfseries assignerbut\+J2} ()
+\item 
+void {\bfseries mise\+En\+Place\+Maillet} (bool est\+Virtuel)
+\item 
+std\+::string {\bfseries obtenir\+Vainqueur} ()
+\item 
+void {\bfseries reinitialiser} ()
+\item 
+void {\bfseries arreter} ()
+\item 
+\hypertarget{class_partie_ac0747c32bd176efc2993a23100a44a0a}{}\label{class_partie_ac0747c32bd176efc2993a23100a44a0a} 
+void {\bfseries charger\+Zone} (string nom\+Zone)
+\item 
+\hypertarget{class_partie_aa4e3abdd7d14f8d8e3fc1af5f1cdbdf8}{}\label{class_partie_aa4e3abdd7d14f8d8e3fc1af5f1cdbdf8} 
+bool {\bfseries get\+Etat\+Partie} ()
+\item 
+\hypertarget{class_partie_ab88eb7e47b3da834363f2534786211fb}{}\label{class_partie_ab88eb7e47b3da834363f2534786211fb} 
+void {\bfseries set\+Etat\+Partie} (bool a)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_partie_a7d70f99d8f87219f2ddeaebc9773a623}{}\label{class_partie_a7d70f99d8f87219f2ddeaebc9773a623} 
+\hyperlink{class_facade_modele}{Facade\+Modele} $\ast$ {\bfseries facade}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe qui regroupe les parametres de de la partie. 
+
+\begin{DoxyAuthor}{Author}
+equipe06 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2016-\/10-\/20 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Sources/\+D\+L\+L/\+Application/Partie.\+h\item 
+Sources/\+D\+L\+L/\+Application/Partie.\+cpp\end{DoxyCompactItemize}

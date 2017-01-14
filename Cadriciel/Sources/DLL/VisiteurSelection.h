@@ -1,12 +1,13 @@
 #pragma once
-////////////////////////////////////////////////
-/// @file   visiteurSelectObjet.h
-/// @author INF2990 Eq.11
-/// @date   2016-02-15
+///////////////////////////////////////////////////////////////////////////
+/// @file VisiteurSelection.h
+/// @author equipe06
+/// @date 2016-09-27
+/// @version 1.0
 ///
 /// @addtogroup inf2990 INF2990
 /// @{
-////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 #ifndef	VISITEURSELECTIONOBJET_H
 #define VISITEURSELECTIONOBJET_H
@@ -47,7 +48,7 @@ public:
 	};
 
 
-
+	/// Destructeur
 	~VisiteurSelection() {};
 	virtual void visiter(NoeudComposite*) ;
 	///Algorithme de visite pour NoeudPortail
@@ -59,8 +60,9 @@ public:
 	///Algorithme de visite pour NoeudMaillet
 	virtual void visiter(NoeudMaillet* noeud);
 	virtual void visiter(NoeudMailletVirtuel* noeud);
-
+	///Algorithme de visite pour bonus
 	virtual void visiter(NoeudBonusAccelerateur* noeud);
+	///Algorithme de visite pour rondelle
 	virtual void visiter(NoeudRondelle* noeud);
 
 
@@ -77,9 +79,9 @@ private:
 	bool selectionunique_;
 	///Booleen representant si une selection existe ou non.
 	bool  selectionexiste_;
-
+	/// Couleur de l'objet
 	GLubyte couleurObjet_[3];
-
+	/// Booleen pour initialiser la visite
 	bool initialiserVisite_;
 };
 

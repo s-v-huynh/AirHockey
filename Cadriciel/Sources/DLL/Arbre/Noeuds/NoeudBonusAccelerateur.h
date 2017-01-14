@@ -32,7 +32,7 @@ public:
     void copierAttributs(NoeudBonusAccelerateur& destination);
 
 	/// Affiche le cube.
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
 
 	/// Effectue l'animation du cube.
 	virtual void animer(float temps);

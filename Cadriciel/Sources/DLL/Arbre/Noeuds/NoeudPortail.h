@@ -32,22 +32,22 @@ public:
     void copierAttributs(NoeudPortail& destination);
 	/// Affiche le cube.
 	//virtual void afficherConcret(const glm::mat4& vueProjection) const;
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur) const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur) const;
 	virtual void accepterVisiteur(VisiteurAbstrait* visiteur);
 	/// Effectue l'animation du cube.
 	virtual void animer(float temps);
 	virtual void redessiner();
 	bool obtenirAttraction() { return attraction_; };
-	//Permet d'obtenir le rayon d'attraction des portails
+	///Permet d'obtenir le rayon d'attraction des portails
 	float obtenirRayonAttraction() { return rayonAttraction_; };
 	virtual bool verifierSelection(GLubyte couleurObjet[]);
 	NoeudPortail* getFrere();
 	void setFrere(NoeudPortail* noeud);
-	//indque si le portail est dans la table
+	///indique si le portail est dans la table
 	virtual bool estDansLaTable();
-	//activer l'atraction des objets
+	///activer l'atraction des objets
 	void activerAttraction() { attraction_ = true; };
-	//desactiver l'attraction des objets
+	///desactiver l'attraction des objets
 	void desactiverAttraction() { attraction_ = false; };
 	virtual void modifierRayon(float rayonPortail);
 	void modifierVitesseRotation(float vitesse);

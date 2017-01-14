@@ -9,11 +9,11 @@
 ///////////////////////////////////////////////////////////////////////////
 
 #include "VisiteurRotation.h"
-
+#include "NoeudTypes.h"
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn NoeudAbstrait::NoeudAbstrait(const std::string& type)
+/// @fn VisiteurRotation::VisiteurRotation()
 ///
 ///	Initialise les variables de la classe par defaut
 ///
@@ -288,6 +288,18 @@ void VisiteurRotation::visiter(NoeudRondelle * noeud)
 	noeud->modifier();
 }
 
+///////////////////////////////////////////////////////////////////////
+///
+/// @fn void VisiteurRotation::visiter(NoeudTable * noeud)
+///
+/// Le noeud visité subira une modification à son angle de rotation
+///
+///@param[in] noeud: Noeud que le visiteur visitera pour effectuer
+/// la modification d'angle
+///
+/// @return Aucune
+///
+////////////////////////////////////////////////////////////////////////
 void VisiteurRotation::visiter(NoeudTable * noeud)
 {
 
@@ -356,3 +368,6 @@ void VisiteurRotation::visiter(NoeudBonusAccelerateur * noeud)
 	noeud->modifierAngleRotation(angleRotation);
 	//noeud->modifier();
 }
+////////////////////////////////////////////////
+/// @}
+////////////////////////////////////////////////

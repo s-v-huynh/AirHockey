@@ -1,4 +1,13 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////
+/// @file ConfigurationTournoi.cs
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -226,6 +235,7 @@ namespace InterfaceGraphique
             }
             else
             {
+                
                 ///Stockage de la liste des joueurs du tournoi
                 Program.Joueur joueur1 = new Program.Joueur();
                 Program.Joueur joueur2 = new Program.Joueur();
@@ -312,7 +322,9 @@ namespace InterfaceGraphique
                 FonctionsNatives.initialiserTournoi(Configuration.nbButs,joueur1EstVirtuel,joueur1.nom, joueur2EstVirtuel,joueur2.nom, joueur3EstVirtuel, joueur3.nom, joueur4EstVirtuel,joueur4.nom);
                 Program.arbre.initialisationNomsJoueur(joueur1.nom, joueur2.nom, joueur3.nom, joueur4.nom);
                 FonctionsNatives.nextPartie();
-               
+                FonctionsNatives.enModeTest(false);
+                FonctionsNatives.jouerSonDeFond();
+
 
             }
         }

@@ -1,0 +1,273 @@
+\hypertarget{class_interface_graphique_1_1_fonctions_natives}{}\section{Interface\+Graphique.\+Fonctions\+Natives Class Reference}
+\label{class_interface_graphique_1_1_fonctions_natives}\index{Interface\+Graphique.\+Fonctions\+Natives@{Interface\+Graphique.\+Fonctions\+Natives}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_interface_graphique_1_1_fonctions_natives_1_1_message}{Message}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool {\bfseries Peek\+Message} (out \hyperlink{struct_interface_graphique_1_1_fonctions_natives_1_1_message}{Message} message, Int\+Ptr h\+Wnd, uint filter\+Min, uint filter\+Max, uint flags)
+\item 
+static bool {\bfseries executer\+Tests} ()
+\item 
+static void {\bfseries initialiser\+Open\+GL} (Int\+Ptr handle)
+\item 
+static void {\bfseries liberer\+Open\+GL} ()
+\item 
+static void {\bfseries dessiner\+Open\+GL} ()
+\item 
+static void {\bfseries animer} (double temps)
+\item 
+static void {\bfseries redessiner} ()
+\item 
+static bool {\bfseries ajouter\+Nouveau\+Element} (string nom, int x, int y)
+\item 
+static bool {\bfseries ajouter\+Nouveau\+Portail} (string nom, int x, int y)
+\item 
+static bool {\bfseries zoom\+In} ()
+\item 
+static bool {\bfseries zoom\+Out} ()
+\item 
+static void {\bfseries redimensionner\+Fenetre} (int x, int y)
+\item 
+static bool {\bfseries ajouter\+Noeud} (string nom, int x, int y)
+\item 
+static void {\bfseries initialiser\+Rectangle\+Elas} (int x, int y)
+\item 
+static void {\bfseries mettre\+A\+Jour\+Rectangle\+Elas} (int x1, int y1)
+\item 
+static void {\bfseries terminer\+Rectangle\+Elas} ()
+\item 
+static void {\bfseries dupliquer\+Selection} (int x, int y)
+\item 
+static void {\bfseries supprimer\+Selection} ()
+\item 
+static void {\bfseries deplacer\+Selection} (int x, int y)
+\item 
+static void {\bfseries deselectionner\+Tout} ()
+\item 
+static void {\bfseries selectionner\+Tout} ()
+\item 
+static void {\bfseries effacer\+Selection} ()
+\item 
+static void {\bfseries modifier\+Etat\+C\+T\+RL} (bool etat\+C\+T\+RL)
+\item 
+static int {\bfseries selectionner\+Objet} (int id, int posX, int posY)
+\item 
+static void {\bfseries marquer\+Selection} (int id, bool en\+Inverse)
+\item 
+static void {\bfseries mise\+A\+Echelle} (int x, int y)
+\item 
+static void {\bfseries initialiser\+Rotation} (int pointY)
+\item 
+static void {\bfseries initialiser\+Deplacement} (int pointX, int pointY)
+\item 
+static void {\bfseries effectuer\+Rotation} (int pointY)
+\item 
+static void {\bfseries effectuer\+Deplacement} (float pointX, float pointY)
+\item 
+static void {\bfseries selection\+Objet} (int posX, int posY, bool selection\+Unique)
+\item 
+static double {\bfseries obtenir\+Friction\+Table} ()
+\item 
+static double {\bfseries obtenir\+Acceleration\+Bonus} ()
+\item 
+static double {\bfseries obtenir\+Coef\+Rebondissement} ()
+\item 
+static void {\bfseries friction\+Table\+Bouton} (double friction\+Table)
+\item 
+static void {\bfseries acceleration\+Bonus\+Bouton} (double acceleration\+Bonus)
+\item 
+static void {\bfseries coef\+Rebondissement\+Bouton} (double coef\+Rebondissement)
+\item 
+static int {\bfseries obtenir\+Position\+ObjetX} ()
+\item 
+static int {\bfseries obtenir\+Position\+ObjetY} ()
+\item 
+static int {\bfseries obtenir\+Position\+ObjetZ} ()
+\item 
+static int {\bfseries obtenir\+Angle\+Rotation\+Objet} ()
+\item 
+static double {\bfseries obtenir\+Facteur\+Echelle\+Objet} ()
+\item 
+static void {\bfseries mettre\+Echelle\+Objet\+Bouton} (double facteur)
+\item 
+static void {\bfseries rotation\+Objet\+Bouton} (int angle)
+\item 
+static void {\bfseries deplacement\+Objet\+Bouton} (float pointX, float pointY)
+\item 
+static void {\bfseries sauvegarde\+Par\+Defaut} ()
+\item 
+static void {\bfseries initialisation\+Par\+Defaut} ()
+\item 
+static void {\bfseries sauvegarder\+Arbre} (string nom\+Fichier)
+\item 
+static void {\bfseries initialiser\+Chargement} (string nom\+Fichier)
+\item 
+static void {\bfseries deplacer\+XY} (double deplacementX, double deplacementY)
+\item 
+static void {\bfseries zoom\+In\+Elas} ()
+\item 
+static void {\bfseries zoom\+Out\+Elas} ()
+\item 
+static void {\bfseries selection\+Elastique} ()
+\item 
+static void {\bfseries charger\+Configuration\+Options} ()
+\item 
+static void {\bfseries mise\+A\+Jour\+Sauvegarde\+Configuration} (bool peut\+Afficher\+Debogage, bool peut\+Afficher\+Collision, bool peut\+Afficher\+Vitesse\+Rondelle, bool peut\+Afficher\+Eclairage, bool peut\+Afficher\+Attraction\+Portail, int nb\+Buts, string haut, string bas, string gauche, string droite, bool est\+Virtuel)
+\item 
+static void {\bfseries mise\+A\+Jour\+Chargement\+Configuration} (bool peut\+Afficher\+Debogage, bool peut\+Afficher\+Collision, bool peut\+Afficher\+Vitesse\+Rondelle, bool peut\+Afficher\+Eclairage, bool peut\+Afficher\+Attraction\+Portail, int nb\+Buts, string haut, string bas, string gauche, string droite, bool est\+Virtuel)
+\item 
+static void {\bfseries sauvegarder\+Configuration\+Options} (string haut, string bas, string gauche, string droite)
+\item 
+static bool {\bfseries obtenir\+Peut\+Afficher\+Debogage} ()
+\item 
+static bool {\bfseries obtenir\+Peut\+Afficher\+Collision} ()
+\item 
+static bool {\bfseries obtenir\+Peut\+Afficher\+Vitesse} ()
+\item 
+static bool {\bfseries obtenir\+Peut\+Afficher\+Eclairage} ()
+\item 
+static bool {\bfseries obtenir\+Peut\+Afficher\+Attraction\+Portail} ()
+\item 
+static int {\bfseries obtenir\+Nb\+Buts} ()
+\item 
+static Int\+Ptr {\bfseries obtenir\+Haut} ()
+\item 
+static Int\+Ptr {\bfseries obtenir\+Bas} ()
+\item 
+static Int\+Ptr {\bfseries obtenir\+Gauche} ()
+\item 
+static Int\+Ptr {\bfseries obtenir\+Droite} ()
+\item 
+static bool {\bfseries obtenir\+Est\+Virtuel} ()
+\item 
+static void {\bfseries creer\+Profil} (string nom, int vitesse, int passivite)
+\item 
+static void {\bfseries ajouter\+Nouveau\+Profil} (string nom, int vitesse, int passivite)
+\item 
+static void {\bfseries sauvegarde\+Profils} ()
+\item 
+static void {\bfseries chargement\+Profils} ()
+\item 
+static void {\bfseries supprimer\+Profil} (string nom)
+\item 
+static int {\bfseries nombre\+Profils} ()
+\item 
+static Int\+Ptr {\bfseries nom\+Du\+Profil} (int profil\+Choisi)
+\item 
+static int {\bfseries vitesse\+Du\+Profil} (int profil\+Choisi)
+\item 
+static int {\bfseries passivite\+Du\+Profil} (int profil\+Choisi)
+\item 
+static void {\bfseries reinitialiser\+Profils} ()
+\item 
+static void {\bfseries ajouter\+Nom\+Profil} (string nom)
+\item 
+static void {\bfseries initialiser\+Partie} (int nb\+Buts, bool joueur\+Virtuel)
+\item 
+static void {\bfseries lancer\+Partie\+Rapide} ()
+\item 
+static void {\bfseries lancer\+Partie\+Tournoi} (string nom1, string nom2)
+\item 
+static void {\bfseries assigner\+But} (bool joueur1)
+\item 
+static void {\bfseries initialiser\+Partie\+Tournoi} ()
+\item 
+static void {\bfseries arreter\+Partie} ()
+\item 
+static void {\bfseries arreter\+Tournoi} ()
+\item 
+static void {\bfseries initialiser\+Tournoi} (int but, bool j1, string nom1, bool j2, string nom2, bool j3, string nom3, bool j4, string nom4)
+\item 
+static void {\bfseries joueur\+Maillet1} (int x, int y)
+\item 
+static void {\bfseries joueur\+Maillet2} (double x, double y)
+\item 
+static void {\bfseries next\+Partie} ()
+\item 
+static void {\bfseries reinitialiser\+Test} ()
+\item 
+static bool {\bfseries afficher\+Panel\+Rapide} ()
+\item 
+static bool {\bfseries nom\+Vainqueur\+Partie\+Rapide} ()
+\item 
+static int {\bfseries score\+Final\+Perdant} ()
+\item 
+static bool {\bfseries get\+Joueur1\+Passe} ()
+\item 
+static bool {\bfseries get\+Joueur3\+Passe} ()
+\item 
+static bool {\bfseries get\+Vainqueur1\+Passe} ()
+\item 
+static bool {\bfseries get\+Actualiser1} ()
+\item 
+static bool {\bfseries get\+Actualiser2} ()
+\item 
+static bool {\bfseries get\+Actualiser3} ()
+\item 
+static void {\bfseries en\+Mode\+Edition} (bool mode\+Edition)
+\item 
+static void {\bfseries reinitialiser\+Partie} ()
+\item 
+static void {\bfseries adversaire\+Virtuel} (bool virtuel)
+\item 
+static bool {\bfseries joueur\+Virtuel\+Dans\+Partie\+Courante} ()
+\item 
+static void {\bfseries sauvegarder\+Tournoi} ()
+\item 
+static void {\bfseries chargement\+Tournoi} ()
+\item 
+static void {\bfseries assigner\+Joueur1\+Tournoi} (string nom, bool est\+Virtuel, int index)
+\item 
+static void {\bfseries assigner\+Joueur2\+Tournoi} (string nom, bool est\+Virtuel, int index)
+\item 
+static void {\bfseries assigner\+Joueur3\+Tournoi} (string nom, bool est\+Virtuel, int index)
+\item 
+static void {\bfseries assigner\+Joueur4\+Tournoi} (string nom, bool est\+Virtuel, int index)
+\item 
+static Int\+Ptr {\bfseries obtenir\+Nom\+Joueur1\+Tournoi} ()
+\item 
+static Int\+Ptr {\bfseries obtenir\+Nom\+Joueur2\+Tournoi} ()
+\item 
+static Int\+Ptr {\bfseries obtenir\+Nom\+Joueur3\+Tournoi} ()
+\item 
+static Int\+Ptr {\bfseries obtenir\+Nom\+Joueur4\+Tournoi} ()
+\item 
+static bool {\bfseries obtenir\+Type\+Joueur1\+Tournoi} ()
+\item 
+static bool {\bfseries obtenir\+Type\+Joueur2\+Tournoi} ()
+\item 
+static bool {\bfseries obtenir\+Type\+Joueur3\+Tournoi} ()
+\item 
+static bool {\bfseries obtenir\+Type\+Joueur4\+Tournoi} ()
+\item 
+static int {\bfseries obtenir\+Profil\+Joueur1\+Tournoi} ()
+\item 
+static int {\bfseries obtenir\+Profil\+Joueur2\+Tournoi} ()
+\item 
+static int {\bfseries obtenir\+Profil\+Joueur3\+Tournoi} ()
+\item 
+static int {\bfseries obtenir\+Profil\+Joueur4\+Tournoi} ()
+\item 
+static void {\bfseries initaliser\+Sono} ()
+\item 
+static void {\bfseries mettre\+En\+Pause} ()
+\item 
+static void {\bfseries relacher\+Musique} ()
+\item 
+static void {\bfseries jouer\+Son\+De\+Fond} ()
+\item 
+static void {\bfseries en\+Mode\+Test} (bool mode\+Edition)
+\item 
+static void {\bfseries size\+Fenetre} (int x, int y)
+\item 
+static void {\bfseries temps\+Jouer} (string temps\+Jouer)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+Interface\+Graphique/\hyperlink{_fonctions_natives_8cs}{Fonctions\+Natives.\+cs}\end{DoxyCompactItemize}

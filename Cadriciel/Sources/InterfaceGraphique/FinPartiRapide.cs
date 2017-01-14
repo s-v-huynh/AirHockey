@@ -1,4 +1,13 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////
+/// @file FinPartiRapide.cs
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -42,6 +51,7 @@ namespace InterfaceGraphique
         {
             this.Close();
             Program.menuPrincipal.Show();
+            FonctionsNatives.mettreEnPause();
             Program.edition.Hide();
         }
 
@@ -51,6 +61,7 @@ namespace InterfaceGraphique
             Program.menuPrincipal.Hide();
             Program.edition.Show();
             FonctionsNatives.reinitialiserPartie();
+            FonctionsNatives.jouerSonDeFond();
             Program.tempsJeu.Reset();
             
         }

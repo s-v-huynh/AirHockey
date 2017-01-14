@@ -1,0 +1,30 @@
+Aide Mode Éditeur
+
+Fichier : 
+Nouveau : Ouvre la zone de jeu par défaut, qui contient 2 maillets, une rondelle, un muret, et une paire de portails.
+Ouvrir : Ouvre d’un fichier XML sauvegardé précédemment  pour charger la zone de jeu. 
+Enregistrer: Enregistrer la structure de l’arbre dans un fichier XML dernièrement utilisé. Si aucun fichier n’a été chargé ou enregistré avant, il sera demandé à l’utilisateur de nommer le fichier XML pour sa création. Lorsqu’on demande à l’utilisateur d’enregistrer à un fichier XML, le fichier qui contient la configuration de la zone de jeu par défaut ne peut pas être remplacé
+Enregistrer Sous : Enregistre la structure de l’arbre dans un nouveau fichier XML que l’utilisateur peut nommer. Il est impossible pour l’utilisateur d’enregistrer dans le fichier de la zone de jeu par défaut. 
+Propriétés : Ouvre une fenêtre de propriétés qui contient les propriétés de la table.
+Mode Test : Ce mode permet à l’utilisateur de tester la zone de jeu courante. 
+Menu Principal : Retour au menu principal.
+
+Édition : 
+Supprimer : Suppression d’un objet sélectionné.
+
+Outils :
+Sélection : Cet outil sélectionne les objets avec un clic de souris sur l’objet ou avec le rectangle élastique . Il est possible de sélectionner un ou plusieurs objets sur la table. 
+Déplacement : Effectue un déplacement un ou des objets sélectionnés avec un mouvement de « glisser-déposer ». 
+Rotation : Effectue une rotation un ou plusieurs objets sélectionnés avec un mouvement de « glisser-déposer ». La rotation se fait seulement avec un déplacement vertical de la souris. Un mouvement vers le bas fait une rotation dans le sens horaire, tandis que le mouvement vers le haut effectue une rotation dans le sens anti-horaire. Lorsque plusieurs objets sont sélectionnés, les objets subissent une rotation autour du centre de ces objets. 
+Mise à l’échelle : Augmente ou réduit le facteur de grandissement d’un ou plusieurs objets sélectionnés à l’aide d’un mouvement de « glisser-déposer ». Un mouvement vertical vers le bas réduit la taille de l’objet, tandis qu’un mouvement vertical vers le haut augmente la taille de l’objet.
+Duplication : Duplique un seul objet sélectionné. Le nouvel objet apparaît à la position courante de la souris. 
+Création objets : Crée les bonus, les murets et les portails. L’objet sera créé avec un clic de la souris. L’objet apparaîtra à la position du clic. 
+Zoom : Permet le zoom avant ou le zoom arrière à l’aide du rectangle élastique. De plus, il est possible de faire un zoom avec la roulette de la souris. 
+Gestion des points de contrôle : Permet le déplacement des points de contrôle. 
+
+Vues :
+Orthographique : Change la vue à une vue orthographique. 
+Orbite : Change la vue à une vue d’orbite.
+
+Informations :
+Aide : Ouvre la fenêtre contenant les divers instructions pour le menu d’édition. 

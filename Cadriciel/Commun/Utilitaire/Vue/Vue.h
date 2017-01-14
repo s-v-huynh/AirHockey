@@ -61,6 +61,7 @@ namespace vue {
 
 		// Obtention de la projection
 		virtual const Projection& obtenirProjection() const = 0;
+		virtual void definirProjection() const = 0;
 
 		/// Modification de la clotûre
 		virtual void redimensionnerFenetre(int largeur, int hauteur) = 0;
@@ -75,11 +76,13 @@ namespace vue {
 		/// Zoom out élastique
 		virtual void zoomerOutElastique(const glm::ivec2& coin1,
 			const glm::ivec2& coin2) = 0;
+		/// Application de la caméra
+		virtual void appliquerCamera() const = 0;
 
 		/// Déplacement dans le plan XY par rapport à la vue
-		virtual void deplacerXY(double deplacementX, double deplacementY) = 0;
+		virtual void deplacerXY(double deplacementX, double deplacementY, int x, int y) = 0;
 		/// Déplacement dans le plan XY par rapport à la vue
-		virtual void deplacerXY(const glm::ivec2& deplacement) = 0;
+		virtual void deplacerXY(const glm::ivec2& deplacement, int x, int y) = 0;
 		/// Déplacement selon l'axe des Z par rapport à la vue
 		virtual void deplacerZ(double deplacement) = 0;
 		/// Rotation selon les axes des X et des Y par rapport à la vue
@@ -93,7 +96,16 @@ namespace vue {
 		virtual void animer(double temps);
 		virtual void redessiner();
 
-
+		/// Deplacement de la fenetre virtuelle avec la touche haut.
+		virtual void deplacerClavier(double x, double y) = 0;
+		/// Deplacement de la fenetre virtuelle avec la touche Bas.
+		virtual void deplacerClavierBas(double x, double y) = 0;
+		/// Deplacement de la fenetre virtuelle avec la touche Droite.
+		virtual void deplacerClavierDroite(double x, double y) = 0;
+		/// Deplacement de la fenetre virtuelle avec la touche Gauche.
+		virtual void deplacerClavierGauche(double x, double y) = 0;
+		///Deplacement de la vue avec la souris
+		virtual void deplacerSouris(glm::dvec3 dSouris) = 0;
 	protected:
 		/// Caméra utilisée pour cette vue
 		Camera camera_;

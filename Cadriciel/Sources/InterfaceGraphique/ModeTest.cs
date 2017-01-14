@@ -79,5 +79,15 @@ namespace InterfaceGraphique
         {
             this.Close();
         }
+
+        private void orbiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FonctionsNatives.activationVueOrbite();
+        }
+
+        private void orthographiqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FonctionsNatives.activationVueOrtho();
+        }
     }
 }

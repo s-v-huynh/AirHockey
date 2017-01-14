@@ -37,6 +37,7 @@
     <ClCompile Include="VisiteurSerialization.cpp" />
     <ClCompile Include="VisiteurSuppression.cpp" />
     <ClCompile Include="Arbre\Noeuds\NoeudCercle.cpp" />
+    <ClCompile Include="Arbre\Noeuds\PointControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\FacadeModele.h" />
@@ -87,5 +88,7 @@
     <ClInclude Include="VisiteurSuppression.h" />
     <ClInclude Include="Arbre\Noeuds\NoeudCercle.h" />
     <ClInclude Include="Arbre\Usines\UsineNoeudCercle.h" />
+    <ClInclude Include="Arbre\Noeuds\PointControl.h" />
+    <ClInclude Include="Arbre\Usines\UsinePointControl.h" />
   </ItemGroup>
 </Project>

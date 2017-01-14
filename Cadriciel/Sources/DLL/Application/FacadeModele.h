@@ -1,6 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////
-/// @}
-///////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 /// @file FacadeModele.h
 /// @author DGI
@@ -10,6 +7,7 @@
 /// @addtogroup inf2990 INF2990
 /// @{
 //////////////////////////////////////////////////////////////////////////////
+
 #ifndef __APPLICATION_FACADEMODELE_H__
 #define __APPLICATION_FACADEMODELE_H__
 
@@ -17,7 +15,6 @@
 #include <windows.h>
 #include <string>
 #include "../VisiteurSelection.h"
-#include "NoeudTable.h"
 #include "../VisiteurDuplication.h"
 #include "../VisiteurDeplacement.h"
 #include "../VisiteurRotation.h"
@@ -29,13 +26,18 @@
 #include "Partie.h"
 #include "Tournoi.h"
 #include "../ProfilVirtuel.h"
+// Remlacement de EnveloppeXML/XercesC par TinyXML
+// Julien Gascon-Samson, �t� 2011
+#include "../../tinyxml2/include/tinyxml2.h"
 #include "../Externe/FMOD/include/fmod.hpp"
 
 #include "BoiteEnvironnement.h"
-#include <FTGL/ftgl.h>
+
+//#include "../Externe/FTGL/include/FTGL/ftgl.h"
 
 class NoeudAbstrait;
 class ArbreRenduINF2990;
+class NoeudTable;
 
 namespace vue {
    class Vue;
@@ -84,6 +86,8 @@ public:
 
    ///Zoom in grace au rectangle elestique
    void zoomOutElas();
+	void zoomOut();
+	void zoomIn();
    ///Selection avec rectangle elastique
    void selectionRectangle();
  
@@ -120,6 +124,7 @@ public:
    void effectuerDeplacement(float x, float y);
 
    double obtenirFrictionTable();
+	void deplacer(double deplacementX, double deplacementY);
    double obtenirAccelerationBonus();
    double obtenirCoefRebondissement();
 
@@ -140,6 +145,11 @@ public:
    void frictionTableBouton(double frictionTable);
    void accelerationBonusBouton(double accelerationBonus);
    void coefRebondissementBouton(double coefRebondissement);
+	glm::dvec3 obtenirPositionSouris();
+	void sauverSouris();
+	//void obtenirPositionSouris(int x, int y);
+
+	void deplacerSouris(int x, int y);
 
    //Permet de selectionner un objet ou plusieurs sur la scene
    void selectionner(int x, int y, bool selectionUnique);
@@ -178,8 +188,11 @@ public:
    void miseAJourChargementConfiguration(bool peutAfficherDebogage, bool peutAfficherCollision, bool peutAfficherVitesseRondelle, bool peutAfficherEclairage, bool peutAfficherAttractionPortail,
 	   int nbButs, char* haut, char* bas, char* gauche, char* droite, bool estVirtuel);
    void sauvegarderConfigurationOptions(char* haut, char* bas, char* gauche, char* droite);
+
    void initialiserSauvegardeTournoi();
+
    void sauvegarderTournoi();
+
    void chargementTournoi();
 
    void assignerJoueur1Tournoi(const char* nom, bool estVirtuel, int index);
@@ -187,19 +200,28 @@ public:
    void assignerJoueur3Tournoi(const char* nom, bool estVirtuel, int index);
    void assignerJoueur4Tournoi(const char* nom, bool estVirtuel, int index);
 
-   const char* obtenirNomJoueur1Tournoi();
-   const char* obtenirNomJoueur2Tournoi();
-   const char* obtenirNomJoueur3Tournoi();
-   const char* obtenirNomJoueur4Tournoi();
+	const char * obtenirNomJoueur1Tournoi();
+
+	const char * obtenirNomJoueur2Tournoi();
+
+	const char * obtenirNomJoueur3Tournoi();
+
+	const char * obtenirNomJoueur4Tournoi();
 
    bool obtenirTypeJoueur1Tournoi();
+
    bool obtenirTypeJoueur2Tournoi();
+
    bool obtenirTypeJoueur3Tournoi();
+
    bool obtenirTypeJoueur4Tournoi();
 
    int obtenirProfilJoueur1Tournoi();
+
    int obtenirProfilJoueur2Tournoi();
+
    int obtenirProfilJoueur3Tournoi();
+
    int obtenirProfilJoueur4Tournoi();
 
    //Obtention des options de configuration
@@ -216,6 +238,7 @@ public:
    const char* obtenirDroite();
 
    bool obtenirEstVirtuel();
+	void deplacerClavier(double x, double y);
    //Gestion des profils
    void creerProfil(char* nom, int vitesse, int passivite);
    void ajouterProfil(ProfilVirtuel profil);
@@ -242,7 +265,7 @@ public:
    void arreterPartie();
    void arreterPartie(std::string);
    void arreterTournoi();
-   void initialiserTournoi(int, bool ,string, bool, string, bool, string, bool, string);
+	void initialiserTournoi(int, bool, string, bool, string, bool, string, bool, string);
    void joueurMaillet1(int x, int y);
    void joueurMaillet2(double x, double y);
    bool estDansTable(glm::dvec3 point);
@@ -272,6 +295,62 @@ public:
    bool modeEdition() { return modeEdition_; }
 
    bool joueurVirtuelDansPartieCourante();
+	void setTypeValue(bool value);
+	bool getTypeValue();
+	void activationVueOrbite();
+	void activationVueOrtho();
+	
+	////Sauvegarde de l'arbre
+	//void sauvegardeParDefaut();
+	//void sauvegarderArbre(std::string nomFichier);
+
+	////Chargement de l'arbre
+	//void initialisationParDefaut();
+	//void initialiserChargement(std::string nomFichier);
+	//void chargerArbre(ArbreRenduINF2990 * arbre, NoeudAbstrait* noeudCourant, tinyxml2::XMLNode * parent);
+	////Chargement des options de configuration
+	//void chargerConfigurationOptions();
+	//void miseAJourSauvegardeConfiguration(bool peutAfficherDebogage, bool peutAfficherCollision, bool peutAfficherVitesseRondelle, bool peutAfficherEclairage, bool peutAfficherAttractionPortail,
+	//	int nbButs, char* haut, char* bas, char* gauche, char* droite, bool estVirtuel);
+	//void miseAJourChargementConfiguration(bool peutAfficherDebogage, bool peutAfficherCollision, bool peutAfficherVitesseRondelle, bool peutAfficherEclairage, bool peutAfficherAttractionPortail,
+	//	int nbButs, char* haut, char* bas, char* gauche, char* droite, bool estVirtuel);
+	//void sauvegarderConfigurationOptions(char* haut, char* bas, char* gauche, char* droite);
+	//void initialiserSauvegardeTournoi();
+	//void sauvegarderTournoi();
+	//void chargementTournoi();
+
+	//void assignerJoueur1Tournoi(const char* nom, bool estVirtuel, int index);
+	//void assignerJoueur2Tournoi(const char* nom, bool estVirtuel, int index);
+	//void assignerJoueur3Tournoi(const char* nom, bool estVirtuel, int index);
+	//void assignerJoueur4Tournoi(const char* nom, bool estVirtuel, int index);
+
+	//const char* obtenirNomJoueur1Tournoi();
+	//const char* obtenirNomJoueur2Tournoi();
+	//const char* obtenirNomJoueur3Tournoi();
+	//const char* obtenirNomJoueur4Tournoi();
+
+	//bool obtenirTypeJoueur1Tournoi();
+	//bool obtenirTypeJoueur2Tournoi();
+	//bool obtenirTypeJoueur3Tournoi();
+	//bool obtenirTypeJoueur4Tournoi();
+
+	//int obtenirProfilJoueur1Tournoi();
+	//int obtenirProfilJoueur2Tournoi();
+	//int obtenirProfilJoueur3Tournoi();
+	//int obtenirProfilJoueur4Tournoi();
+
+	////Obtention des options de configuration
+	//bool obtenirPeutAfficherDebogage();
+	//bool obtenirPeutAfficherCollision();
+	//bool obtenirPeutAfficherVitesse();
+	//bool obtenirPeutAfficherEclairage();
+	//bool obtenirPeutAfficherAttractionPortail();
+
+	//int obtenirNbButs();
+	//const char*  obtenirHaut();
+	//const char* obtenirBas();
+	//const char* obtenirGauche();
+	//const char* obtenirDroite();
 
    void initaliserSono();
    void jouerSonMaillet();
@@ -281,14 +360,42 @@ public:
    void jouerSonBut();
    void mettreEnPause();
    void relacherMusique();
-   void enModeTest(bool modeEdition);
-
 
    void sizeFenetre(int x, int y);
 
    void tempsJouer(char* tempsJouer);
+   bool obtenirEtatAmbiante() { return ambianteEstActive_; }
+   bool obtenirDirectionnelActive() { return utiliserDirectionnelle_; }
+   bool obtenirEtatSpot() { return spotActive_; }
+   void modifierEtatAmbiante(bool etat) {
+	   ambianteEstActive_ = etat;
+	   string eta;
+	   if (etat)
+		   eta = "ouverte";
+	   else
+		   eta = "fermee";
+	   cout << collision_->afficherTemps() << " - Lumiere(s) ambiantes " << eta << endl;
+   }
+   void modifierEtatDirectionnelle(bool etat) {
+	   utiliserDirectionnelle_ = etat;
+	   string eta;
+	   if (etat)
+		   eta = "ouverte";
+	   else
+		   eta = "fermee";
+	   cout << collision_->afficherTemps() << " - Lumiere(s) directionnnelle " << eta << endl;
+   }
+   void modifierEtatSpot(bool etat) {
+	   spotActive_ = etat;
+	   string eta;
+	   if (etat)
+		   eta = "ouvertes";
+	   else
+		   eta = "fermees";
+	   cout << collision_->afficherTemps() << " - Lumieres spot " << eta << endl;
+   }
 
-   //void enModeTest(bool modeTest);
+   void enModeTest(bool modeTest);
 
 private:
    /// Constructeur par d�faut.
@@ -315,6 +422,11 @@ private:
 
    /// Vue courante de la sc�ne.
    vue::Vue* vue_{ nullptr };
+
+	/// Vue courante ortho
+	vue::Vue* vueOrtho_{ nullptr };
+	/// Vue courante orbite
+	vue::Vue* vueOrbite_{ nullptr };
    /// Arbre de rendu contenant les diff�rents objets de la sc�ne.
    ArbreRenduINF2990* arbre_{ nullptr };
    ///La table du jeu
@@ -341,11 +453,8 @@ private:
    ///Point final du rectangle elastique
    int pointFinalX_;
    int pointFinalY_;
-
-   ///Point initial en X et Y de la rotation
-   float pointInitialX_;
-   float pointInitialY_;
-	
+	int pointInitialX_;
+	int pointInitialY_;
    // Options du menu configuration
    /// Permet l'affichage de debogage
    bool peutAfficherDebogage_;
@@ -357,7 +466,12 @@ private:
    bool peutAfficherEclairage_;
    ///Permet l'affichage de la delimitation de l'attraction des portails est affichee
    bool peutAfficherAttractionPortail_;
-
+   ///Permet de savoir si la lumiere ambiante du modele est activer
+   bool ambianteEstActive_;
+   ///Permet de savoir si on utilise la lumiere directionnel ou pas
+   bool utiliserDirectionnelle_;
+   ///Permet de savoir le spot est activer
+   bool spotActive_;
    /// Nombre de buts necessaires pour gagner une partie
    int nbButs_;
 
@@ -372,9 +486,6 @@ private:
    string sGauche_;
    string sDroite_;
 
-   ///Determine si le deuxieme joueur est virtuel ou non pour le mode test
-   bool estVirtuel_;
-
    /// Vecteur des profils virtuels qui ont ete crees
    std::vector<ProfilVirtuel> listeProfils;
    std::vector<std::string> nomProfils;
@@ -382,6 +493,9 @@ private:
    NoeudJoueur listeJoueursTournoi[4];
    int indexTournoi[4];
    std::string listeNomTournoi[4];
+	///Determine si le deuxieme joueur est virtuel ou non pour le mode test
+	bool estVirtuel_;
+
 
    ///Donnees du mode partie rapide
 
@@ -412,7 +526,7 @@ private:
    std::string gagnantPartieRapide_;
 
    bool afficherPanelRapide_ = false;
-
+	glm::dvec3 positionSouris_;
    bool leVainqueur_ = false;
    int scoreFinalLooser_ = 0;
    //public void miseAJourArbre(bool joueur1Passe, bool joueur3Passe, bool vainqueur1Passe, bool actualiser1, bool actualiser2, bool actualiser3)
@@ -438,7 +552,7 @@ private:
 
    utilitaire::BoiteEnvironnement* boite_;
 
-   FTGLPixmapFont* font_;
+   
 
    int fenetreX_ = 0;
    int fenetreY_ = 0;
@@ -450,6 +564,7 @@ private:
    string tempsJouer_ = "00:00";
    //bool modeTest_ = false;
 
+	bool typeVue_=false;
 };
 
 

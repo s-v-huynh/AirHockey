@@ -1,4 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 /// @file FacadeModele.cpp
 /// @author Martin Bisson
 /// @date 2007-05-22
@@ -25,6 +25,7 @@
 #include "FacadeModele.h"
 
 #include "VueOrtho.h"
+#include "VueOrbite.h"
 #include "Camera.h"
 #include "Projection.h"
 
@@ -39,10 +40,12 @@
 // Remlacement de EnveloppeXML/XercesC par TinyXML
 // Julien Gascon-Samson, �t� 2011
 #include "tinyxml2.h"
-
+#include "NoeudTable.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "../VisiteurSelection.h"
+//#include "FTGL/ftgl.h"
+#include "../../FTGL/include/FTGL/ftgl.h"
 
 
 class NoeudAbstrait;
@@ -54,7 +57,7 @@ FacadeModele* FacadeModele::instance_{ nullptr };
 /// Cha�ne indiquant le nom du fichier de configuration du projet.
 const std::string FacadeModele::FICHIER_CONFIGURATION{ "configuration.xml" };
 
-
+FTGLPixmapFont* font_;
 
 ////////////////////////////////////////////////////////////////////////
 ///
@@ -106,6 +109,8 @@ FacadeModele::~FacadeModele()
 {
 	delete arbre_;
 	delete vue_;
+	delete vueOrtho_;
+	delete vueOrbite_;
 	delete table_;
 	delete duplicateur_;
 	delete deplacement_;
@@ -159,7 +164,7 @@ void FacadeModele::initialiserOpenGL(HWND hWnd)
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
 	// Profondeur
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	// Le cull face
 	//glEnable(GL_CULL_FACE);
@@ -174,6 +179,7 @@ void FacadeModele::initialiserOpenGL(HWND hWnd)
 	//Creation de la table
 	table_ = dynamic_cast < NoeudTable* >(arbre_->chercher("table"));
 	//mur_ = dynamic_cast < NoeudTable* >(arbre_->chercher("table"));
+	font_ = new FTGLPixmapFont("media/arial.ttf");
 
 
 	duplicateur_ = new VisiteurDuplication(obtenirArbreRenduINF2990());
@@ -183,21 +189,37 @@ void FacadeModele::initialiserOpenGL(HWND hWnd)
 	visiteurEchelle_ = new VisiteurEchelle();
 	collision_ = new VisiteurCollision();
 	collision_->initialiserScores();
+	boite_ = new utilitaire::BoiteEnvironnement("media/right.png", "media/left.png",
+		"media/bottom.png", "media/top.png",
+		"media/front.png", "media/back.png", 2048);
+	ambianteEstActive_ = true;
+	utiliserDirectionnelle_ = true;
+	spotActive_ = true;
 	// On cr�e une vue par d�faut.
-	vue_ = new vue::VueOrtho{
-		vue::Camera{ 
-			glm::dvec3(0, 0, 200), glm::dvec3(0, 0, 0),
-			glm::dvec3(0, 1, 0),   glm::dvec3(0, 1, 0)},
-		vue::ProjectionOrtho{ 
-				500, 500,
-				1, 1000, 1, 10000, 1.25,
-				200, 200}
+	vueOrtho_ = new vue::VueOrtho{
+		vue::Camera{
+		glm::dvec3(0, 0, 200), glm::dvec3(0, 0, 0),
+		glm::dvec3(0, 1, 0),   glm::dvec3(0, 1, 0),false },
+		vue::ProjectionOrtho{
+		500, 500,
+		1, 1000, 1, 10000, 1.25,
+		200, 200 }
 	};
+	vue_ = vueOrtho_;
 
+	vueOrbite_ = new vue::VueOrbite{
+		vue::Camera{
+		glm::dvec3(0, -250, 250), glm::dvec3(0, 0, 0),
+		glm::dvec3(0, 1, 0),   glm::dvec3(0, 1, 0),true },
+		vue::ProjectionOrbite{
+		500, 500,
+		1, 1000, 1, 10000, 1.25,
+		200.0, 200.0 }
+	};
 	//forest
 	/*boite_ = new utilitaire::BoiteEnvironnement("media/front.jpg", "media/back.jpg",
-		"media/bottom.jpg", "media/top.jpg",
-		"media/left.jpg", "media/right.jpg", 1024);*/
+	"media/bottom.jpg", "media/top.jpg",
+	"media/left.jpg", "media/right.jpg", 1024);*/
 
 	//ice
 	/*boite_ = new utilitaire::BoiteEnvironnement("media/front.jpg", "media/back.jpg",
@@ -205,11 +227,7 @@ void FacadeModele::initialiserOpenGL(HWND hWnd)
 	"media/right.jpg", "media/left.jpg", 512);*/
 
 	//Sky
-	boite_ = new utilitaire::BoiteEnvironnement("media/front.png", "media/back.png",
-		"media/bottom.png", "media/top.png",
-		"media/right.png", "media/left.png", 2048);
-
-	font_ = new FTGLPixmapFont("media/arial.ttf");
+	
 }
 
 
@@ -261,7 +279,7 @@ void FacadeModele::enregistrerConfiguration() const
 	tinyxml2::XMLDocument document;
 	// �crire la d�claration XML standard...
 	document.NewDeclaration(R"(?xml version="1.0" standalone="yes"?)");
-	
+
 	// On enregistre les diff�rentes configurations.
 	ConfigScene::obtenirInstance()->creerDOM(document);
 
@@ -311,6 +329,8 @@ void FacadeModele::afficher() const
 	// Afficher la scène
 	afficherBase();
 
+	//glMatrixMode(GL_MODELVIEW);
+	//vue_->appliquerCamera();
 	// Compte de l'affichage
 	utilitaire::CompteurAffichage::obtenirInstance()->signalerAffichage();
 
@@ -328,11 +348,15 @@ void FacadeModele::afficher() const
 
 		char const *temps = tempsJouer_.c_str();
 
+		//FTGLPixmapFont* font_;
+		//font_ = new FTGLPixmapFont("media/arial.ttf");
+		//FTGLPixmapFont* font_ = new FTGLPixmapFont("media/arial.ttf");
+
 		font_->FaceSize(30);
 
 		if (fenetreX_ == 0 && fenetreY_ == 0)
 		{
-			// Original 603, 581
+		//	// Original 603, 581
 			font_->Render(j1, -1, FTPoint(0, 531));
 			font_->Render(temps, -1, FTPoint(266, 531));
 			font_->Render(j2, -1, FTPoint(603 - joueur2.length() * 14, 531));
@@ -344,7 +368,7 @@ void FacadeModele::afficher() const
 			font_->Render(j2, -1, FTPoint(fenetreX_ - joueur2.length() * 14, fenetreY_ - 50));
 		}
 	}
-	
+
 
 	// Échange les tampons pour que le résultat du rendu soit visible.
 	::SwapBuffers(hDC_);
@@ -364,17 +388,20 @@ void FacadeModele::afficher() const
 void FacadeModele::afficherBase() const
 {
 	// Positionner la cam�ra
+	//cout << &vue_->obtenirProjection().obtenirMatrice() << endl;
+	//glm::mat4 vueProjection(vue_->obtenirProjection().obtenirMatrice() * vue_->obtenirCamera().obtenirMatrice());
 	glm::mat4 vueProjection(vue_->obtenirProjection().obtenirMatrice() * vue_->obtenirCamera().obtenirMatrice());
+
+	boite_->afficher(vue_->obtenirProjection().obtenirMatrice(), vue_->obtenirCamera().obtenirMatrice());
+	// Afficher la scène.
+	//arbre_->afficher(vueProjection, attribuerCouleur);
 
 	bool attribuerCouleur = false;
 	if (modeApplication_ == 'R')
 		attribuerCouleur = true;
-
-	boite_->afficher(vueProjection, -vue_->obtenirCamera().obtenirMatrice());
 	// Afficher la scène.
-	arbre_->afficher(vueProjection, attribuerCouleur);
-
-	
+	arbre_->afficher(vue_->obtenirCamera().obtenirMatrice(), vue_->obtenirProjection().obtenirMatrice(), vueProjection, attribuerCouleur);
+	//arbre_->afficher(vueProjection, attribuerCouleur);
 }
 
 
@@ -396,6 +423,7 @@ void FacadeModele::reinitialiser()
 	NoeudAbstrait::compteurBonus_ = 0;
 	arbre_->initialiser();
 	VisiteurDuplication* dublication_ = new VisiteurDuplication(obtenirArbreRenduINF2990());
+
 }
 
 
@@ -437,15 +465,15 @@ void FacadeModele::redessiner()
 ////////////////////////////////////////////////////////////////////////
 int FacadeModele::ajouterNouveauElement(char* nom, int x, int y)
 {
-	 glm::dvec3 point;
+	glm::dvec3 point;
 	vue_->convertirClotureAVirtuelle(x, y, point);
-	return arbre_->ajouterNouveauElement(nom,point);
+	return arbre_->ajouterNouveauElement(nom, point);
 }
 
 int FacadeModele::ajouterNouveauPortail(char* nom, int x, int y) {
-    glm::dvec3 point;
-    vue_->convertirClotureAVirtuelle(x, y, point);
-    return arbre_->ajouterNouveauPortail(nom, point);
+	glm::dvec3 point;
+	vue_->convertirClotureAVirtuelle(x, y, point);
+	return arbre_->ajouterNouveauPortail(nom, point);
 }
 
 void FacadeModele::initialiserRectangleElas(int x, int y)
@@ -617,7 +645,7 @@ void FacadeModele::mettreAEchelle(int x, int y)
 	{
 		visiteurEchelle_->modifierFacteur(0.99);
 	}
-	
+
 	if (y > 0)
 	{
 		visiteurEchelle_->modifierFacteur(1.01);
@@ -698,14 +726,14 @@ void FacadeModele::effectuerRotation(int pointY)
 	else if (varY > 0)
 		varY = 0.1;
 	rotateur_->modifierVarY(varY);
-	if(table_->calculerNombreSelectionner() == 1){
+	if (table_->calculerNombreSelectionner() == 1) {
 		for (unsigned int i = 0; i < table_->obtenirNombreEnfants(); i++) {
 			if (table_->chercher(i)->estSelectionne())
 				table_->chercher(i)->accepterVisiteur(rotateur_);
 		}
 	}
 	else {
-		table_->accepterVisiteur(rotateur_,true);
+		table_->accepterVisiteur(rotateur_, true);
 	}
 	pointInitialY_ = pointY;
 }
@@ -753,7 +781,7 @@ void FacadeModele::effectuerDeplacement(float x, float y)
 		//positionSouris[0] = -varX;
 		//positionSouris[1] = varY;
 	}
-	
+
 	pointInitialX_ = positionSouris.x;
 	pointInitialY_ = positionSouris.y;
 }
@@ -771,6 +799,10 @@ void FacadeModele::effectuerDeplacement(float x, float y)
 double FacadeModele::obtenirFrictionTable()
 {
 	return table_->obtenirFriction();
+}
+void FacadeModele::deplacer(double deplacementX, double deplacementY)
+{
+
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -984,7 +1016,7 @@ void FacadeModele::rotationObjetBouton(int angle)
 			table_->chercher(i)->modifierAngleRotation(angle);
 		}
 	}
-	
+
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -1022,7 +1054,7 @@ void FacadeModele::deplacementObjetBouton(float pointX, float pointY)
 			table_->chercher(i)->assignerPositionRelative(nouvellePosition);;
 		}
 	}
-	
+
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -1081,6 +1113,48 @@ void FacadeModele::coefRebondissementBouton(double coefRebondissement)
 {
 
 	table_->modifierCoefRebondissement(coefRebondissement);
+}
+glm::dvec3 FacadeModele::obtenirPositionSouris()
+{
+	/*glm::dvec3 positionSouris;
+	vue_->convertirClotureAVirtuelle(x, y, positionSouris);
+	positionSouris_ = positionSouris;*/
+	GLint viewport[4];					//var to hold the viewport info
+	GLdouble modelview[16];				//var to hold the modelview info
+	GLdouble projection[16];			//var to hold the projection matrix info
+	GLfloat winX, winY, winZ;			//variables to hold screen x,y,z coordinates
+	GLdouble worldX, worldY, worldZ;
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);	//get the modelview info
+	glGetDoublev(GL_PROJECTION_MATRIX, projection); //get the projection matrix info
+	glGetIntegerv(GL_VIEWPORT, viewport);			//get the viewport info
+
+
+
+	POINT mouse;							// Stores The X And Y Coords For The Current Mouse Position
+	GetCursorPos(&mouse);                   // Gets The Current Cursor Coordinates (Mouse Coordinates)
+	ScreenToClient(hWnd_, &mouse);
+
+	winX = (float)mouse.x;                  // Holds The Mouse X Coordinate
+	winY = (float)mouse.y;                  // Holds The Mouse Y Coordinate
+
+	winY = (float)viewport[3] - (float)winY;
+
+	glReadPixels(mouse.x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+	//winZ = 0;
+	//get the world coordinates from the screen coordinates
+	gluUnProject(winX, winY, winZ, modelview, projection, viewport, &worldX, &worldY, &worldZ);
+
+	return glm::dvec3(static_cast<double>(worldX), static_cast<double>(worldY), 0.0);
+}
+void FacadeModele::sauverSouris()
+{
+
+	positionSouris_ = obtenirPositionSouris();
+}
+void FacadeModele::deplacerSouris(int x, int y)
+{
+	vue_->deplacerSouris(glm::dvec3(x, y, 0.0));
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -1210,13 +1284,13 @@ void FacadeModele::deselectionnerTout()
 ////////////////////////////////////////////////////////////////////////
 void FacadeModele::dupliquerSelection(int x, int y)
 {
-    glm::dvec3 point;
-    vue_->convertirClotureAVirtuelle(x, y, point);
-    duplicateur_->definirPosition(point);
-    for (unsigned int i = 0; i < table_->obtenirNombreEnfants(); i++) {
-            if(table_->chercher(i)->estSelectionne())
-                table_->chercher(i)->accepterVisiteur(duplicateur_);
-    }
+	glm::dvec3 point;
+	vue_->convertirClotureAVirtuelle(x, y, point);
+	duplicateur_->definirPosition(point);
+	for (unsigned int i = 0; i < table_->obtenirNombreEnfants(); i++) {
+		if (table_->chercher(i)->estSelectionne())
+			table_->chercher(i)->accepterVisiteur(duplicateur_);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1360,7 +1434,7 @@ void FacadeModele::initialiserChargement(std::string nomFichier)
 		for (size_t i = 0; i < arbre_->chercher("table")->obtenirNombreEnfants(); i++)
 		{
 			if (arbre_->chercher("table")->chercher(i)->obtenirType() != ArbreRenduINF2990::NOM_MAILLET_1&&
-				arbre_->chercher("table")->chercher(i)->obtenirType() !=ArbreRenduINF2990::NOM_RONDELLE&&
+				arbre_->chercher("table")->chercher(i)->obtenirType() != ArbreRenduINF2990::NOM_RONDELLE&&
 				arbre_->chercher("table")->chercher(i)->obtenirType() != ArbreRenduINF2990::NOM_MAILLET_V)
 			{
 				arbre_->chercher(ArbreRenduINF2990::NOM_TABLE)->effacer(arbre_->chercher("table")->chercher(i));
@@ -1372,8 +1446,7 @@ void FacadeModele::initialiserChargement(std::string nomFichier)
 
 ///////////////////////////////////////////////////////////////////////
 ///
-/// @fn void FacadeModele::chargerArbre(ArbreRenduINF2990 * arbre, 
-/// NoeudAbstrait* noeudCourant, tinyxml2::XMLNode * parent)
+/// @fn void FacadeModele::dupliquerSelection(int x, int y)
 ///
 /// Cette fonction charge l'arbre en ajoutant un noeud a la fois a 
 /// l'aide de la recursivite. Si le noeud a ajoute est une table, on
@@ -1385,14 +1458,14 @@ void FacadeModele::initialiserChargement(std::string nomFichier)
 ////////////////////////////////////////////////////////////////////////
 void FacadeModele::chargerArbre(ArbreRenduINF2990 * arbre, NoeudAbstrait* noeudCourant, tinyxml2::XMLNode * parent)
 {
-	bool existeDeja=false;
+	bool existeDeja = false;
 	NoeudAbstrait* noeud = arbre->creerNoeud(parent->ToElement()->Name(), parent);
 	if (parent->ToElement()->Name() != ArbreRenduINF2990::NOM_PORTAIL) {
 		NoeudAbstrait* noeud = arbre->creerNoeud(parent->ToElement()->Name(), parent);
 	}
 	else
 	{
-		
+
 		for (size_t i = 0; i < table_->obtenirListePortails().size(); i++)
 		{
 			if (table_->obtenirListePortails()[i]->obtenirPositionRelative().x == noeud->obtenirPositionRelative().x &&
@@ -1491,13 +1564,13 @@ void FacadeModele::chargerConfigurationOptions()
 					{
 						std::cerr << "Erreur: NB_BUTS  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
 					}
-					haut_=(char*) elementOptions->Attribute("HAUT");
+					haut_ = (char*)elementOptions->Attribute("HAUT");
 					sHaut_ = haut_;
 					bas_ = (char*)elementOptions->Attribute("BAS");
 					sBas_ = bas_;
-					gauche_ = (char*) elementOptions->Attribute("GAUCHE");
+					gauche_ = (char*)elementOptions->Attribute("GAUCHE");
 					sGauche_ = gauche_;
-					droite_ = (char*) elementOptions->Attribute("DROITE");
+					droite_ = (char*)elementOptions->Attribute("DROITE");
 					sDroite_ = droite_;
 
 					//if(haut_==nullptr)
@@ -1583,7 +1656,7 @@ void FacadeModele::miseAJourSauvegardeConfiguration(bool peutAfficherDebogage, b
 ///
 ////////////////////////////////////////////////////////////////////////
 void FacadeModele::miseAJourChargementConfiguration(bool peutAfficherDebogage, bool peutAfficherCollision, bool peutAfficherVitesseRondelle, bool peutAfficherEclairage, bool peutAfficherAttractionPortail,
- int nbButs, char * haut, char * bas, char * gauche, char * droite, bool estVirtuel)
+	int nbButs, char * haut, char * bas, char * gauche, char * droite, bool estVirtuel)
 {
 	peutAfficherDebogage = peutAfficherDebogage_;
 	peutAfficherCollision = peutAfficherCollision_;
@@ -1663,213 +1736,6 @@ void FacadeModele::sauvegarderConfigurationOptions(char* haut, char* bas, char* 
 
 }
 
-void FacadeModele::initialiserSauvegardeTournoi()
-{
-	/*listeJoueursTournoi[0] = NoeudJoueur(false, "");
-	listeJoueursTournoi[1] = NoeudJoueur(false, "");
-	listeJoueursTournoi[2] = NoeudJoueur(false, "");
-	listeJoueursTournoi[3] = NoeudJoueur(false, "");*/
-}
-
-void FacadeModele::sauvegarderTournoi()
-{
-	//miseAJourConfiguration(...);
-	//initialiserSauvegardeTournoi();
-	tinyxml2::XMLDocument fichierTournoi;
-	fichierTournoi.NewDeclaration(R"(?xml version="1.0" standalone="yes"?)");
-
-	// sauvegarde des options
-	tinyxml2::XMLElement* elementConfig{ fichierTournoi.NewElement("tournoi") };
-	//Ajout des options d'affichage
-	tinyxml2::XMLElement* elementJoueurs{ fichierTournoi.NewElement("joueurs") };
-	elementJoueurs->SetAttribute("NOM1", listeJoueursTournoi[0].getNom().c_str());
-	elementJoueurs->SetAttribute("NOM2", listeJoueursTournoi[1].getNom().c_str());
-	elementJoueurs->SetAttribute("NOM3", listeJoueursTournoi[2].getNom().c_str());
-	elementJoueurs->SetAttribute("NOM4", listeJoueursTournoi[3].getNom().c_str());
-	elementJoueurs->SetAttribute("TYPE1", listeJoueursTournoi[0].estVirtuel());
-	elementJoueurs->SetAttribute("TYPE2", listeJoueursTournoi[1].estVirtuel());
-	elementJoueurs->SetAttribute("TYPE3", listeJoueursTournoi[2].estVirtuel());
-	elementJoueurs->SetAttribute("TYPE4", listeJoueursTournoi[3].estVirtuel());
-	elementJoueurs->SetAttribute("PROFIL1", indexTournoi[0]);
-	elementJoueurs->SetAttribute("PROFIL2", indexTournoi[1]);
-	elementJoueurs->SetAttribute("PROFIL3", indexTournoi[2]);
-	elementJoueurs->SetAttribute("PROFIL4", indexTournoi[3]);
-	//Lien avec le noeud configuration
-	elementConfig->LinkEndChild(elementJoueurs);
-
-
-	//Lien du noeud configuration au noeud principal
-	fichierTournoi.LinkEndChild(elementConfig);
-
-	fichierTournoi.SaveFile("../Exe/donnees/tournoi.xml");
-
-}
-
-void FacadeModele::chargementTournoi()
-{
-	for (size_t i=0; i < 4; i++) 
-	{
-		indexTournoi[i] = 0;
-	}
-
-	bool tmpBool = false;
-	int tmpInt = 0;
-
-	if (!utilitaire::fichierExiste("../Exe/donnees/tournoi.xml"))
-	{
-		assignerJoueur1Tournoi("", false, 1);
-		assignerJoueur2Tournoi("", false, 1);
-		assignerJoueur3Tournoi("", false, 1);
-		assignerJoueur4Tournoi("", false, 1);
-	}
-	else
-	{
-		tinyxml2::XMLDocument document;
-
-		//Lire tournoi.xml
-		document.LoadFile("../Exe/donnees/tournoi.xml");
-		const tinyxml2::XMLElement* elementTournoi{ document.FirstChildElement("tournoi") };
-
-		if (elementTournoi != nullptr)
-		{
-			const tinyxml2::XMLElement* elementJoueurs{ elementTournoi->FirstChildElement("joueurs") };
-			if (elementJoueurs != nullptr)
-			{
-				if (elementJoueurs->QueryBoolAttribute("TYPE1", &tmpBool) != tinyxml2::XML_SUCCESS)
-				{
-					std::cerr << "Erreur: TYPE1  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
-				}
-				if (elementJoueurs->QueryIntAttribute("PROFIL1", &tmpInt) != tinyxml2::XML_SUCCESS)
-				{
-					std::cerr << "Erreur: PROFIL1 : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
-				}
-				listeNomTournoi[0] = elementJoueurs->Attribute("NOM1");
-				assignerJoueur1Tournoi(listeNomTournoi[0].c_str(), tmpBool, tmpInt);
-				if (elementJoueurs->QueryBoolAttribute("TYPE2", &tmpBool) != tinyxml2::XML_SUCCESS)
-				{
-					std::cerr << "Erreur: TYPE2  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
-				}
-				if (elementJoueurs->QueryIntAttribute("PROFIL2", &tmpInt) != tinyxml2::XML_SUCCESS)
-				{
-					std::cerr << "Erreur: PROFIL2 : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
-				}
-				listeNomTournoi[1] = elementJoueurs->Attribute("NOM2");
-				assignerJoueur1Tournoi(listeNomTournoi[1].c_str(), tmpBool, tmpInt);
-				if (elementJoueurs->QueryBoolAttribute("TYPE3", &tmpBool) != tinyxml2::XML_SUCCESS)
-				{
-					std::cerr << "Erreur: TYPE3  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
-				}
-				if (elementJoueurs->QueryIntAttribute("PROFIL3", &tmpInt) != tinyxml2::XML_SUCCESS)
-				{
-					std::cerr << "Erreur: PROFIL3 : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
-				}
-				listeNomTournoi[2] = elementJoueurs->Attribute("NOM3");
-				assignerJoueur1Tournoi(listeNomTournoi[2].c_str(), tmpBool, tmpInt);
-				if (elementJoueurs->QueryBoolAttribute("TYPE4", &tmpBool) != tinyxml2::XML_SUCCESS)
-				{
-					std::cerr << "Erreur: TYPE4  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
-				}
-				if (elementJoueurs->QueryIntAttribute("PROFIL4", &tmpInt) != tinyxml2::XML_SUCCESS)
-				{
-					std::cerr << "Erreur: PROFIL4 : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
-				}
-				listeNomTournoi[3] = elementJoueurs->Attribute("NOM4");
-				assignerJoueur1Tournoi(listeNomTournoi[3].c_str(), tmpBool, tmpInt);
-			}
-		}
-	}
-
-}
-
-void FacadeModele::assignerJoueur1Tournoi(const char* nom, bool estVirtuel, int index)
-{
-	listeJoueursTournoi[0] = NoeudJoueur(false, "");
-	indexTournoi[0] = index;
-	listeJoueursTournoi[0].assignerNom(nom);
-	listeJoueursTournoi[0].setVirtuel(estVirtuel);
-}
-void FacadeModele::assignerJoueur2Tournoi(const char* nom, bool estVirtuel, int index)
-{
-	listeJoueursTournoi[1] = NoeudJoueur(false, "");
-	indexTournoi[1] = index;
-	listeJoueursTournoi[1].assignerNom(nom);
-	listeJoueursTournoi[1].setVirtuel(estVirtuel);
-}
-void FacadeModele::assignerJoueur3Tournoi(const char* nom, bool estVirtuel, int index)
-{
-	listeJoueursTournoi[2] = NoeudJoueur(false, "");
-	indexTournoi[2] = index;
-	listeJoueursTournoi[2].assignerNom(nom);
-	listeJoueursTournoi[2].setVirtuel(estVirtuel);
-}
-void FacadeModele::assignerJoueur4Tournoi(const char* nom, bool estVirtuel, int index)
-{
-	listeJoueursTournoi[3] = NoeudJoueur(false, "");
-	indexTournoi[3] = index;
-	listeJoueursTournoi[3].assignerNom(nom);
-	listeJoueursTournoi[3].setVirtuel(estVirtuel);
-}
-
-const char * FacadeModele::obtenirNomJoueur1Tournoi()
-{
-	return listeNomTournoi[0].c_str();
-}
-
-const char * FacadeModele::obtenirNomJoueur2Tournoi()
-{
-	return listeNomTournoi[1].c_str();
-}
-
-const char * FacadeModele::obtenirNomJoueur3Tournoi()
-{
-	return listeNomTournoi[2].c_str();
-}
-
-const char * FacadeModele::obtenirNomJoueur4Tournoi()
-{
-	return listeNomTournoi[3].c_str();
-}
-
-bool FacadeModele::obtenirTypeJoueur1Tournoi()
-{
-	return listeJoueursTournoi[0].estVirtuel();
-}
-
-bool FacadeModele::obtenirTypeJoueur2Tournoi()
-{
-	return listeJoueursTournoi[1].estVirtuel();
-}
-
-bool FacadeModele::obtenirTypeJoueur3Tournoi()
-{
-	return listeJoueursTournoi[2].estVirtuel();
-}
-
-bool FacadeModele::obtenirTypeJoueur4Tournoi()
-{
-	return listeJoueursTournoi[3].estVirtuel();
-}
-
-int FacadeModele::obtenirProfilJoueur1Tournoi()
-{
-	return indexTournoi[0];
-}
-
-int FacadeModele::obtenirProfilJoueur2Tournoi()
-{
-	return indexTournoi[1];
-}
-
-int FacadeModele::obtenirProfilJoueur3Tournoi()
-{
-	return indexTournoi[2];
-}
-
-int FacadeModele::obtenirProfilJoueur4Tournoi()
-{
-	return indexTournoi[3];
-}
-
 ///////////////////////////////////////////////////////////////////////
 ///
 /// @fn void FacadeModele::sauvegarderConfigurationOptions(char* haut,
@@ -1929,10 +1795,10 @@ bool FacadeModele::obtenirPeutAfficherVitesse()
 /// a la console.
 ///
 ////////////////////////////////////////////////////////////////////////
-bool FacadeModele::obtenirPeutAfficherEclairage()
-{
-	return peutAfficherEclairage_;
-}
+//bool FacadeModele::obtenirPeutAfficherEclairage()
+//{
+//	return peutAfficherEclairage_;
+//}
 ///////////////////////////////////////////////////////////////////////
 ///
 /// @fn bool FacadeModele::obtenirPeutAfficherAttractionPortail()
@@ -2038,6 +1904,10 @@ const char* FacadeModele::obtenirDroite()
 bool FacadeModele::obtenirEstVirtuel()
 {
 	return estVirtuel_;
+}
+void FacadeModele::deplacerClavier(double x, double y)
+{
+	vue_->deplacerClavier(x, y);
 }
 ///////////////////////////////////////////////////////////////////////
 ///
@@ -2152,27 +2022,7 @@ int FacadeModele::nombreProfils()
 {
 	return listeProfils.size();
 }
-///////////////////////////////////////////////////////////////////////
-///
-/// @fn const char* FacadeModele::nomDuProfil(int profilChoisi)
-///
-/// Cette fonction retourne le nom du profil souhaite qui est dans la 
-/// liste de profil.
-///
-/// @param[in] profilChoisi: le profil qu'on veut obtenir le nom
-/// dans la liste
-///
-/// @return le nom du profil choisi
-///
-////////////////////////////////////////////////////////////////////////
-const char* FacadeModele::nomDuProfil(int profilChoisi)
-{
-	//return listeProfils[profilChoisi].obtenirNom();
-	//return charProfils[profilChoisi];
-	//return "abc";
-	return nomProfils[profilChoisi].c_str();
 
-}
 
 ///////////////////////////////////////////////////////////////////////
 ///
@@ -2240,11 +2090,11 @@ void FacadeModele::sauvegardeProfils()
 	{
 		//if (profilEstDansXML(listeProfils[i].obtenirNom()))
 		//{
-			tinyxml2::XMLElement* elementProfil{ fichierProfils.NewElement("profil") };
-			elementProfil->SetAttribute("nom", listeProfils[i].obtenirNom());
-			elementProfil->SetAttribute("vitesse", listeProfils[i].obtenirVitesse());
-			elementProfil->SetAttribute("passivite", listeProfils[i].obtenirPassivite());
-			elementListe->LinkEndChild(elementProfil);
+		tinyxml2::XMLElement* elementProfil{ fichierProfils.NewElement("profil") };
+		elementProfil->SetAttribute("nom", listeProfils[i].obtenirNom());
+		elementProfil->SetAttribute("vitesse", listeProfils[i].obtenirVitesse());
+		elementProfil->SetAttribute("passivite", listeProfils[i].obtenirPassivite());
+		elementListe->LinkEndChild(elementProfil);
 		//}
 	}
 	fichierProfils.LinkEndChild(elementListe);
@@ -2274,16 +2124,16 @@ void FacadeModele::chargementProfils()
 	int compteur = 0;
 	listeProfils.clear();
 	//nomProfils.clear();
-	
+
 
 	tinyxml2::XMLDocument document;
 	document.LoadFile("../Exe/donnees/profils.xml");
 
-	 tinyxml2::XMLElement* elementListeProfils{ document.FirstChildElement("listeProfils") };
+	tinyxml2::XMLElement* elementListeProfils{ document.FirstChildElement("listeProfils") };
 
 	if (elementListeProfils != nullptr)
 	{
-		tinyxml2::XMLElement* elementProfil =elementListeProfils->FirstChildElement("profil");
+		tinyxml2::XMLElement* elementProfil = elementListeProfils->FirstChildElement("profil");
 		while (elementProfil != nullptr)
 		{
 			charProfils.push_back((char*)elementProfil->Attribute("nom"));
@@ -2299,7 +2149,7 @@ void FacadeModele::chargementProfils()
 				std::cerr << "Erreur: passivite  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
 			}
 			ajouterNouveauProfil(charProfils[compteur], tmpVitesse, tmpPassivite);
-			
+
 			elementProfil = elementProfil->NextSiblingElement("profil");
 			compteur++;
 		}
@@ -2347,7 +2197,7 @@ void FacadeModele::clearXML()
 void FacadeModele::supprimerProfil(std::string nom)
 {
 	string tmp = "";
-	for (std::vector<ProfilVirtuel>::iterator it = listeProfils.begin(); it != listeProfils.end() ; it++)
+	for (std::vector<ProfilVirtuel>::iterator it = listeProfils.begin(); it != listeProfils.end(); it++)
 	{
 		tmp = string(it->obtenirNom());
 		if (tmp == nom)
@@ -2372,16 +2222,14 @@ void FacadeModele::reinitialiserProfils()
 	listeProfils.clear();
 }
 
-void FacadeModele::reinitialiserTest() 
+void FacadeModele::reinitialiserTest()
 {
 	arbre_->chercher("maillet")->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[5].x + 5.0, 0.0, 0.0));
-	//if (arbre_->chercher("table")->chercher(ArbreRenduINF2990::NOM_MAILLET_V) == nullptr)
-		//arbre_->chercher("table")->chercher(ArbreRenduINF2990::NOM_MAILLET_V)->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
-	arbre_->chercher(ArbreRenduINF2990::NOM_TABLE)->chercher(1)->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
+	arbre_->chercher("table")->chercher(2)->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
 
 	//maillet2->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[5].x + 5.0, 0.0, 0.0));
 	arbre_->chercher("rondelle")->assignerPositionRelative(glm::dvec3(0.0, 0.0, 0.0));
-	NoeudRondelle* rondelle = dynamic_cast <NoeudRondelle*> (arbre_->chercher(ArbreRenduINF2990::NOM_RONDELLE));
+	NoeudRondelle* rondelle = dynamic_cast<NoeudRondelle*> (arbre_->chercher(ArbreRenduINF2990::NOM_RONDELLE));
 	rondelle->modifierVitesse(glm::dvec2(0.0, 0.0));
 }
 
@@ -2440,7 +2288,32 @@ void FacadeModele::zoomOutElas()
 	vue_->zoomerOutElastique(coin1, coin2);
 
 }
-
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void FacadeModele::zoomOut()
+///
+/// Cette fonction fait un zoom avec les points 
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
+void FacadeModele::zoomOut()
+{
+	vue_->zoomerOut();
+}
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void FacadeModele::zoomIn()
+///
+/// Cette fonction fait un zoom avec les points 
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
+void FacadeModele::zoomIn()
+{
+	vue_->zoomerIn();
+}
 
 void FacadeModele::selectionRectangle()
 {
@@ -2501,16 +2374,16 @@ void FacadeModele::selectionRectangle()
 	}
 }
 
-void FacadeModele::initialiserPartie(int nbBut, bool estVirtuel) 
+void FacadeModele::initialiserPartie(int nbBut, bool estVirtuel)
 {
 	butJoueur1_ = 0;
 	butJoueur2_ = 0;
 	activerBut_ = true;
 	adversaireVirtuel(estVirtuel);
 	/*if (estVirtuel)
-		arbre_->initialiserPartieAvecVirtuel();
+	arbre_->initialiserPartieAvecVirtuel();
 	else
-		arbre_->initialiserPartieAvecVirtuel();*/
+	arbre_->initialiserPartieAvecVirtuel();*/
 	partieEnCours_ = new Partie(nbBut, estVirtuel);
 	//partieEnCours_->miseEnPlaceMaillet(estVirtuel);
 	afficherPanelRapide_ = false;
@@ -2522,7 +2395,7 @@ void FacadeModele::initialiserPartieTournoi()
 	tournoiEnCours_ = new Tournoi();
 }
 
-void FacadeModele::arreterPartie() 
+void FacadeModele::arreterPartie()
 {
 
 	if (enTournoi_)
@@ -2549,7 +2422,7 @@ void FacadeModele::arreterPartie()
 		///*delete partieEnCours_;
 		//partieEnCours_ = nullptr;*/
 		nextPartie();
-		
+
 	}
 	else
 	{
@@ -2558,10 +2431,10 @@ void FacadeModele::arreterPartie()
 		/*delete partieEnCours_;
 		partieEnCours_ = nullptr;*/
 	}
-	
-	
+
+
 }
-void FacadeModele::arreterPartie(std::string nom) 
+void FacadeModele::arreterPartie(std::string nom)
 {
 	if (!enTournoi_)
 	{
@@ -2577,12 +2450,12 @@ void FacadeModele::arreterPartie(std::string nom)
 			leVainqueur_ = false;
 			scoreFinalLooser_ = partieEnCours_->obtenirButJoueur1();
 		}
-		
+
 	}
 
 	//std::cout << "           LE gagnant est         " << nom << std::endl;
 
-	if (enTournoi_) 
+	if (enTournoi_)
 	{
 		nbMaxPartieTournoi_--;
 
@@ -2597,7 +2470,7 @@ void FacadeModele::arreterPartie(std::string nom)
 			}
 			break;
 		case 2:
-			
+
 			nomVainqueur1_ = nom;
 			actualiser1_ = true;
 			if (nom1_ == nomVainqueur1_)
@@ -2618,9 +2491,9 @@ void FacadeModele::arreterPartie(std::string nom)
 			break;
 		}
 	}
-	
+
 	arreterPartie();
-	
+
 }
 
 void FacadeModele::arreterTournoi()
@@ -2630,11 +2503,11 @@ void FacadeModele::arreterTournoi()
 	tournoiEnCours_ = nullptr;
 }
 
-void FacadeModele::lancerPartieRapide() 
+void FacadeModele::lancerPartieRapide()
 {
 	//partieEnCours_ = new Partie()
 }
-void FacadeModele::lancerPartieTournoi(std::string nom1, std::string nom2) 
+void FacadeModele::lancerPartieTournoi(std::string nom1, std::string nom2)
 {
 	if (enTournoi_)
 	{
@@ -2646,7 +2519,7 @@ void FacadeModele::lancerPartieTournoi(std::string nom1, std::string nom2)
 			if (nom1 == nom1_ && nom2 == nom2_)
 			{
 				partieEnCours_ = new Partie(nbButs_, j1_, nom1_, j2_, nom2_);
-				if ((j1_ && !j2_) || (!j1_ && j2_)) 
+				if ((j1_ && !j2_) || (!j1_ && j2_))
 				{
 					adversaireVirtuel_ = true;
 					joueurVirtuelDansPartieCourante_ = true;
@@ -2656,7 +2529,7 @@ void FacadeModele::lancerPartieTournoi(std::string nom1, std::string nom2)
 					adversaireVirtuel_ = false;
 					joueurVirtuelDansPartieCourante_ = false;
 				}
-					
+
 			}
 			else if (nom1 == nom3_ && nom2 == nom4_)
 			{
@@ -2727,11 +2600,11 @@ void FacadeModele::lancerPartieTournoi(std::string nom1, std::string nom2)
 					adversaireVirtuel_ = false;
 					joueurVirtuelDansPartieCourante_ = false;
 				}
-			}		
+			}
 		}
 	}
 
-	
+
 }
 
 void FacadeModele::assignerBut(bool joueur1)
@@ -2746,7 +2619,7 @@ void FacadeModele::assignerBut(bool joueur1)
 			butJoueur1_++;
 			//std::cout << " TChiki 8 " << std::endl;
 		}
-		
+
 		//std::cout << " TChiki 8 " << std::endl;
 		//std::cout << "DRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
 	}
@@ -2760,11 +2633,11 @@ void FacadeModele::assignerBut(bool joueur1)
 			butJoueur2_++;
 			//std::cout << " TChiki 10 " << std::endl;
 		}
-		
+
 		//std::cout << " TChiki 8 " << std::endl;
 		//std::cout << "DRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
 	}
-		
+
 }
 
 void FacadeModele::initialiserTournoi(int but, bool j1, string nom1, bool j2, string nom2, bool j3, string nom3, bool j4, string nom4)
@@ -2774,14 +2647,14 @@ void FacadeModele::initialiserTournoi(int but, bool j1, string nom1, bool j2, st
 	activerBut_ = true;
 	enTournoi_ = true;
 	int nbButs_ = but;
-	j1_   =   j1;
+	j1_ = j1;
 	//if(j1_)
 	nom1_ = nom1;
-	j2_ =     j2;
+	j2_ = j2;
 	nom2_ = nom2;
-	j3_ =     j3;
+	j3_ = j3;
 	nom3_ = nom3;
-	j4_ =     j4;
+	j4_ = j4;
 	nom4_ = nom4;
 	vainqueur1_ = "";
 	vainqueur2_ = "";
@@ -2800,11 +2673,12 @@ void FacadeModele::initialiserTournoi(int but, bool j1, string nom1, bool j2, st
 void FacadeModele::joueurMaillet1(int x, int y)
 {
 	glm::dvec3 positionSouris;
-
+	positionSouris.z = 2.0;
 	vue_->convertirClotureAVirtuelle(x, y, positionSouris);
-
 	NoeudAbstrait* noeud = table_->chercher(0);
-	if(table_->curseurEstDansZone(positionSouris*1.02) && (positionSouris.x)*1.04 <= 0.0 && positionSouris.y <= 41.0)
+	//cout << noeud->obtenirType() << endl;
+
+	if (table_->curseurEstDansZone(positionSouris*1.02) && (positionSouris.x)*1.04 <= 0.0 && positionSouris.y <= 41.0 )
 		noeud->assignerPositionRelative(positionSouris);
 }
 void FacadeModele::joueurMaillet2(double x, double y)
@@ -2823,7 +2697,7 @@ void FacadeModele::nextPartie()
 	//Partie* tmp = &(*partieEnCours_);
 	if (enTournoi_ && nbMaxPartieTournoi_ > 0)
 	{
-		
+
 		activerBut_ = true;
 		switch (nbMaxPartieTournoi_)
 		{
@@ -2831,7 +2705,7 @@ void FacadeModele::nextPartie()
 			afficherNom1_ = nomVainqueur1_;
 			afficherNom2_ = nomVainqueur2_;
 			lancerPartieTournoi(nomVainqueur1_, nomVainqueur2_);
-			
+
 			break;
 		case 2:
 			afficherNom1_ = nom3_;
@@ -2846,11 +2720,11 @@ void FacadeModele::nextPartie()
 		default:
 			break;
 		}
-		
-		
+
+
 	}
-	
-		
+
+
 }
 bool FacadeModele::afficherPanelRapide()
 {
@@ -2892,7 +2766,7 @@ bool FacadeModele::getActualiser3()
 void FacadeModele::reinitialiserPartie()
 {
 	arbre_->chercher("maillet")->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[5].x + 5.0, 0.0, 0.0));
-	arbre_->chercher("table")->chercher(1)->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
+	arbre_->chercher("mailletV")->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
 	butJoueur1_ = 0;
 	butJoueur2_ = 0;
 	//maillet2->assignerPositionRelative(glm::dvec3(arbre_->chercher("table")->obtenirSommets()[5].x + 5.0, 0.0, 0.0));
@@ -2924,9 +2798,82 @@ void FacadeModele::enModeEdition(bool modeEdition)
 	/*if(modeEdition)
 	arbre_->initialiserPartieAvecHumain();*/
 }
+void FacadeModele::enModeTest(bool modeTest)
+{
+	modeTest_ = modeTest;
+}
+void FacadeModele::sizeFenetre(int x, int y)
+{
+	fenetreX_ = x;
+	fenetreY_ = y;
+}
+void FacadeModele::tempsJouer(char* tempsJouer)
+{
+	tempsJouer_ = tempsJouer;
+}
 bool FacadeModele::joueurVirtuelDansPartieCourante()
 {
 	return joueurVirtuelDansPartieCourante_;
+}
+
+void FacadeModele::setTypeValue(bool value)
+{
+	//typeVue_ = value;
+	//cout << "lol:" << typeVue_ << endl;
+}
+void FacadeModele::sauvegarderTournoi()
+{
+	//miseAJourConfiguration(...);
+	//initialiserSauvegardeTournoi();
+	tinyxml2::XMLDocument fichierTournoi;
+	fichierTournoi.NewDeclaration(R"(?xml version="1.0" standalone="yes"?)");
+
+	// sauvegarde des options
+	tinyxml2::XMLElement* elementConfig{ fichierTournoi.NewElement("tournoi") };
+	//Ajout des options d'affichage
+	tinyxml2::XMLElement* elementJoueurs{ fichierTournoi.NewElement("joueurs") };
+	elementJoueurs->SetAttribute("NOM1", listeJoueursTournoi[0].getNom().c_str());
+	elementJoueurs->SetAttribute("NOM2", listeJoueursTournoi[1].getNom().c_str());
+	elementJoueurs->SetAttribute("NOM3", listeJoueursTournoi[2].getNom().c_str());
+	elementJoueurs->SetAttribute("NOM4", listeJoueursTournoi[3].getNom().c_str());
+	elementJoueurs->SetAttribute("TYPE1", listeJoueursTournoi[0].estVirtuel());
+	elementJoueurs->SetAttribute("TYPE2", listeJoueursTournoi[1].estVirtuel());
+	elementJoueurs->SetAttribute("TYPE3", listeJoueursTournoi[2].estVirtuel());
+	elementJoueurs->SetAttribute("TYPE4", listeJoueursTournoi[3].estVirtuel());
+	elementJoueurs->SetAttribute("PROFIL1", indexTournoi[0]);
+	elementJoueurs->SetAttribute("PROFIL2", indexTournoi[1]);
+	elementJoueurs->SetAttribute("PROFIL3", indexTournoi[2]);
+	elementJoueurs->SetAttribute("PROFIL4", indexTournoi[3]);
+	//Lien avec le noeud configuration
+	elementConfig->LinkEndChild(elementJoueurs);
+
+
+	//Lien du noeud configuration au noeud principal
+	fichierTournoi.LinkEndChild(elementConfig);
+
+	fichierTournoi.SaveFile("../Exe/donnees/tournoi.xml");
+
+}
+//bool FacadeModele::getTypeValue()
+//{
+//	
+////	return typeVue_;
+//}
+void FacadeModele::activationVueOrbite()
+{
+	vue_ = vueOrbite_;
+}
+void FacadeModele::activationVueOrtho()
+{
+	vue_ = vueOrtho_;
+}
+
+void FacadeModele::initialiserSauvegardeTournoi()
+{
+	/*listeJoueursTournoi[0] = NoeudJoueur(false, "");
+	listeJoueursTournoi[1] = NoeudJoueur(false, "");
+	listeJoueursTournoi[2] = NoeudJoueur(false, "");
+	listeJoueursTournoi[3] = NoeudJoueur(false, "");*/
 }
 
 void FacadeModele::initaliserSono()
@@ -2937,30 +2884,31 @@ void FacadeModele::initaliserSono()
 	FMOD_System_CreateSound(leSysteme_, "media/anotherDRAAA.mp3", FMOD_CREATESAMPLE, 0, &but_);
 	FMOD_System_CreateSound(leSysteme_, "media/draa.mp3", FMOD_CREATESAMPLE, 0, &collisionMaillet_);
 	FMOD_System_CreateSound(leSysteme_, "media/littletimmy.mp3", FMOD_CREATESAMPLE, 0, &collisionPortail_);
-	FMOD_System_CreateSound(leSysteme_, "media/TT.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &sonDeFond_);
-	
+	FMOD_System_CreateSound(leSysteme_, "media/CARCR111.WAV", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &sonDeFond_);
+	//FMOD_System_CreateSound(leSysteme_, "media/TT.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &sonDeFond_);
+	//CARCR111
 	FMOD_Sound_SetLoopCount(sonDeFond_, -1997);
-	
+
 	//FMOD_System_PlaySound(leSysteme_, FMOD_CHANNEL_FREE, sonDeFond_, 0, NULL);
 }
 void FacadeModele::jouerSonMaillet()
 {
-	if (!modeTest_)
-	{
+	
+	
 		FMOD_System_PlaySound(leSysteme_, FMOD_CHANNELINDEX(1), collisionMaillet_, 0, NULL);
 		FMOD_System_GetChannel(leSysteme_, 1, &chaine_);
 		FMOD_Channel_SetVolume(chaine_, 0.30);
-	}
+	
 	
 }
 void FacadeModele::jouerSonMur()
 {
-	if (!modeTest_)
-	{
+	
+	
 		FMOD_System_PlaySound(leSysteme_, FMOD_CHANNELINDEX(2), collisionMur_, 0, NULL);
 		FMOD_System_GetChannel(leSysteme_, 2, &chaine_);
 		FMOD_Channel_SetVolume(chaine_, 0.30);
-	}
+	
 }
 void FacadeModele::jouerSonDeFond()
 {
@@ -2968,40 +2916,46 @@ void FacadeModele::jouerSonDeFond()
 	{
 		FMOD_System_PlaySound(leSysteme_, FMOD_CHANNELINDEX(3), sonDeFond_, 0, NULL);
 		FMOD_System_GetChannel(leSysteme_, 3, &chaine_);
+		FMOD_BOOL enPause;
+		FMOD_System_GetChannel(leSysteme_, 3, &chaine_);
+		FMOD_Channel_GetPaused(chaine_, &enPause);
+		if (enPause)
+		{
+			FMOD_Channel_SetPaused(chaine_, 0);
+		}
 		FMOD_Channel_SetVolume(chaine_, 0.14);
 	}
 }
 void FacadeModele::jouerSonPortail()
 {
-	if (!modeTest_)
-	{
+	
+	
 		FMOD_System_PlaySound(leSysteme_, FMOD_CHANNELINDEX(4), collisionPortail_, 0, NULL);
 		FMOD_System_GetChannel(leSysteme_, 4, &chaine_);
 		FMOD_Channel_SetVolume(chaine_, 0.30);
-	}
+	
 }
 void FacadeModele::jouerSonBut()
 {
-	if (!modeTest_)
-	{
 		FMOD_System_PlaySound(leSysteme_, FMOD_CHANNELINDEX(5), but_, 0, NULL);
 		FMOD_System_GetChannel(leSysteme_, 5, &chaine_);
 		FMOD_Channel_SetVolume(chaine_, 0.60);
-	}
 }
 void FacadeModele::mettreEnPause()
 {
 	FMOD_BOOL enPause;
 	FMOD_System_GetChannel(leSysteme_, 3, &chaine_);
 	FMOD_Channel_GetPaused(chaine_, &enPause);
-	if (enPause)
-	{
-		FMOD_Channel_SetPaused(chaine_, 0);
-	}
-	else
+	if (!enPause)
 	{
 		FMOD_Channel_SetPaused(chaine_, 1);
 	}
+
+	//FMOD_Channel_Stop(chaine_);
+	/*else
+	{
+		FMOD_Channel_SetPaused(chaine_, 0);
+	}*/
 }
 void FacadeModele::relacherMusique()
 {
@@ -3010,24 +2964,216 @@ void FacadeModele::relacherMusique()
 	FMOD_Sound_Release(collisionMaillet_);
 	FMOD_Sound_Release(collisionPortail_);
 	FMOD_Sound_Release(sonDeFond_);
+	FMOD_System_Close(leSysteme_);
+	FMOD_System_Release(leSysteme_);
 }
 
-void FacadeModele::enModeTest(bool modeEdition)
+
+
+
+
+
+void FacadeModele::chargementTournoi()
 {
-	modeTest_ = modeEdition;
+	for (size_t i = 0; i < 4; i++)
+	{
+		indexTournoi[i] = 0;
+	}
+		bool tmpBool = false;
+		int tmpInt = 0;
+
+		if (!utilitaire::fichierExiste("../Exe/donnees/tournoi.xml"))
+		{
+			assignerJoueur1Tournoi("", false, 1);
+			assignerJoueur2Tournoi("", false, 1);
+			assignerJoueur3Tournoi("", false, 1);
+			assignerJoueur4Tournoi("", false, 1);
+		}
+		else
+		{
+			tinyxml2::XMLDocument document;
+
+			//Lire tournoi.xml
+			document.LoadFile("../Exe/donnees/tournoi.xml");
+			const tinyxml2::XMLElement* elementTournoi{ document.FirstChildElement("tournoi") };
+
+			if (elementTournoi != nullptr)
+			{
+				const tinyxml2::XMLElement* elementJoueurs{ elementTournoi->FirstChildElement("joueurs") };
+				if (elementJoueurs != nullptr)
+				{
+					if (elementJoueurs->QueryBoolAttribute("TYPE1", &tmpBool) != tinyxml2::XML_SUCCESS)
+					{
+						std::cerr << "Erreur: TYPE1  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
+					}
+					if (elementJoueurs->QueryIntAttribute("PROFIL1", &tmpInt) != tinyxml2::XML_SUCCESS)
+					{
+						std::cerr << "Erreur: PROFIL1 : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
+					}
+					listeNomTournoi[0] = elementJoueurs->Attribute("NOM1");
+					assignerJoueur1Tournoi(listeNomTournoi[0].c_str(), tmpBool, tmpInt);
+					if (elementJoueurs->QueryBoolAttribute("TYPE2", &tmpBool) != tinyxml2::XML_SUCCESS)
+					{
+						std::cerr << "Erreur: TYPE2  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
+					}
+					if (elementJoueurs->QueryIntAttribute("PROFIL2", &tmpInt) != tinyxml2::XML_SUCCESS)
+					{
+						std::cerr << "Erreur: PROFIL2 : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
+					}
+					listeNomTournoi[1] = elementJoueurs->Attribute("NOM2");
+					assignerJoueur1Tournoi(listeNomTournoi[1].c_str(), tmpBool, tmpInt);
+					if (elementJoueurs->QueryBoolAttribute("TYPE3", &tmpBool) != tinyxml2::XML_SUCCESS)
+					{
+						std::cerr << "Erreur: TYPE3  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
+					}
+					if (elementJoueurs->QueryIntAttribute("PROFIL3", &tmpInt) != tinyxml2::XML_SUCCESS)
+					{
+						std::cerr << "Erreur: PROFIL3 : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
+					}
+					listeNomTournoi[2] = elementJoueurs->Attribute("NOM3");
+					assignerJoueur1Tournoi(listeNomTournoi[2].c_str(), tmpBool, tmpInt);
+					if (elementJoueurs->QueryBoolAttribute("TYPE4", &tmpBool) != tinyxml2::XML_SUCCESS)
+					{
+						std::cerr << "Erreur: TYPE4  : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
+					}
+					if (elementJoueurs->QueryIntAttribute("PROFIL4", &tmpInt) != tinyxml2::XML_SUCCESS)
+					{
+						std::cerr << "Erreur: PROFIL4 : chargement XML : attribut inexistant ou type incorrect. " << std::endl;
+					}
+					listeNomTournoi[3] = elementJoueurs->Attribute("NOM4");
+					assignerJoueur1Tournoi(listeNomTournoi[3].c_str(), tmpBool, tmpInt);
+				}
+			}
+		}
 }
 
-void FacadeModele::sizeFenetre(int x, int y)
+void FacadeModele::assignerJoueur1Tournoi(const char* nom, bool estVirtuel, int index)
 {
-	fenetreX_ = x;
-	fenetreY_ = y;
+	listeJoueursTournoi[0] = NoeudJoueur(false, "");
+	indexTournoi[0] = index;
+	listeJoueursTournoi[0].assignerNom(nom);
+	listeJoueursTournoi[0].setVirtuel(estVirtuel);
+}
+void FacadeModele::assignerJoueur2Tournoi(const char* nom, bool estVirtuel, int index)
+{
+	listeJoueursTournoi[1] = NoeudJoueur(false, "");
+	indexTournoi[1] = index;
+	listeJoueursTournoi[1].assignerNom(nom);
+	listeJoueursTournoi[1].setVirtuel(estVirtuel);
+}
+void FacadeModele::assignerJoueur3Tournoi(const char* nom, bool estVirtuel, int index)
+{
+	listeJoueursTournoi[2] = NoeudJoueur(false, "");
+	indexTournoi[2] = index;
+	listeJoueursTournoi[2].assignerNom(nom);
+	listeJoueursTournoi[2].setVirtuel(estVirtuel);
+}
+void FacadeModele::assignerJoueur4Tournoi(const char* nom, bool estVirtuel, int index)
+{
+	listeJoueursTournoi[3] = NoeudJoueur(false, "");
+	indexTournoi[3] = index;
+	listeJoueursTournoi[3].assignerNom(nom);
+	listeJoueursTournoi[3].setVirtuel(estVirtuel);
 }
 
-void FacadeModele::tempsJouer(char * tempsJouer)
+const char * FacadeModele::obtenirNomJoueur1Tournoi()
 {
-	tempsJouer_ = tempsJouer;
+	return listeNomTournoi[0].c_str();
 }
-	
+
+const char * FacadeModele::obtenirNomJoueur2Tournoi()
+{
+	return listeNomTournoi[1].c_str();
+}
+
+const char * FacadeModele::obtenirNomJoueur3Tournoi()
+{
+	return listeNomTournoi[2].c_str();
+}
+
+const char * FacadeModele::obtenirNomJoueur4Tournoi()
+{
+	return listeNomTournoi[3].c_str();
+}
+
+bool FacadeModele::obtenirTypeJoueur1Tournoi()
+{
+	return listeJoueursTournoi[0].estVirtuel();
+}
+
+bool FacadeModele::obtenirTypeJoueur2Tournoi()
+{
+	return listeJoueursTournoi[1].estVirtuel();
+}
+
+bool FacadeModele::obtenirTypeJoueur3Tournoi()
+{
+	return listeJoueursTournoi[2].estVirtuel();
+}
+
+bool FacadeModele::obtenirTypeJoueur4Tournoi()
+{
+	return listeJoueursTournoi[3].estVirtuel();
+}
+
+int FacadeModele::obtenirProfilJoueur1Tournoi()
+{
+	return indexTournoi[0];
+}
+
+int FacadeModele::obtenirProfilJoueur2Tournoi()
+{
+	return indexTournoi[1];
+}
+
+int FacadeModele::obtenirProfilJoueur3Tournoi()
+{
+	return indexTournoi[2];
+}
+
+int FacadeModele::obtenirProfilJoueur4Tournoi()
+{
+	return indexTournoi[3];
+}
+
+///////////////////////////////////////////////////////////////////////
+///
+/// @fn bool FacadeModele::obtenirPeutAfficherEclairage()
+///
+/// Cette fonction retourne si l'affichage de l'etat de l'eclairage
+/// au debogage est permise ou non
+/// 
+///
+/// @return retourne vrai s'il est possible d'afficher l'etat de l'eclairage
+/// a la console.
+///
+////////////////////////////////////////////////////////////////////////
+bool FacadeModele::obtenirPeutAfficherEclairage()
+{
+	return peutAfficherEclairage_;
+}
+
+///////////////////////////////////////////////////////////////////////
+///
+/// @fn const char* FacadeModele::nomDuProfil(int profilChoisi)
+///
+/// Cette fonction retourne le nom du profil souhaite qui est dans la 
+/// liste de profil.
+///
+/// @param[in] profilChoisi: le profil qu'on veut obtenir le nom
+/// dans la liste
+///
+/// @return le nom du profil choisi
+///
+////////////////////////////////////////////////////////////////////////
+const char* FacadeModele::nomDuProfil(int profilChoisi)
+{
+	//return listeProfils[profilChoisi].obtenirNom();
+	//return charProfils[profilChoisi];
+	//return "abc";
+	return nomProfils[profilChoisi].c_str();
+
+}
 ///////////////////////////////////////////////////////////////////////////////
 /// @}
 ///////////////////////////////////////////////////////////////////////////////

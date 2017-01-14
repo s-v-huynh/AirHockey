@@ -1,5 +1,5 @@
 ﻿///////////////////////////////////////////////////////////////////////////
-/// @file NoeudMaillet.cpp
+/// @file NoeudMailletVirtuel.cpp
 /// @author equipe06
 /// @date 2016-09-07
 /// @version 1.0
@@ -10,23 +10,21 @@
 #include "NoeudMailletVirtuel.h"
 #include "Utilitaire.h"
 #include "FacadeModele.h"
-
 #include "GL/glew.h"
 #include <cmath>
-
+#include "ArbreRenduINF2990.h"
 #include "Modele3D.h"
 #include "OpenGL_VBO.h"
-#include "FacadeModele.h"
 
 #define VITESSE_MAX 5.0
 #define VITESSE_MAX_MAILLET 20.0
 #define DISTANCE_DU_BUT 7.0
 int NoeudMailletVirtuel::compteurGreen_ = 0;
 int NoeudAbstrait::compteurMailletV_ = 0;
-class FacadeModele;
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn NoeudRondelle::NoeudRondelle(const std::string& typeNoeud)
+/// @fn NoeudMailletVirtuel::NoeudMailletVirtuel(const std::string& typeNoeud)
+/// : NoeudComposite { typeNoeud }
 ///
 /// Ce constructeur ne fait qu'appeler la version de la classe et base
 /// et donner des valeurs par défaut aux variables membres.
@@ -68,7 +66,7 @@ NoeudMailletVirtuel::NoeudMailletVirtuel(const std::string& typeNoeud)
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn NoeudRondelle::~NoeudTable()
+/// @fn NoeudMailletVirtuel::~NoeudMailletVirtuel()
 ///
 /// Ce destructeur désallouee la liste d'affichage du cube.
 ///
@@ -79,6 +77,17 @@ NoeudMailletVirtuel::~NoeudMailletVirtuel()
 {
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn NoeudMailletVirtuel::NoeudMailletVirtuel(NoeudMailletVirtuel& noeud)
+///
+/// Le constructeur par copie
+///
+/// @param[in] typeNoeud : Le type du noeud.
+///
+/// @return Aucune (constructeur).
+///
+////////////////////////////////////////////////////////////////////////
 NoeudMailletVirtuel::NoeudMailletVirtuel(NoeudMailletVirtuel& noeud)
 {
 	noeud.angleRotation_ = angleRotation_;
@@ -99,21 +108,24 @@ NoeudMailletVirtuel::NoeudMailletVirtuel(NoeudMailletVirtuel& noeud)
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudRondelle::afficherConcret() const
+/// @fn void NoeudMailletVirtuel::afficherConcret
+/// (const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 ///
 /// Cette fonction effectue le véritable rendu de l'objet.
 ///
 /// @param[in] vueProjection : La matrice qui permet de 
 ///					transformer le modèle à sa position voulue.
+///				attribuerCouleur : booleen
 ///
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-void NoeudMailletVirtuel::afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const
+void NoeudMailletVirtuel::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 {
 	glPushName(id_);
+	glPushMatrix();
 	// Appel à la version de la classe de base pour l'affichage des enfants.
-	NoeudComposite::afficherConcret(vueProjection, attribuerCouleur);
+	NoeudComposite::afficherConcret(matrVue, matrProjection, vueProjection, attribuerCouleur);
 
 	// Révolution autour du centre.
 	GLubyte couleurObjet[3];
@@ -125,19 +137,32 @@ void NoeudMailletVirtuel::afficherConcret(const glm::mat4& vueProjection, const 
 	couleurSelection[1] = couleurSelection_[1];
 	couleurSelection[2] = couleurSelection_[2];
 
-	auto modele = glm::rotate(transformationRelative_, 270.0f, glm::vec3(sqrtf(2), sqrtf(2), 0));
+	auto modele = glm::rotate(transformationRelative_, 0.0f, glm::vec3(1.0, 0.0, .0));
+	modele = glm::translate(modele, glm::vec3(0.0, 0.0, 0.0));
+
 	modele = glm::translate(modele, centreRotation_);
 	modele = glm::rotate(modele, angleRotation_, glm::vec3(0, 0, 1.0));
 	modele = glm::translate(modele, centreRotation_);
 	modele = glm::scale(modele, glm::vec3(rayonMailletV_, rayonMailletV_, rayonMailletV_));
 	// Affichage du modèle.
 	if (!FacadeModele::obtenirInstance()->modeEdition())
-	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, vueProjection*modele);
-
+	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, modele, matrVue, matrProjection, vueProjection*modele);
+	glPopMatrix();
 	glPopName();
 }
 
 //deplacement en y 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudMailletVirtuel::moveY(double temps)
+///
+/// Cette fonction deplaceer l'objet en y
+///
+/// @param[in] temps : double
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudMailletVirtuel::moveY(double temps)
 {
 	rondelle_ = dynamic_cast <NoeudRondelle*>(FacadeModele::obtenirInstance()->obtenirArbreRenduINF2990()->chercher("rondelle"));
@@ -148,7 +173,7 @@ void NoeudMailletVirtuel::moveY(double temps)
 	if (rondelle_->obtenirPositionRelative()[1] > table_->obtenirSommets()[1].x /*&& obtenirPositionRelative()[1]*/) {
 		positionDepY = rondelle_->obtenirPositionRelative();
 		position[0] = obtenirPositionRelative()[0];
-		position[1] = positionDepY[1]- 10;
+		position[1] = positionDepY[1]+ 4;
 		if (estDansLaTable())
 		assignerPositionRelative(position);
 	}
@@ -228,7 +253,7 @@ void NoeudMailletVirtuel::moveX(double temps)
 }
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudCube::animer(float temps)
+/// @fn void NoeudMailletVirtuel::animer(float temps)
 ///
 /// Cette fonction effectue l'animation du noeud pour un certain
 /// intervalle de temps.
@@ -253,10 +278,13 @@ void NoeudMailletVirtuel::animer(float temps)
 }
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudMaillet::attribuerCouleur()
+/// @fn NoeudMailletVirtuel::attribuerCouleur(
 ///
 /// Cette fonction attribut une couleur.
 ///
+/// @param[in] Aucun
+///
+/// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
 void NoeudMailletVirtuel::attribuerCouleur()
@@ -281,7 +309,7 @@ void NoeudMailletVirtuel::attribuerCouleur()
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn bool NoeudMaillet::verifierSelection(GLubyte couleurObjet[])
+/// @fn bool NoeudMailletVirtuel::verifierSelection(GLubyte couleurObjet[])
 ///
 /// Cette fonction verifie si le noeud est selectionne.
 ///
@@ -311,7 +339,7 @@ bool NoeudMailletVirtuel::verifierSelection(GLubyte couleurObjet[])
 }
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudMaillet::accepterVisiteur(VisiteurAbstrait* visiteur)
+/// @fn void NoeudMailletVirtuel::accepterVisiteur(VisiteurAbstrait* visiteur)
 ///
 /// Accepte le visiteur.
 ///
@@ -359,6 +387,8 @@ double NoeudMailletVirtuel::obtenirRayonMailletV()
 ///
 /// assigne une  probabilité de jeu au Maillet Virtuel
 ///
+/// @param[in] proba : double
+///
 /// @return rien
 ///
 ////////////////////////////////////////////////////////////////////////
@@ -377,6 +407,8 @@ void NoeudMailletVirtuel::assignerProbabiliteDeJeu(double proba)
 ///
 /// assigne la rondelle au Maillet Virtuel
 ///
+/// @param[in] rondelle : NoeudRondelle *
+///
 /// @return rien
 ///
 ////////////////////////////////////////////////////////////////////////
@@ -388,7 +420,9 @@ void NoeudMailletVirtuel::assignerRondelle(NoeudRondelle * rondelle)
 ///
 /// @fn double NoeudMailletVirtuel::assignerVitesse(double vitesse)
 ///
-/// assigne une  probabilité de jeu au Maillet Virtuel
+/// assigne une vitesse au Maillet Virtuel
+///
+/// @param[in] vitesse : double
 ///
 /// @return rien
 ///
@@ -410,7 +444,9 @@ double NoeudMailletVirtuel::obtenirVitesse()
 ///
 /// @fn double NoeudMailletVirtuel::assignerLargeurButs(int largeurButs)
 ///
-/// assigne une  probabilité de jeu au Maillet Virtuel
+/// assigne une largeur de but au Maillet Virtuel
+///
+/// @param[in] largeurButs : int
 ///
 /// @return rien
 ///
@@ -419,18 +455,53 @@ void NoeudMailletVirtuel::assignerLargeurButs(int largeurButs)
 {
 	largeurBut_ = largeurButs;
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudMailletVirtuel::assignerObjetRendu
+///     (modele::Modele3D const * modele, opengl::VBO const * liste)
+///
+/// assigne l'objet rendu au Maillet Virtuel
+///
+/// @param[in] modele : Modele3D
+///				liste : VBO
+///
+/// @return rien
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudMailletVirtuel::assignerObjetRendu(modele::Modele3D const * modele, opengl::VBO const * liste)
 {
 	NoeudAbstrait::assignerObjetRendu(modele, liste);
-	rayonMailletV_ = utilitaire::calculerSphereEnglobante(*modele_).rayon / 2;
+	rayonMailletV_ = utilitaire::calculerSphereEnglobante(*modele_).rayon;
 	redefinirSommets();
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudMailletVirtuel::redefinirSommets()
+///
+/// redefini les sommets
+///
+/// @param[in] aucun
+///
+/// @return rien
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudMailletVirtuel::redefinirSommets()
 {
 	rayonMailletV_ *= facteurEchelle_;
 	sommets_.erase(sommets_.begin(), sommets_.end());
 	sommets_.push_back(glm::dvec3(rayonMailletV_ + obtenirPositionRelative().x, rayonMailletV_ + obtenirPositionRelative().y, obtenirPositionRelative().z));
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn bool NoeudMailletVirtuel::estDansLaTable()
+///
+/// verifie si le noeud est dans la table
+///
+/// @param[in] aucun
+///
+/// @return rien
+///
+////////////////////////////////////////////////////////////////////////
 bool NoeudMailletVirtuel::estDansLaTable()
 {
 	if (estModifier_) {

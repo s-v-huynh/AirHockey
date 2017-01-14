@@ -1,0 +1,65 @@
+\hypertarget{class_noeud_portail}{}\section{Noeud\+Portail Class Reference}
+\label{class_noeud_portail}\index{Noeud\+Portail@{Noeud\+Portail}}
+Inheritance diagram for Noeud\+Portail\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_noeud_portail}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__inf2990_ga1ae16fc50c4afaf88b5d4068868acac1}{Noeud\+Portail} (const std\+::string \&type\+Noeud)
+\begin{DoxyCompactList}\small\item\em Constructeur à partir du type du noeud. \end{DoxyCompactList}\item 
+\hyperlink{group__inf2990_ga539e125201edd719886ae550eab35a28}{$\sim$\+Noeud\+Portail} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+void \hyperlink{group__inf2990_ga04316987f7e4564c3e5c82c48cc43496}{copier\+Attributs} (\hyperlink{class_noeud_portail}{Noeud\+Portail} \&destination)
+\item 
+virtual void \hyperlink{group__inf2990_ga996fc8426391dd48ef70cfbd5132fb86}{afficher\+Concret} (const glm\+::mat4 \&vue\+Projection, const bool \&attribuer\+Couleur) const
+\begin{DoxyCompactList}\small\item\em Affiche le cube. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_ga471730293ee98a18df3b4273db841f26}{accepter\+Visiteur} (\hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait} $\ast$visiteur)
+\item 
+virtual void \hyperlink{group__inf2990_ga74228e2bf740f880cf4d73f3f6ca4dc9}{animer} (float temps)
+\begin{DoxyCompactList}\small\item\em Effectue l\textquotesingle{}animation du cube. \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_ga40161c90da1c2816d186b7a72ff63abe}{redessiner} ()
+\item 
+\hypertarget{class_noeud_portail_a51f50d27f1324691e3e638a5580b5319}{}\label{class_noeud_portail_a51f50d27f1324691e3e638a5580b5319} 
+bool {\bfseries obtenir\+Attraction} ()
+\item 
+float \hyperlink{group__inf2990_gae66f8d1fe91f71fd8692a93d34be4aca}{obtenir\+Rayon\+Attraction} ()
+\begin{DoxyCompactList}\small\item\em Permet d\textquotesingle{}obtenir le rayon d\textquotesingle{}attraction des portails. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{group__inf2990_ga18f1b34d1f58ce8e140ddb3c9c4a5c1f}{verifier\+Selection} (G\+Lubyte couleur\+Objet\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{class_noeud_portail}{Noeud\+Portail} $\ast$ \hyperlink{group__inf2990_ga71659ff8e292f9dc20b8671c9666610e}{get\+Frere} ()
+\item 
+void \hyperlink{group__inf2990_gac969a9c5073e36955b4ed940977e8d3d}{set\+Frere} (\hyperlink{class_noeud_portail}{Noeud\+Portail} $\ast$noeud)
+\item 
+virtual bool \hyperlink{group__inf2990_gaafc08974dc9e545b39c47fab553b7ce7}{est\+Dans\+La\+Table} ()
+\begin{DoxyCompactList}\small\item\em indique si le portail est dans la table \end{DoxyCompactList}\item 
+\hypertarget{class_noeud_portail_a8e54328132a8ea8884ad73d5b72223cb}{}\label{class_noeud_portail_a8e54328132a8ea8884ad73d5b72223cb} 
+void \hyperlink{class_noeud_portail_a8e54328132a8ea8884ad73d5b72223cb}{activer\+Attraction} ()
+\begin{DoxyCompactList}\small\item\em activer l\textquotesingle{}atraction des objets \end{DoxyCompactList}\item 
+\hypertarget{class_noeud_portail_a609df36c1312d5e135ac5359b2b4a2f4}{}\label{class_noeud_portail_a609df36c1312d5e135ac5359b2b4a2f4} 
+void \hyperlink{class_noeud_portail_a609df36c1312d5e135ac5359b2b4a2f4}{desactiver\+Attraction} ()
+\begin{DoxyCompactList}\small\item\em desactiver l\textquotesingle{}attraction des objets \end{DoxyCompactList}\item 
+virtual void \hyperlink{group__inf2990_ga0775c1f162d3a2dff268ca6d6be39ec5}{modifier\+Rayon} (float rayon\+Portail)
+\item 
+void \hyperlink{group__inf2990_ga49fe169243702c8e1dd06bcbf853af12}{modifier\+Vitesse\+Rotation} (float vitesse)
+\item 
+virtual float \hyperlink{group__inf2990_gaf66586077aacb76da75af69a8208a382}{obtenir\+Rayon} ()
+\item 
+virtual void \hyperlink{group__inf2990_ga9f46d0cf9693d06f5013879649c40361}{redefinir\+Sommets} ()
+\item 
+void \hyperlink{group__inf2990_ga5158745a70ba3a3ee40dadfd5200a991}{assigner\+Objet\+Rendu} (modele\+::\+Modele3D const $\ast$modele, opengl\+::\+V\+BO const $\ast$liste) override
+\item 
+void \hyperlink{group__inf2990_ga49b4b2131b047611ec2d9012cc6eff54}{afficher\+Rayon\+Attraction} (bool \hyperlink{group__inf2990_ga7b61f3fcf39176bc4683e15a773c4900}{afficher})
+\item 
+void \hyperlink{group__inf2990_ga2192196f4cc31f39bcd7a75e98a4ac1a}{assigner\+Cercle} (\hyperlink{class_noeud_cercle}{Noeud\+Cercle} $\ast$noeud)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_portail_8h}{Noeud\+Portail.\+h}\item 
+Sources/\+D\+L\+L/\+Arbre/\+Noeuds/\hyperlink{_noeud_portail_8cpp}{Noeud\+Portail.\+cpp}\end{DoxyCompactItemize}

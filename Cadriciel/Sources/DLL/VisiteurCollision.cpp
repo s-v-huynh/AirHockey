@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////////
+/// @file VisiteurCollision.cpp
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
 #include "VisiteurCollision.h"
 #include "Utilitaire.h"
 #include "AideGL.h"
@@ -6,15 +15,8 @@
 #include "GL\glew.h"
 #include "GL\wglew.h"
 
-#include "NoeudAbstrait.h"
-#include "NoeudTable.h"
-#include "NoeudRondelle.h"
-#include "NoeudPortail.h"
-#include "NoeudMuret.h"
-#include "NoeudMaillet.h"
+#include "NoeudTypes.h"
 #include "NoeudMailletVirtuel.h"
-#include "NoeudBonusAccelerateur.h"
-#include "NoeudComposite.h"
 #include "../Application/FacadeModele.h"
 
 

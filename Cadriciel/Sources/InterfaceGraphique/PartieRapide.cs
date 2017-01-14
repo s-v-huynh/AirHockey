@@ -28,7 +28,7 @@ namespace InterfaceGraphique
 
         public void MettreAJour(double tempsInterAffichage)
         {
-            if (!Program.tracerRectangle)
+            if (!Program.tracerRectangle && Visible)
             {
                 try
                 {

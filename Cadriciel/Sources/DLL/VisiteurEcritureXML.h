@@ -1,32 +1,31 @@
+//////////////////////////////////////////////////////////////////////////
+/// @file VisiteurEcritureXML.h
+/// @author equipe06
+/// @date 2016-09-07
+/// @version 1.0
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+///////////////////////////////////////////////////////////////////////////
 #ifndef	VISITEUR_ECRITURE_XML_H
 #define VISITEUR_ECRITURE_XML_H
 
 
 #include "VisiteurAbstrait.h"
-#include "NoeudAbstrait.h"
-#include "NoeudBonusAccelerateur.h"
-#include "NoeudComposite.h"
-#include "NoeudMaillet.h"
-#include "NoeudMuret.h"
-#include "NoeudPortail.h"
-#include "NoeudRondelle.h"
-#include "NoeudTable.h"
 #include "Utilitaire.h"
-#include "ArbreRenduINF2990.h"
-#include "tinyxml2.h"
-
+#include "../../tinyxml2/include/tinyxml2.h"
 class VisiteurEcritureXML : public VisiteurAbstrait
 {
 
 public:
 
-	//constructor
+	///constructor
 	VisiteurEcritureXML(tinyxml2::XMLElement* racine);
-	//destructeur
+	///destructeur
 	~VisiteurEcritureXML();
 
 
-	//visites des differents noeuds
+	///visites des differents noeuds
 	virtual void visiter(NoeudComposite* noeud) ;
 	virtual void visiter(NoeudMaillet* noeud) ;
 	virtual void visiter(NoeudMuret* noeud) ;
@@ -35,6 +34,7 @@ public:
 	virtual void visiter(NoeudTable* noeud) ;
 	virtual void visiter(NoeudBonusAccelerateur* noeud) ;
 	
+	///Racine
 	tinyxml2::XMLElement* racine_;
 
 };

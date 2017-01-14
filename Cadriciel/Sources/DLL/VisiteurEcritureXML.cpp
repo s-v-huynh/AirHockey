@@ -10,13 +10,8 @@
 
 #include "VisiteurEcritureXML.h"
 #include "ArbreRenduINF2990.h"
-#include "NoeudMaillet.h"
-#include "NoeudTable.h"
-#include "NoeudMuret.h"
-#include "NoeudRondelle.h"
-#include "NoeudBonusAccelerateur.h"
-#include "NoeudPortail.h"
-
+#include "NoeudTypes.h"
+#include "tinyxml2.h"
 #include <iostream>
 
 
@@ -223,7 +218,7 @@ void VisiteurEcritureXML::visiter(NoeudTable * noeud)
 
 	//enfant->SetAttribute("PT_C_X0", )
 
-	enfant->SetAttribute("X", noeud->obtenirPositionRelative()[0]);
+	/*enfant->SetAttribute("X", noeud->obtenirPositionRelative()[0]);
 	enfant->SetAttribute("Y", noeud->obtenirPositionRelative()[1]);
 	enfant->SetAttribute("Z", noeud->obtenirPositionRelative()[2]);
 	enfant->SetAttribute("ANGLE_ROTATION", noeud->obtenirAngleRotation());
@@ -232,7 +227,7 @@ void VisiteurEcritureXML::visiter(NoeudTable * noeud)
 	enfant->SetAttribute("COEFFICIENT_REBONDISSEMENT", noeud->obtenirCoefRebondissement());
 	enfant->SetAttribute("COEFFICIENT_FRICTION", noeud->obtenirFriction());
 	racine_->LinkEndChild(enfant);
-	racine_ = enfant;
+	racine_ = enfant;*/
 
 	for (unsigned int i = 0; i < noeud->obtenirNombreEnfants(); i++)
 	{
@@ -266,4 +261,6 @@ void VisiteurEcritureXML::visiter(NoeudBonusAccelerateur * noeud)
 	racine_ = enfant;
 }
 
-
+////////////////////////////////////////////////
+/// @}
+////////////////////////////////////////////////

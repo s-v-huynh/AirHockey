@@ -54,6 +54,7 @@ namespace vue {
 		xMin_ = -largeurFenetre/2;
 		yMax_ = hauteurFenetre /2;
 		yMin_  = -hauteurFenetre /2;
+		//appliquer();
 	}
 
 
@@ -299,7 +300,16 @@ namespace vue {
 		glOrtho(xMin, xMax, ymax, yMin, zAvant_, zArriere_);
 		glViewport(0, 0, largeur, hauteur);
 	}
+	void ProjectionOrtho::deplacer(double deplacementX, double deplacementY)
+	{
+		// À IMPLANTER.
 
+		xMax_ += deplacementX;
+		xMin_ += deplacementX;
+		yMax_ += deplacementY;
+		yMin_ += deplacementY;
+		obtenirMatrice();
+	}
 
 	////////////////////////////////////////////////////////////////////////
 	///
@@ -317,6 +327,16 @@ namespace vue {
 		return glm::ortho(-largeurFenetre_ / 2, largeurFenetre_ / 2,
 			-hauteurFenetre_ / 2, hauteurFenetre_ / 2,
 			zAvant_, zArriere_);
+	/*	glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		auto projectionMatrix = glm::ortho(-largeurFenetre_ / 2, largeurFenetre_ / 2,
+			-hauteurFenetre_ / 2, hauteurFenetre_ / 2,
+			zAvant_, zArriere_);
+		glLoadMatrixd(&projectionMatrix[0][0]);
+		glPopMatrix();
+		return projectionMatrix;*/
+		
+
 	}
 
 
@@ -347,7 +367,7 @@ namespace vue {
 	/// @return Aucune.
 	///
 	////////////////////////////////////////////////////////////////////////
-	void ProjectionOrtho::appliquer()
+	void ProjectionOrtho::appliquer()const
 	{
 		/*glm::ortho(-largeurFenetre_ / 2, largeurFenetre_ / 2,
 			-hauteurFenetre_ / 2, hauteurFenetre_ / 2,

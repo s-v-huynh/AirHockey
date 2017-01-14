@@ -51,9 +51,9 @@ namespace vue {
 			const glm::ivec2& coin2);
 
 		/// Déplacement dans le plan XY par rapport à la vue.
-		virtual void deplacerXY(double deplacementX, double deplacementY);
+		virtual void deplacerXY(double deplacementX, double deplacementY, int x, int y);
 		/// Déplacement dans le plan XY par rapport à la vue.
-		virtual void deplacerXY(const glm::ivec2& deplacement);
+		virtual void deplacerXY(const glm::ivec2& deplacement, int x, int y);
 		/// Déplacement selon l'axe des Z par rapport à la vue.
 		virtual void deplacerZ(double deplacement);
 		/// Rotation selon les axes des X et des Y par rapport à la vue.
@@ -62,8 +62,20 @@ namespace vue {
 		virtual void rotaterXY(const glm::ivec2& rotation);
 		/// Rotation selon l'axe des Z par rapport à la vue.
 		virtual void rotaterZ(double rotation);
-
-
+		virtual void definirProjection()const;
+		/// Application de la caméra
+		virtual void appliquerCamera() const;
+		/// Deplacement de la fenetre virtuelle avec la touche haut.
+		virtual void deplacerClavier(double x, double y) ;
+		/// Deplacement de la fenetre virtuelle avec la touche Bas.
+		virtual void deplacerClavierBas(double x, double y) ;
+		/// Deplacement de la fenetre virtuelle avec la touche Droite.
+		virtual void deplacerClavierDroite(double x, double y) ;
+		/// Deplacement de la fenetre virtuelle avec la touche Gauche.
+		virtual void deplacerClavierGauche(double x, double y) ;
+		//void deplacerSouris(glm::dvec3 dSouris);
+		///Deplacement de la vue avec la souris
+		virtual void deplacerSouris(glm::dvec3 dSouris);
 	private:
 		/// Projection utilisée pour cette vue.
 		ProjectionOrtho projection_;

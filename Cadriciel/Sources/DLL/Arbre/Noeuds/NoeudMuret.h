@@ -31,7 +31,7 @@ public:
 	~NoeudMuret();
 	void copierAttributs(NoeudMuret& destination);
 	/// Affiche le cube.
-	virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
+	virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const;
 	/// Effectue l'animation du cube.
 	virtual void animer(float temps);
 	bool verifierSelection(GLubyte couleurObjet[]);
@@ -81,6 +81,18 @@ private:
 	glm::dvec3 debutInit_, finInit_;
 };
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn inline void NoeudMuret::assignerObjetRendu(modele::Modele3D const * modele, opengl::VBO const * liste)
+///
+/// Cette fonction retourne l'ensemble des deux points de début et de fin du muret
+///
+/// @param[in] modele : Modele3D
+///			   liste : VBO
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 inline void NoeudMuret::assignerObjetRendu(modele::Modele3D const * modele, opengl::VBO const * liste)
 {
 	NoeudAbstrait::assignerObjetRendu(modele, liste);

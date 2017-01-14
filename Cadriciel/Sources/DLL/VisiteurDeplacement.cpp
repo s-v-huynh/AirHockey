@@ -14,6 +14,7 @@
 #include "GL\glew.h"
 #include "GL\glew.h"
 #include "GL\wglew.h"
+#include "NoeudTypes.h"
 
 ////////////////////////////////////////////////////////////////////////
 ///
@@ -62,10 +63,6 @@ void VisiteurDeplacement::modifierPosition(glm::dvec3 position)
 {
 	position_ = position;
 }
-
-
-
-
 
 ////////////////////////////////////////////////////////////////////////
 ///
@@ -206,3 +203,7 @@ void VisiteurDeplacement::visiter(NoeudBonusAccelerateur* noeud) {
 		noeud->assignerPositionRelative(position_);
 	noeud->modifier();
 }
+
+////////////////////////////////////////////////
+/// @}
+////////////////////////////////////////////////

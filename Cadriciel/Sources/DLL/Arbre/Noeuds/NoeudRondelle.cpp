@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-/// @file NoeudTable.cpp
+/// @file NoeudRondelle.cpp
 /// @author equipe06
 /// @date 2016-09-07
 /// @version 1.0
@@ -52,10 +52,32 @@ NoeudRondelle::NoeudRondelle(const std::string& typeNoeud)
 	vitesseMax_ = VITESSE_DEPLACEMENT_MAXIMAL;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn NoeudRondelle::NoeudRondelle(const NoeudRondelle &)
+///
+/// Ce constructeur par copie
+///
+/// @param[in] typeNoeud : Le type du noeud.
+///
+/// @return Aucune (constructeur par copie).
+///
+////////////////////////////////////////////////////////////////////////
 NoeudRondelle::NoeudRondelle(const NoeudRondelle &)
 {
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudRondelle::copierAttributs(NoeudRondelle& destination)
+///
+/// Cette fonction permet de copier les attributs d'un noeud
+///
+/// @param[in] destination : Le type du noeud.
+///
+/// @return Aucune 
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudRondelle::copierAttributs(NoeudRondelle& destination)
 {
     destination.angleRotation_ = angleRotation_;
@@ -68,11 +90,13 @@ void NoeudRondelle::copierAttributs(NoeudRondelle& destination)
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn NoeudAraignee::~NoeudTable()
+/// @fn NoeudRondelle::~NoeudRondelle()
 ///
-/// Ce destructeur d�sallouee la liste d'affichage du cube.
+/// Destructeur
 ///
-/// @return Aucune (destructeur).
+/// @param[in] Aucun
+///
+/// @return Aucune
 ///
 ////////////////////////////////////////////////////////////////////////
 NoeudRondelle::~NoeudRondelle()
@@ -82,21 +106,24 @@ NoeudRondelle::~NoeudRondelle()
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudAraignee::afficherConcret() const
+/// @fn void NoeudRondelle::afficherConcret(const
+/// glm::mat4& vueProjection, const bool& attribuerCouleur)const
 ///
 /// Cette fonction effectue le v�ritable rendu de l'objet.
 ///
 /// @param[in] vueProjection : La matrice qui permet de 
 ///					transformer le mod�le � sa position voulue.
+///				attribuerCouleur : attribuer une couleur au noeud
 ///
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-void NoeudRondelle::afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur)const
+void NoeudRondelle::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur)const
 {
 	glPushName(id_);
+	glPushMatrix();
 	// Appel � la version de la classe de base pour l'affichage des enfants.
-	NoeudComposite::afficherConcret(vueProjection, attribuerCouleur);
+	NoeudComposite::afficherConcret(matrVue, matrProjection, vueProjection, attribuerCouleur);
 	GLubyte couleurObjet[3];
 	couleurObjet[0] = couleurRondelle_[0];
 	couleurObjet[1] = couleurRondelle_[1];
@@ -106,14 +133,15 @@ void NoeudRondelle::afficherConcret(const glm::mat4& vueProjection, const bool& 
 	couleurSelection[1] = couleurSelection_[1];
 	couleurSelection[2] = couleurSelection_[2];
 	// R�volution autour du centre.
-	auto modele = glm::rotate(transformationRelative_, 0.0f, glm::vec3(sqrtf(2), sqrtf(2), 0));
+	auto modele = glm::rotate(transformationRelative_, 0.0f, glm::vec3(1.0, 0.0, .0));
 	modele = glm::translate(modele, centreRotation_);
 	modele = glm::rotate(modele, angleRotation_, glm::vec3(0.0f, 0.0f, -1.0f));
 	modele = glm::translate(modele, centreRotation_);
 	modele = glm::scale(transformationRelative_, glm::vec3(rayonRondelle_, rayonRondelle_, rayonRondelle_));
 	// Affichage du mod�le.
 	if (!FacadeModele::obtenirInstance()->modeEdition())
-	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, vueProjection*modele);
+	vbo_->dessiner(estSelectionne(), attribuerCouleur, couleurObjet, couleurSelection, modele, matrVue, matrProjection, vueProjection*modele);
+	glPopMatrix();
 	glPopName();
 }
 
@@ -167,6 +195,17 @@ void NoeudRondelle::animer(float temps)
 
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudRondelle::redessiner()
+///
+/// Cette fonction permet de redessiner
+///
+/// @param[in] aucun
+///
+/// @return Aucune.
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudRondelle::redessiner()
 {
 	/*table_ = dynamic_cast<NoeudTable*>(obtenirParent());
@@ -207,6 +246,17 @@ void NoeudRondelle::modifierRayonRondelle(double rayonRondelle)
 	rayonRondelle_ = rayonRondelle;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudRondelle::redefinirSommets()
+///
+/// Cette fonction permet de redefinir les sommets du noeud
+///
+/// @param[in] Aucun
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudRondelle::redefinirSommets()
 {
 	sommets_.erase(sommets_.begin(), sommets_.end());
@@ -218,6 +268,17 @@ void NoeudRondelle::redefinirSommets()
 	sommets_.push_back(glm::dvec3(modeleRondelle.coinMin.x, modeleRondelle.coinMin.y, modeleRondelle.coinMin.z));
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn bool NoeudRondelle::estDansLaTable()
+///
+/// Cette fonction verifier si le noeud est dans la table
+///
+/// @param[in] Aucun
+///
+/// @return bool
+///
+////////////////////////////////////////////////////////////////////////
 bool NoeudRondelle::estDansLaTable()
 {
 	if (estModifier_)
@@ -232,7 +293,9 @@ bool NoeudRondelle::estDansLaTable()
 ///
 /// Cette fonction permet d'obtenir le rayon de la rondelle.
 ///
-/// @return Le rayon d'attraction
+/// @param[in] Aucun
+///
+/// @return Le rayon d'attraction (double)
 ///
 ////////////////////////////////////////////////////////////////////////
 double NoeudRondelle::obtenirRayonRondelle()
@@ -240,21 +303,58 @@ double NoeudRondelle::obtenirRayonRondelle()
 	return rayonRondelle_;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudRondelle::modifierVitesse(glm::dvec2 vitesse)
+///
+/// Cette fonction permet de modifier la vitesse de la rondelle.
+///
+///
+/// @param[in] vitesse : dvec2
+
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudRondelle::modifierVitesse(glm::dvec2 vitesse)
 {
 	vitesseRondelle_ = vitesse;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn glm::dvec2 NoeudRondelle::obtenirVitesse()
+///
+/// Cette fonction permet d'obtenir la vitesse de la rondelle.
+///
+///
+/// @param[in] vitesse : dvec2
+
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 glm::dvec2 NoeudRondelle::obtenirVitesse()
 {
 	return vitesseRondelle_;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudRondelle::assignerObjetRendu(modele::Modele3D const * modele, opengl::VBO const * liste)
+///
+/// Cette fonction d'assigner l'objet rendu
+///
+///
+/// @param[in] modele : Modele3D
+///				liste : VBO
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudRondelle::assignerObjetRendu(modele::Modele3D const * modele, opengl::VBO const * liste)
 {
 	NoeudAbstrait::assignerObjetRendu(modele, liste);
 	sphere_ = utilitaire::calculerSphereEnglobante(*modele_);
-	rayonRondelle_ = sphere_.rayon;
+	rayonRondelle_ = sphere_.rayon*2;
 }
 
 ////////////////////////////////////////////////////////////////////////

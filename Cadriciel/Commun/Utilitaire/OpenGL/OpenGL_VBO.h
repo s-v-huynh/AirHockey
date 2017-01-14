@@ -19,12 +19,15 @@
 #include "OpenGL_Nuanceur.h"
 #include "OpenGL_Programme.h"
 
+class FacadeModele;
+
 namespace modele{
 	class  Modele3D;
 	class  Noeud;
 	struct Materiau;
 }
 
+class FacadeModele;
 namespace opengl{
 	///////////////////////////////////////////////////////////////////////////
 	/// @class VBO
@@ -52,7 +55,7 @@ namespace opengl{
 		/// Permet de charger les données/commandes sur la carte graphique
 		virtual void charger();
 		/// Permet d'effectuer le dessin du modèle 3D
-		virtual void dessiner(bool estSelectionne, bool attribCouleur, GLubyte couleurObjet[], GLubyte couleurSelection[], const glm::mat4& vueProjection) const;
+		virtual void dessiner(bool estSelectionne, bool attribCouleur, GLubyte couleurObjet[], GLubyte couleurSelection[], const glm::mat4& matrModel, const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection) const;
 		/// Permet de relâcher les données/commandes sur la crate graphique
 		virtual void liberer();
 
@@ -66,7 +69,7 @@ namespace opengl{
 		/// Création récursive des VBO
 		void creerVBO(modele::Noeud const& noeud);
 		/// Dessin récursif
-		void dessiner(modele::Noeud const& noeud, unsigned int& bufferIndex, bool estSelectionne, bool attribCouleur, GLubyte couleurObjet[], GLubyte couleurSelection[], const glm::mat4& vueProjection) const;
+		void dessiner(modele::Noeud const& noeud, unsigned int& bufferIndex, bool estSelectionne, bool attribCouleur, GLubyte couleurObjet[], GLubyte couleurSelection[], const glm::mat4& matrModel, const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection) const;
 
 		/// Permet de vérifier si l'identifiant est valide
 		inline bool identifiantEstValide() const;
@@ -75,6 +78,7 @@ namespace opengl{
 		modele::Modele3D const* modele_{ nullptr };
 		/// Les identifiants OpenGL.
 		std::vector<unsigned int> handles_;
+		FacadeModele* facade;
 
 		/// Nuanceurs gérant l'affichage des VBO
 		static Programme programme_;

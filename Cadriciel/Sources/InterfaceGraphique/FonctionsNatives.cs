@@ -1,4 +1,13 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////
+/// @file FonctionNatives.cs
+/// @author Equipe 6
+/// @date 2016-11-10
+/// @version 1.0 
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+//////////////////////////////////////////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -125,6 +134,12 @@ namespace InterfaceGraphique
         public static extern void coefRebondissementBouton(double coefRebondissement);
 
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void deplacerSouris(int x, int y);
+
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void sauverSouris();
+
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern int obtenirPositionObjetX();
 
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -161,7 +176,7 @@ namespace InterfaceGraphique
         public static extern void initialiserChargement(string nomFichier);
 
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void deplacerXY(double deplacementX, double deplacementY);
+        public static extern void deplacerXY(double deplacementX, double deplacementY,int x,int y);
 
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void zoomInElas();
@@ -171,6 +186,10 @@ namespace InterfaceGraphique
 
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void selectionElastique();
+
+
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void deplacerClavier(double x, double y);
 
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void chargerConfigurationOptions();
@@ -199,7 +218,7 @@ int nbButs, string haut, string bas, string gauche, string droite, bool estVirtu
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern int obtenirNbButs();
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern String obtenirHaut();
+        public static extern IntPtr obtenirHaut();
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr obtenirBas();
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -365,12 +384,32 @@ int nbButs, string haut, string bas, string gauche, string droite, bool estVirtu
         public static extern void enModeTest(bool modeEdition);
 
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void setTypeValue(bool value);
+
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void activationVueOrbite();
+
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void activationVueOrtho();
+
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void sizeFenetre(int x, int y);
 
         [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void tempsJouer(string tempsJouer);
 
-        //[DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
-       // public static extern void enModeTest(bool modeTest);
+    
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool obtenirEtatAmbiante();
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool obtenirDirectionnelActive();
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool obtenirEtatSpot();
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void modifierEtatAmbiante(bool etat);
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void modifierEtatDirectionnelle(bool etat);
+        [DllImport(@"Noyau.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void modifierEtatSpot(bool etat);
     }
 }

@@ -9,12 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////
 #include "VisiteurSuppression.h"
 #include "ArbreRenduINF2990.h"
-#include "NoeudTable.h"
-#include "NoeudMaillet.h"
-#include "NoeudMuret.h"
-#include "NoeudRondelle.h"
-#include "NoeudBonusAccelerateur.h"
-#include "NoeudPortail.h"
+#include "NoeudTypes.h"
 
 ////////////////////////////////////////////////////////////////////////
 ///
@@ -46,8 +41,7 @@ VisiteurSuppression::~VisiteurSuppression() {
 ///
 /// @fn void VisiteurSuppression::visiter(NoeudComposite *t)
 ///
-/// Cette methode permet d'appliquer l'algorithme de selection
-/// à un objet de la classe NoeudPortail
+/// Le visiteur visite le noeud et l'efface
 ///
 /// @param[in] t : le noeud qui sera supprime.
 ///

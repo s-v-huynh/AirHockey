@@ -13,6 +13,8 @@
 #include "UsineNoeudTable.h"
 #include "UsineNoeudMaillet1.h"
 #include "UsineNoeudMailletVirtuel.h"
+#include "UsinePointControl.h"
+
 #include "UsineNoeudMuret.h"
 #include "UsineNoeudBonusAccelerateur.h"
 #include "UsineNoeudRondelle.h"
@@ -36,6 +38,15 @@ const std::string ArbreRenduINF2990::NOM_RONDELLE{ "rondelle" };
 const std::string ArbreRenduINF2990::NOM_MAILLET_1{ "maillet" };
 const std::string ArbreRenduINF2990::NOM_MAILLET_V{ "mailletV" };
 const std::string ArbreRenduINF2990::NOM_MAILLET_2{ "maillet2" };
+const std::string ArbreRenduINF2990::NOM_POINTCONTROL_0{ "point0" }; const std::string ArbreRenduINF2990::NOM_POINTCONTROL_1{ "point1" };
+const std::string ArbreRenduINF2990::NOM_POINTCONTROL_2{ "point2" }; const std::string ArbreRenduINF2990::NOM_POINTCONTROL_3{ "point3" };
+const std::string ArbreRenduINF2990::NOM_POINTCONTROL_4{ "point4" }; const std::string ArbreRenduINF2990::NOM_POINTCONTROL_5{ "point5" };
+const std::string ArbreRenduINF2990::NOM_POINTCONTROL_6{ "point6" }; const std::string ArbreRenduINF2990::NOM_POINTCONTROL_7{ "point7" };
+const std::string ArbreRenduINF2990::NOM_POINTCONTROL_8{ "point8" }; const std::string ArbreRenduINF2990::NOM_POINTCONTROL{ "poin" };
+
+
+
+
 
 /// La chaîne représentant le type de bonus.
 const std::string ArbreRenduINF2990::NOM_BONUS{ "bonus" };
@@ -62,23 +73,17 @@ const std::string ArbreRenduINF2990::NOM_CERCLE{ "cercle" };
 ArbreRenduINF2990::ArbreRenduINF2990()
 {
 	// Construction des usines
-	//ajouterUsine(NOM_TABLE, new UsineNoeud<NoeudTable>{ NOM_TABLE, std::string{ "media/table7.obj" } });
-	//ajouterUsine(NOM_PORTAIL, new UsineNoeud<NoeudPortail>{ NOM_PORTAIL, std::string{ "media/portail1.obj" } });
-	//ajouterUsine(NOM_PORTAIL_SELECTIONNE, new UsineNoeud<NoeudPortail>{ NOM_PORTAIL_SELECTIONNE, std::string{ "media/portail2.obj" } });
-	//ajouterUsine(NOM_MAILLET_1, new UsineNoeud<NoeudMaillet>{ NOM_MAILLET_1, std::string{ "media/maillet.obj" } });
-	//ajouterUsine(NOM_MAILLET_2, new UsineNoeud<NoeudMaillet>{ NOM_MAILLET_2, std::string{ "media/maillet1.obj" } });
-	//ajouterUsine(NOM_BONUS, new UsineNoeud<NoeudBonusAccelerateur>{ NOM_BONUS, std::string{ "media/accelerator2.obj" } });
-
-
-	//ajouterUsine(NOM_MURET, new UsineNoeud<NoeudMuret>{ NOM_MURET, std::string{ "media/maillet.obj" } });
-	//NoeudAbstrait* noeudPortailSelect = creerNoeud(NOM_PORTAIL_SELECTIONNE);
-	//listObjetSelecitonne[NOM_PORTAIL] = noeudPortailSelect->obtenirVBO();
 
 	ajouterUsine(NOM_PORTAIL, new UsineNoeudPortail(NOM_PORTAIL));
 	ajouterUsine(NOM_TABLE, new UsineNoeudTable(NOM_TABLE));
 	ajouterUsine(NOM_MAILLET_1, new UsineNoeudMaillet1(NOM_MAILLET_1));
 	ajouterUsine(NOM_MAILLET_2, new UsineNoeudMaillet1(NOM_MAILLET_2));
-
+	ajouterUsine(NOM_POINTCONTROL, new UsinePointControl(NOM_POINTCONTROL));
+	ajouterUsine(NOM_POINTCONTROL_0, new UsinePointControl(NOM_POINTCONTROL_0));ajouterUsine(NOM_POINTCONTROL_1, new UsinePointControl(NOM_POINTCONTROL_1));
+	ajouterUsine(NOM_POINTCONTROL_2, new UsinePointControl(NOM_POINTCONTROL_2));ajouterUsine(NOM_POINTCONTROL_3, new UsinePointControl(NOM_POINTCONTROL_3));
+	ajouterUsine(NOM_POINTCONTROL_4, new UsinePointControl(NOM_POINTCONTROL_4));ajouterUsine(NOM_POINTCONTROL_5, new UsinePointControl(NOM_POINTCONTROL_5));
+	ajouterUsine(NOM_POINTCONTROL_6, new UsinePointControl(NOM_POINTCONTROL_6));ajouterUsine(NOM_POINTCONTROL_0, new UsinePointControl(NOM_POINTCONTROL_7));
+	ajouterUsine(NOM_POINTCONTROL_8, new UsinePointControl(NOM_POINTCONTROL_8));
 	ajouterUsine(NOM_MAILLET_V, new UsineNoeudMailletVirtuel(NOM_MAILLET_V));
 	ajouterUsine(NOM_BONUS, new UsineNoeudBonusAccelerateur(NOM_BONUS));
 	ajouterUsine(NOM_MURET, new UsineNoeudMuret(NOM_MURET));
@@ -129,21 +134,54 @@ void ArbreRenduINF2990::initialiser()
 	zoneJeux_ = { creerNoeud(NOM_TABLE) };
 	zoneJeux_->modifierId(1);
 	ajouter(zoneJeux_);
+	/*NoeudAbstrait* P0{ creerNoeud(NOM_POINTCONTROL_0) };	NoeudAbstrait* P1{ creerNoeud(NOM_POINTCONTROL_1) };NoeudAbstrait* P2{ creerNoeud(NOM_POINTCONTROL_2) };
+	NoeudAbstrait* P3{ creerNoeud(NOM_POINTCONTROL_3) };	NoeudAbstrait* P4{ creerNoeud(NOM_POINTCONTROL_4) };NoeudAbstrait* P5{ creerNoeud(NOM_POINTCONTROL_5) };
+	NoeudAbstrait* P6{ creerNoeud(NOM_POINTCONTROL_6) };	NoeudAbstrait* P7{ creerNoeud(NOM_POINTCONTROL_7) }; NoeudAbstrait* P8{ creerNoeud(NOM_POINTCONTROL_8) };
+	//std::vector<PointControl> listePoint;*/
+	NoeudAbstrait* P0{ creerNoeud(NOM_POINTCONTROL) };	NoeudAbstrait* P1{ creerNoeud(NOM_POINTCONTROL) };NoeudAbstrait* P2{ creerNoeud(NOM_POINTCONTROL) };
+	NoeudAbstrait* P3{ creerNoeud(NOM_POINTCONTROL) };	NoeudAbstrait* P4{ creerNoeud(NOM_POINTCONTROL) };NoeudAbstrait* P5{ creerNoeud(NOM_POINTCONTROL) };
+	NoeudAbstrait* P6{ creerNoeud(NOM_POINTCONTROL) };	NoeudAbstrait* P7{ creerNoeud(NOM_POINTCONTROL) }; NoeudAbstrait* P8{ creerNoeud(NOM_POINTCONTROL) };
+	
+	P0->assignerPositionRelative(glm::vec3(69, -47, 0.0)); P1->assignerPositionRelative(glm::vec3(69, 0.0, 0.0));
+	P2->assignerPositionRelative(glm::vec3(69, 47.0, 0.0));
+	P3->assignerPositionRelative(glm::vec3(0.0, 47, 0.0));
+	P4->assignerPositionRelative(glm::vec3(-69, 47, 0.0)); P5->assignerPositionRelative(glm::vec3(-69, 0.0, 0.0));
+	P6->assignerPositionRelative(glm::vec3(-69, -47, 0.0));
+	P7->assignerPositionRelative(glm::vec3(0.0, -47, 0.0)); P8->assignerPositionRelative(glm::vec3(0.0, 0.0, 0.0));
+	//NoeudAbstrait* p = chercher("point");
+	//for (int i = 0; i < 8; i++) {
+	//	listePoint_.push_back(p[i]);
+	//	cout << listePoint_[i].obtenirPositionRelative().x << "-----" << listePoint_[i].obtenirPositionRelative().y << endl;
+	//}
 	zoneJeux_->ajouter(maillet1);
 	maillet1->modifierId(2);
-	maillet1->assignerPositionRelative(glm::dvec3(zoneJeux_->obtenirSommets()[5].x + 5.0, 0.0, 0.0));
-	maillet1->assignerPositionInitial(glm::dvec3(zoneJeux_->obtenirSommets()[5].x + 5.0, 0.0, 0.0));
+	maillet1->assignerPositionRelative(glm::dvec3(zoneJeux_->obtenirSommets()[5].x + 5.0, -2.0, 0.0));
+	maillet1->assignerPositionInitial(glm::dvec3(zoneJeux_->obtenirSommets()[5].x + 5.0, -2.0, 0.0));
 	zoneJeux_->ajouter(rondelle);
-	rondelle->assignerPositionRelative(glm::dvec3(0.0, 0.0, 0.0));
+	rondelle->assignerPositionRelative(glm::dvec3(0.0, 0.0, -2.0));
 	zoneJeux_->ajouter(mailletVir_);
 	mailletVir_->modifierId(3);
-	mailletVir_->assignerPositionRelative(glm::dvec3(zoneJeux_->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
-	mailletVir_->assignerPositionInitial(glm::dvec3(zoneJeux_->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
+	mailletVir_->assignerPositionRelative(glm::dvec3(zoneJeux_->obtenirSommets()[1].x - 5.0, -2.0, 0.0));
+	mailletVir_->assignerPositionInitial(glm::dvec3(zoneJeux_->obtenirSommets()[1].x - 5.0, -2.0, 0.0));
+	zoneJeux_->ajouter(P0);
+	zoneJeux_->ajouter(P1); zoneJeux_->ajouter(P2); zoneJeux_->ajouter(P3); zoneJeux_->ajouter(P4);
+	zoneJeux_->ajouter(P5); zoneJeux_->ajouter(P6); zoneJeux_->ajouter(P7); zoneJeux_->ajouter(P8);
 	//cout << "--------------------------------" << endl;
 	
 	/*float rayon = utilitaire::calculerSphereEnglobante(*rondelle->obtenirModele()).rayon;
 	rondelle->modifierRayon(rayon );*/
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void ArbreRenduINF2990::initialiserPartieAvecVirtuel()
+///
+/// Initialise une partie avec un joueur virtuel
+///
+/// @param[in] Aucun
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void ArbreRenduINF2990::initialiserPartieAvecVirtuel()
 {
 
@@ -152,14 +190,36 @@ void ArbreRenduINF2990::initialiserPartieAvecVirtuel()
 		mailletVir_->assignerPositionRelative(glm::dvec3(zoneJeux_->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
 		mailletVir_->assignerPositionInitial(glm::dvec3(zoneJeux_->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void ArbreRenduINF2990::initialiserPartieAvecHumain()
+///
+/// Initialise une partie avec un joueur humain
+///
+/// @param[in] Aucun
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void ArbreRenduINF2990::initialiserPartieAvecHumain()
-
 {
 	zoneJeux_->ajouter(maillet2_);
 	maillet2_->modifierId(3);
 	maillet2_->assignerPositionRelative(glm::dvec3(zoneJeux_->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
 	maillet2_->assignerPositionInitial(glm::dvec3(zoneJeux_->obtenirSommets()[1].x - 5.0, 0.0, 0.0));
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn int ArbreRenduINF2990::ajouterNouveauElement
+///         (const std::string& nomObjet, glm::dvec3 positionR)
+///
+/// Ajoute un element dans l'arbre
+///
+/// @param[in] nomObjet : string, positionR : dvec3
+///
+/// @return le numero de l'objet (int)
+///
+////////////////////////////////////////////////////////////////////////
 int ArbreRenduINF2990::ajouterNouveauElement(const std::string& nomObjet, glm::dvec3 positionR)
 {
 	NoeudAbstrait* nouveauNoeud{ creerNoeud(nomObjet) };
@@ -184,6 +244,18 @@ int ArbreRenduINF2990::ajouterNouveauElement(const std::string& nomObjet, glm::d
 	}
 	return (obtenirProchainId() - 1);
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn int ArbreRenduINF2990::ajouterNouveauPortail
+///				(const std::string& nomObjet, glm::dvec3 positionR)
+///
+/// Ajoute un portail dans l'arbre
+///
+/// @param[in] nomObjet : string, positionR : dvec3
+///
+/// @return le numero du portail (int)
+///
+////////////////////////////////////////////////////////////////////////
 int ArbreRenduINF2990::ajouterNouveauPortail(const std::string& nomObjet, glm::dvec3 positionR)
 {
 	if (continuer_) {
@@ -213,12 +285,17 @@ int ArbreRenduINF2990::ajouterNouveauPortail(const std::string& nomObjet, glm::d
 	return 0;
 	
 }
-void ArbreRenduINF2990::ajouterPairePortails(NoeudAbstrait * noeud)
-{
-	NoeudPortail * portail = dynamic_cast<NoeudPortail*>(noeud);
-	if (portail->getFrere() != nullptr)
-		listePortail_.push_back(make_pair(portail, portail->getFrere()));
-}
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void ArbreRenduINF2990::marquerSelection(int identifiant, bool enInverse)
+///
+/// Marque la selection
+///
+/// @param[in] identifiant : int, enInverse : bool
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void ArbreRenduINF2990::marquerSelection(int identifiant, bool enInverse) {
 	NoeudAbstrait* noeud = zoneJeux_->chercher(identifiant);
 	if (enInverse) {
@@ -232,6 +309,17 @@ void ArbreRenduINF2990::marquerSelection(int identifiant, bool enInverse) {
 
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void ArbreRenduINF2990::assignerZoneJeux(NoeudAbstrait * zone)
+///
+/// Assigne la zone de jeux
+///
+/// @param[in] zone : NoeudAbstrait
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void ArbreRenduINF2990::assignerZoneJeux(NoeudAbstrait * zone)
 {
 	zoneJeux_ = zone;

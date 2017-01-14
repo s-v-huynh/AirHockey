@@ -1,14 +1,15 @@
+///////////////////////////////////////////////////////////////////////////
+/// @file VisiteurRotation.h
+/// @author equipe06
+/// @date 2016-09-07
+/// @version 1.0
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+///////////////////////////////////////////////////////////////////////////
 #ifndef	VISITEUR_ROTATION_H
 #define VISITEUR_ROTATION_H
 #include "VisiteurAbstrait.h"
-#include "NoeudAbstrait.h"
-#include "NoeudBonusAccelerateur.h"
-#include "NoeudComposite.h"
-#include "NoeudMaillet.h"
-#include "NoeudMuret.h"
-#include "NoeudPortail.h"
-#include "NoeudRondelle.h"
-#include "NoeudTable.h"
 #include "Utilitaire.h"
 
 typedef struct {
@@ -22,22 +23,22 @@ class VisiteurRotation :public VisiteurAbstrait
 
 public:
 
-	//Constructor
+	///Constructor
 	VisiteurRotation();
 	VisiteurRotation(float centreX, float centreY, float varY);
-	//Destructeur
+	///Destructeur
 	~VisiteurRotation() {}
 
-	//accesseurs
+	///accesseurs
 	float obtenirCentreX();
 	float obtenirCentreY();
 	float obtenirVarY();
 
-	//modificateurs
+	///modificateurs
 	void modifierCentre(float X, float Y);
 	void modifierVarY(float varY);
 
-	//Visiter les noeuds
+	///Visiter les noeuds
 	virtual void visiter(NoeudComposite* noeud) ;
 	virtual void visiter(NoeudMaillet* noeud) ;
 	virtual void visiter(NoeudMuret* noeud) ;
@@ -47,10 +48,10 @@ public:
 	virtual void visiter(NoeudBonusAccelerateur* noeud) ;
 
 private:
-	//Variation de la distance de la souris dans l'axe des Y
+	///Variation de la distance de la souris dans l'axe des Y
 	float varY_;
 
-	//Centre de rotation de l'objet ou de plusieurs objets
+	///Centre de rotation de l'objet ou de plusieurs objets
 	position* centreRotation_;
 
 };

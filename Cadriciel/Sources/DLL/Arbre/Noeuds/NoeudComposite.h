@@ -89,7 +89,7 @@ public:
    virtual void assignerModePolygones( GLenum modePolygones );
    // Affiche le noeud: on prend la version de la classe de base.
    /// Affiche le noeud de manière concrète.
-   virtual void afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur) const;
+   virtual void afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur) const;
    /// Anime le noeud.
    virtual void animer( float dt );
    //Redissiner le noeud

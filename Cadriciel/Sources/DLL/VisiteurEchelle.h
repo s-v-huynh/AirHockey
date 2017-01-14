@@ -1,30 +1,31 @@
+//////////////////////////////////////////////////////////////////////////
+/// @file VisiteurEchelle.h
+/// @author equipe06
+/// @date 2016-09-07
+/// @version 1.0
+///
+/// @addtogroup inf2990 INF2990
+/// @{
+///////////////////////////////////////////////////////////////////////////
 #ifndef	VISITEUR_ECHELLE_H
 #define VISITEUR_ECHELLE_H
 #include "VisiteurAbstrait.h"
-#include "NoeudAbstrait.h"
-#include "NoeudTable.h"
-#include "NoeudRondelle.h"
-#include "NoeudPortail.h"
-#include "NoeudMuret.h"
-#include "NoeudMaillet.h"
-#include "NoeudBonusAccelerateur.h"
-#include "NoeudComposite.h"
 
 class VisiteurEchelle : public VisiteurAbstrait
 {
 public:
-	//constructor
+	///constructor
 	VisiteurEchelle(double facteur = 1.0);
-	//destructeur
+	///destructeur
 	~VisiteurEchelle();
 
-	//modificateurs 
+	///modificateurs 
 	void modifierFacteur(double facteur);
 
-	//recuperateurs
+	///recuperateurs
 	double obtenirFacteur();
 
-	//visites des differents noeuds
+	///visites des differents noeuds
 	virtual void visiter(NoeudComposite*) ;
 	virtual void visiter(NoeudMaillet*) ;
 	virtual void visiter(NoeudMuret*) ;

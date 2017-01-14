@@ -111,6 +111,12 @@
     <ClCompile Include="Vect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Vue\vueOrbite.cpp">
+      <Filter>Source Files\Vue</Filter>
+    </ClCompile>
+    <ClCompile Include="Vue\ProjectionOrbite.cpp">
+      <Filter>Source Files\Vue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CEcritureFichierBinaire.h">
@@ -187,6 +193,12 @@
     </ClInclude>
     <ClInclude Include="Vect.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vue\vueOrbite.h">
+      <Filter>Header Files\Vue</Filter>
+    </ClInclude>
+    <ClInclude Include="Vue\ProjectionOrbite.h">
+      <Filter>Header Files\Vue</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

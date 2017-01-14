@@ -111,8 +111,10 @@
     <ClCompile Include="Vect.cpp" />
     <ClCompile Include="Vue\Camera.cpp" />
     <ClCompile Include="Vue\Projection.cpp" />
+    <ClCompile Include="Vue\ProjectionOrbite.cpp" />
     <ClCompile Include="Vue\ProjectionOrtho.cpp" />
     <ClCompile Include="Vue\Vue.cpp" />
+    <ClCompile Include="Vue\vueOrbite.cpp" />
     <ClCompile Include="Vue\VueOrtho.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +141,9 @@
     <ClInclude Include="Vue\Camera.h" />
     <ClInclude Include="Vue\Projection.h" />
     <ClInclude Include="Vue\ProjectionOrtho.h" />
+    <ClInclude Include="Vue\ProjectionOrbite.h" />
     <ClInclude Include="Vue\Vue.h" />
+    <ClInclude Include="Vue\vueOrbite.h" />
     <ClInclude Include="Vue\VueOrtho.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

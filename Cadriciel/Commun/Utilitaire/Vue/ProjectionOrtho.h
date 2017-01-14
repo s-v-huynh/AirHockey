@@ -46,6 +46,7 @@ namespace vue {
 		virtual void zoomerOut();
 		/// Modification de la clôture.
 		virtual void redimensionnerFenetre(int largeur, int hauteur);
+		void deplacer(double deplacementX, double deplacementY);
 		/// Obtention de la matrice de projection.
 		virtual glm::mat4 obtenirMatrice() const;
 
@@ -61,7 +62,7 @@ namespace vue {
 
 		void setLargeurFenetre(double x) { largeurFenetre_ = x; };
 		void setHauteurFenetre(double x) { hauteurFenetre_ = x; };
-		void appliquer();
+		virtual void appliquer()const;
 		void appliquer(bool);
 		void centrerSurPoint(const glm::ivec2& pointCentre);
 

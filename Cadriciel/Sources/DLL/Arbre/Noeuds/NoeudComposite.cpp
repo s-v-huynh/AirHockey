@@ -396,10 +396,34 @@ bool NoeudComposite::selectionExiste() const
 	return false;
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void NoeudComposite::selectionnerObjets(int x, int y, 
+///    int hauteur, int largeur, bool etatCTRL, bool selectionUnique)
+///
+/// Cette fonction selectionne les objets
+///
+/// @param[in] x: int, y: int, hauteur : int, largeur : int,
+///		etatCTRL : bool, selectionUnique : bool
+///
+/// @return Aucun
+///
+////////////////////////////////////////////////////////////////////////
 void NoeudComposite::selectionnerObjets(int x, int y, int hauteur, int largeur, bool etatCTRL, bool selectionUnique)
 {
 }
 
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn int NoeudComposite::calculerNombreSelectionner() const
+///
+/// Cette fonction selectionne les objets
+///
+/// @param[in] Aucun
+///
+/// @return le nombre de noeud selectionne (int)
+///
+////////////////////////////////////////////////////////////////////////
 int NoeudComposite::calculerNombreSelectionner() const
 {
 	int nombre = 0;
@@ -460,7 +484,7 @@ void NoeudComposite::assignerModePolygones(GLenum modePolygones)
 
 ////////////////////////////////////////////////////////////////////////
 ///
-/// @fn void NoeudComposite::afficherConcret() const
+/// @fn void NoeudComposite::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur) const
 ///
 /// Cette fonction effectue le véritable rendu de l'objet.  Elle est
 /// appelée par la template method (dans le sens du patron de conception,
@@ -474,12 +498,12 @@ void NoeudComposite::assignerModePolygones(GLenum modePolygones)
 /// @return Aucune.
 ///
 ////////////////////////////////////////////////////////////////////////
-void NoeudComposite::afficherConcret(const glm::mat4& vueProjection, const bool& attribuerCouleur) const
+void NoeudComposite::afficherConcret(const glm::mat4& matrVue, const glm::mat4& matrProjection, const glm::mat4& vueProjection, const bool& attribuerCouleur) const
 {
-	NoeudAbstrait::afficherConcret(vueProjection, attribuerCouleur);
+	NoeudAbstrait::afficherConcret(matrVue, matrProjection, vueProjection, attribuerCouleur);
 
 	for (NoeudAbstrait const* enfant : enfants_) {
-		enfant->afficher(vueProjection, attribuerCouleur);
+		enfant->afficher(matrVue, matrProjection, vueProjection, attribuerCouleur);
 	}
 }
 

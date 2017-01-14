@@ -9,13 +9,8 @@
 ///////////////////////////////////////////////////////////////////////////
 #include "VisiteurDuplication.h"
 #include "ArbreRenduINF2990.h"
-#include "NoeudAbstrait.h"
-#include "NoeudMaillet.h"
-#include "NoeudTable.h"
-#include "NoeudMuret.h"
-#include "NoeudRondelle.h"
-#include "NoeudBonusAccelerateur.h"
-#include "NoeudPortail.h"
+#include "ArbreRendu.h"
+#include "NoeudTypes.h"
 
 ////////////////////////////////////////////////////////////////////////
 ///
@@ -214,6 +209,19 @@ void VisiteurDuplication::visiter(NoeudRondelle * r)
 	etampes_.push_back(nouvelleRondelle);
 	deplacerEtampe();*/
 }
+////////////////////////////////////////////////////////////////////////
+///
+/// @fn void VisiteurDuplication::visiter(NoeudBonusAccelerateur * acc)
+///
+/// Cette fonction visite un noeud pour dupliquer un noeud. Lorsque le
+/// visiteur visite ce noeud, un noeud identique sera cree
+/// visiteur. 
+///
+/// @param[in] acc: noeud qu'on visite pour dupliquer
+///
+/// @return Aucune
+///
+////////////////////////////////////////////////////////////////////////
 void VisiteurDuplication::visiter(NoeudBonusAccelerateur * acc)
 {
 	NoeudAbstrait* noeud{ arbreAVisiter_->creerNoeud("bonus") };
@@ -243,4 +251,7 @@ void VisiteurDuplication::visiter(NoeudTable* t)
 		t->chercher(i)->accepterVisiteur(this);
 	}
 }
+////////////////////////////////////////////////
+/// @}
+////////////////////////////////////////////////
 

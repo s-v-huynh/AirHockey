@@ -1,0 +1,407 @@
+\hypertarget{class_visiteur_collision}{}\section{Visiteur\+Collision Class Reference}
+\label{class_visiteur_collision}\index{Visiteur\+Collision@{Visiteur\+Collision}}
+Inheritance diagram for Visiteur\+Collision\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_visiteur_collision}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_visiteur_collision_adb7d5f275d9cf6cd9e9d74986058e700}{Visiteur\+Collision} ()
+\item 
+\hyperlink{class_visiteur_collision_a9383225a11bc84f3d5f3230b38df0d1f}{Visiteur\+Collision} (\hyperlink{class_noeud_rondelle}{Noeud\+Rondelle} $\ast$rondelle, double coef\+Rebon, std\+::vector$<$ \hyperlink{class_noeud_portail}{Noeud\+Portail} $\ast$$>$ portails, double acceleration)
+\item 
+\hyperlink{class_visiteur_collision_a92543e88d42df4f030c7e98737628d9a}{$\sim$\+Visiteur\+Collision} ()
+\item 
+\hypertarget{class_visiteur_collision_a289fb672e1cb408402cd4d5b0bc9fa7f}{}\label{class_visiteur_collision_a289fb672e1cb408402cd4d5b0bc9fa7f} 
+void {\bfseries definir\+Position} (glm\+::dvec3)
+\item 
+void \hyperlink{class_visiteur_collision_a6bfba4fbee3a89120e5f78bdcccf535d}{definir\+Table} (\hyperlink{class_noeud_table}{Noeud\+Table} $\ast$)
+\item 
+virtual void \hyperlink{class_visiteur_collision_a60a7af24c85b42f39bdb9cf22b213f03}{visiter} (\hyperlink{class_noeud_composite}{Noeud\+Composite} $\ast$)
+\item 
+virtual void \hyperlink{class_visiteur_collision_ab5a50a3f4a1b1658eb0106a1f455fbaa}{visiter} (\hyperlink{class_noeud_maillet}{Noeud\+Maillet} $\ast$)
+\item 
+virtual void \hyperlink{class_visiteur_collision_a598b2bec9120bdc329721c94bb89b2b1}{visiter} (\hyperlink{class_noeud_maillet_virtuel}{Noeud\+Maillet\+Virtuel} $\ast$)
+\item 
+virtual void \hyperlink{class_visiteur_collision_a9a87666874976c2354ae6008c5d295ed}{visiter} (\hyperlink{class_noeud_muret}{Noeud\+Muret} $\ast$)
+\item 
+virtual void \hyperlink{class_visiteur_collision_a0dddecba0e89904757fca3d9081d678f}{visiter} (\hyperlink{class_noeud_portail}{Noeud\+Portail} $\ast$)
+\item 
+virtual void \hyperlink{class_visiteur_collision_ad679b2bdfe4bc0105ff638ddb5f447cc}{visiter} (\hyperlink{class_noeud_rondelle}{Noeud\+Rondelle} $\ast$)
+\item 
+virtual void \hyperlink{class_visiteur_collision_ab071b0f0b2d05d622c4698a652f19e77}{visiter} (\hyperlink{class_noeud_table}{Noeud\+Table} $\ast$)
+\item 
+virtual void \hyperlink{class_visiteur_collision_a9e56b43c1b38d5d4d08283d28b9dbcf2}{visiter} (\hyperlink{class_noeud_bonus_accelerateur}{Noeud\+Bonus\+Accelerateur} $\ast$)
+\item 
+void \hyperlink{class_visiteur_collision_a1918900085adcd2403fc8832ca04ede0}{reinitialiser\+Partie} ()
+\item 
+void \hyperlink{class_visiteur_collision_a9c727900f93230caf0bb10740a8ebd90}{quitter\+Portail} ()
+\item 
+\hypertarget{class_visiteur_collision_a689f17563d26e3953ef40baf7fb7f4e9}{}\label{class_visiteur_collision_a689f17563d26e3953ef40baf7fb7f4e9} 
+int {\bfseries obtenir\+Buts\+Joueur1} ()
+\item 
+\hypertarget{class_visiteur_collision_ab602700bbcfdcb9aa49c41b56fabf784}{}\label{class_visiteur_collision_ab602700bbcfdcb9aa49c41b56fabf784} 
+int {\bfseries obtenir\+Buts\+Joueur2} ()
+\item 
+void \hyperlink{class_visiteur_collision_a7e38363f989b24004ce4baba0c913957}{initialiser\+Scores} ()
+\item 
+int \hyperlink{class_visiteur_collision_aba0f1d8a18ad4cd19521159a73929aed}{get\+But\+JoueurG} ()
+\item 
+int \hyperlink{class_visiteur_collision_a13802f6045d791037e456906fa19a9ba}{get\+But\+JoueurD} ()
+\item 
+void \hyperlink{class_visiteur_collision_ab67aed0a6f062c2350eb6acc86f83508}{gerer\+Debogage} (string objet)
+\item 
+string \hyperlink{class_visiteur_collision_ae73a54932abf5972890c4b7c3ccf47ae}{afficher\+Temps} ()
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_visiteur_collision_adb7d5f275d9cf6cd9e9d74986058e700}{}\label{class_visiteur_collision_adb7d5f275d9cf6cd9e9d74986058e700} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!Visiteur\+Collision@{Visiteur\+Collision}}
+\index{Visiteur\+Collision@{Visiteur\+Collision}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{Visiteur\+Collision()}{VisiteurCollision()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Visiteur\+Collision\+::\+Visiteur\+Collision (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructeur par defaut, ne fait rien de special
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Aucun} & \+: Rein defaut.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_a9383225a11bc84f3d5f3230b38df0d1f}{}\label{class_visiteur_collision_a9383225a11bc84f3d5f3230b38df0d1f} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!Visiteur\+Collision@{Visiteur\+Collision}}
+\index{Visiteur\+Collision@{Visiteur\+Collision}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{Visiteur\+Collision()}{VisiteurCollision()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Visiteur\+Collision\+::\+Visiteur\+Collision (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_rondelle}{Noeud\+Rondelle} $\ast$}]{rondelle,  }\item[{double}]{coef\+Rebon,  }\item[{std\+::vector$<$ \hyperlink{class_noeud_portail}{Noeud\+Portail} $\ast$$>$}]{portails,  }\item[{double}]{acceleration }\end{DoxyParamCaption})}
+
+Constructeur par parametres
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rondelle} & \+: la rondelle du jeux, coef\+Rebon \+: le coefficient de rebon de la table, portails \+: la liste de portails acceleration \+: l\textquotesingle{}acceleration de la table\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune \+: constructeur. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_a92543e88d42df4f030c7e98737628d9a}{}\label{class_visiteur_collision_a92543e88d42df4f030c7e98737628d9a} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!````~Visiteur\+Collision@{$\sim$\+Visiteur\+Collision}}
+\index{````~Visiteur\+Collision@{$\sim$\+Visiteur\+Collision}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{$\sim$\+Visiteur\+Collision()}{~VisiteurCollision()}}
+{\footnotesize\ttfamily Visiteur\+Collision\+::$\sim$\+Visiteur\+Collision (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructeur \+: desalloue la memoire
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Aucun.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_visiteur_collision_ae73a54932abf5972890c4b7c3ccf47ae}{}\label{class_visiteur_collision_ae73a54932abf5972890c4b7c3ccf47ae} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!afficher\+Temps@{afficher\+Temps}}
+\index{afficher\+Temps@{afficher\+Temps}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{afficher\+Temps()}{afficherTemps()}}
+{\footnotesize\ttfamily string Visiteur\+Collision\+::afficher\+Temps (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Cette fonction permet de calculer le temps.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Aucun.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string \+: le temps dans le bon format. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_a6bfba4fbee3a89120e5f78bdcccf535d}{}\label{class_visiteur_collision_a6bfba4fbee3a89120e5f78bdcccf535d} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!definir\+Table@{definir\+Table}}
+\index{definir\+Table@{definir\+Table}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{definir\+Table()}{definirTable()}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::definir\+Table (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_table}{Noeud\+Table} $\ast$}]{table }\end{DoxyParamCaption})}
+
+Cette fonction permet de definir la table de jeu.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em table} & \+: la table du jeu.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_ab67aed0a6f062c2350eb6acc86f83508}{}\label{class_visiteur_collision_ab67aed0a6f062c2350eb6acc86f83508} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!gerer\+Debogage@{gerer\+Debogage}}
+\index{gerer\+Debogage@{gerer\+Debogage}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{gerer\+Debogage()}{gererDebogage()}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::gerer\+Debogage (\begin{DoxyParamCaption}\item[{string}]{objet }\end{DoxyParamCaption})}
+
+Cette fonction affiche le debogage selon les booleans de l\textquotesingle{}utilisateur,
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em objet} & \+: l\textquotesingle{}objet avec qui la rondelle entre en collision.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_a13802f6045d791037e456906fa19a9ba}{}\label{class_visiteur_collision_a13802f6045d791037e456906fa19a9ba} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!get\+But\+JoueurD@{get\+But\+JoueurD}}
+\index{get\+But\+JoueurD@{get\+But\+JoueurD}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{get\+But\+Joueur\+D()}{getButJoueurD()}}
+{\footnotesize\ttfamily int Visiteur\+Collision\+::get\+But\+JoueurD (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Cette fonction retourne le nombre de but droite.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Aucun.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+le nombre de but du joueur droite. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_aba0f1d8a18ad4cd19521159a73929aed}{}\label{class_visiteur_collision_aba0f1d8a18ad4cd19521159a73929aed} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!get\+But\+JoueurG@{get\+But\+JoueurG}}
+\index{get\+But\+JoueurG@{get\+But\+JoueurG}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{get\+But\+Joueur\+G()}{getButJoueurG()}}
+{\footnotesize\ttfamily int Visiteur\+Collision\+::get\+But\+JoueurG (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Cette fonction retourne le nombre de but gauche.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Aucun.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+le nombre de but du joueur gauche. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_a7e38363f989b24004ce4baba0c913957}{}\label{class_visiteur_collision_a7e38363f989b24004ce4baba0c913957} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!initialiser\+Scores@{initialiser\+Scores}}
+\index{initialiser\+Scores@{initialiser\+Scores}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{initialiser\+Scores()}{initialiserScores()}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::initialiser\+Scores (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Cette fonction permet de reinitialiser le scores pour les deux joueurs.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Aucun.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_a9c727900f93230caf0bb10740a8ebd90}{}\label{class_visiteur_collision_a9c727900f93230caf0bb10740a8ebd90} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!quitter\+Portail@{quitter\+Portail}}
+\index{quitter\+Portail@{quitter\+Portail}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{quitter\+Portail()}{quitterPortail()}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::quitter\+Portail (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Cette fonction permet de pousser la rondelle a quitter le portail pour ne pas etre reabsorber.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Aucun.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_a1918900085adcd2403fc8832ca04ede0}{}\label{class_visiteur_collision_a1918900085adcd2403fc8832ca04ede0} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!reinitialiser\+Partie@{reinitialiser\+Partie}}
+\index{reinitialiser\+Partie@{reinitialiser\+Partie}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{reinitialiser\+Partie()}{reinitialiserPartie()}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::reinitialiser\+Partie (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Cette fonction permet de reinintialiser la la partie.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Aucun.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+\hypertarget{class_visiteur_collision_a60a7af24c85b42f39bdb9cf22b213f03}{}\label{class_visiteur_collision_a60a7af24c85b42f39bdb9cf22b213f03} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!visiter@{visiter}}
+\index{visiter@{visiter}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{visiter()}{visiter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::visiter (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_composite}{Noeud\+Composite} $\ast$}]{noeud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Cette fonction permet de visiter un noeud composite.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em noeud} & \+: Le noeud a visiter.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait}.
+
+\hypertarget{class_visiteur_collision_ab5a50a3f4a1b1658eb0106a1f455fbaa}{}\label{class_visiteur_collision_ab5a50a3f4a1b1658eb0106a1f455fbaa} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!visiter@{visiter}}
+\index{visiter@{visiter}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{visiter()}{visiter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::visiter (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_maillet}{Noeud\+Maillet} $\ast$}]{noeud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Cette fonction permet de verifier si il y a eu collision entre le maillet et un autre objet.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em noeud} & \+: Le noeud a visiter.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait}.
+
+\hypertarget{class_visiteur_collision_a598b2bec9120bdc329721c94bb89b2b1}{}\label{class_visiteur_collision_a598b2bec9120bdc329721c94bb89b2b1} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!visiter@{visiter}}
+\index{visiter@{visiter}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{visiter()}{visiter()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::visiter (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_maillet_virtuel}{Noeud\+Maillet\+Virtuel} $\ast$}]{noeud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Cette fonction permet de verifier si il y a eu collision entre le maillet virtuelle et un autre objet.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em noeud} & \+: Le noeud a visiter.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait}.
+
+\hypertarget{class_visiteur_collision_a9a87666874976c2354ae6008c5d295ed}{}\label{class_visiteur_collision_a9a87666874976c2354ae6008c5d295ed} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!visiter@{visiter}}
+\index{visiter@{visiter}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{visiter()}{visiter()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::visiter (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_muret}{Noeud\+Muret} $\ast$}]{noeud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Cette fonction permet de verifier si il y a eu collision entre le muret et un autre objet.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em noeud} & \+: Le noeud a visiter.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait}.
+
+\hypertarget{class_visiteur_collision_a0dddecba0e89904757fca3d9081d678f}{}\label{class_visiteur_collision_a0dddecba0e89904757fca3d9081d678f} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!visiter@{visiter}}
+\index{visiter@{visiter}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{visiter()}{visiter()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::visiter (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_portail}{Noeud\+Portail} $\ast$}]{noeud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Cette fonction permet de verifier si il y a eu collision entre le portail et un autre objet.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em noeud} & \+: Le noeud a visiter.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait}.
+
+\hypertarget{class_visiteur_collision_ad679b2bdfe4bc0105ff638ddb5f447cc}{}\label{class_visiteur_collision_ad679b2bdfe4bc0105ff638ddb5f447cc} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!visiter@{visiter}}
+\index{visiter@{visiter}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{visiter()}{visiter()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::visiter (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_rondelle}{Noeud\+Rondelle} $\ast$}]{noeud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Cette fonction permet de verifier si il y a eu collision entre la rondelle et un autre objet.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em noeud} & \+: Le noeud a visiter.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait}.
+
+\hypertarget{class_visiteur_collision_ab071b0f0b2d05d622c4698a652f19e77}{}\label{class_visiteur_collision_ab071b0f0b2d05d622c4698a652f19e77} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!visiter@{visiter}}
+\index{visiter@{visiter}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{visiter()}{visiter()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::visiter (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_table}{Noeud\+Table} $\ast$}]{noeud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Cette fonction permet de verifier si il y a eu collision entre la table et un autre objet, elle permet aussi de visiter ses enfants.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em noeud} & \+: Le noeud a visiter.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait}.
+
+\hypertarget{class_visiteur_collision_a9e56b43c1b38d5d4d08283d28b9dbcf2}{}\label{class_visiteur_collision_a9e56b43c1b38d5d4d08283d28b9dbcf2} 
+\index{Visiteur\+Collision@{Visiteur\+Collision}!visiter@{visiter}}
+\index{visiter@{visiter}!Visiteur\+Collision@{Visiteur\+Collision}}
+\subsubsection{\texorpdfstring{visiter()}{visiter()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
+{\footnotesize\ttfamily void Visiteur\+Collision\+::visiter (\begin{DoxyParamCaption}\item[{\hyperlink{class_noeud_bonus_accelerateur}{Noeud\+Bonus\+Accelerateur} $\ast$}]{noeud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Cette fonction permet de verifier si il y a eu collision entre le bonus d\textquotesingle{}acceleration et un autre objet.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em noeud} & \+: Le noeud a visiter.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Aucune. 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_visiteur_abstrait}{Visiteur\+Abstrait}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/Visiteur\+Collision.\+h\item 
+C\+:/\+Users/\+Steven/\+Documents/\+Poly/\+I\+N\+F2990/inf2990-\/06/\+Cadriciel\+\_\+2016-\/3\+\_\+\+Etudiants/\+Cadriciel/\+Sources/\+D\+L\+L/Visiteur\+Collision.\+cpp\end{DoxyCompactItemize}

@@ -49,7 +49,8 @@ private:
 inline UsineNoeudMuret::UsineNoeudMuret(const std::string& nom)
 	:UsineAbstraite(nom)
 {
-	modele_.charger("media/muret(2).obj");
+	//muret(2).obj
+	modele_.charger("media/muretblend.obj");
 	vbo_ = opengl::VBO(&modele_);
 	vbo_.charger();
 }
